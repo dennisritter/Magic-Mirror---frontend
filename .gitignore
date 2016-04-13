@@ -1,6 +1,7 @@
 ### Directories ###
 bower_components
 node_modules
+/assets/css
 
 ### Sass ###
 .sass-cache
