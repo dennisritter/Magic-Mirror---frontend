@@ -32,12 +32,13 @@ gulp.task('js', function(){
         .pipe(gulp.dest('public/assets/js'));
 });
 
-//defines the gulp task for every sass files
+//defines the gulp task for every sass file
 gulp.task('sass', function() {
   return gulp.src('source/sass/**/*.scss')
     .pipe(sourcemaps.init())  // Process the original sources
       .pipe(sass())
     .pipe(sourcemaps.write()) // Add the map to modified source.
+    .pipe(autoprefixer())
     .pipe(gulp.dest('public/assets/css'));
 });
 
