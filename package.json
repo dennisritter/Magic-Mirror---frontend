@@ -1,0 +1,21 @@
+{
+  "name": "perna-frontend",
+  "version": "1.0.0",
+  "description": "A dynamic frontend for the MagicMirror Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@cgmgit.beuth-hochschule.de:s59254/perna-frontend.git"
+  },
+  "author": "PERNA DEV",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-manifest": "^0.1.1",
+    "gulp-sass": "^2.2.0"
+  }
+}
