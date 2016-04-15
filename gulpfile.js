@@ -44,5 +44,5 @@ gulp.task('sass', function() {
 //defines the watch task
 gulp.task('watch', function(){
     gulp.watch('source/js/*js, ['js']');
-    gulp.watch('source/sass/*sass', ['sass']);
+    gulp.watch('source/sass/*scss', ['sass']);
 });
