@@ -4,17 +4,13 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
-var minifyHtml = require('gulp-minify-html');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var flatten = require('gulp-flatten');
-var plumber = require('gulp-plumber');
-//var runSequence = require('run-sequence');
-var ngTemplate = require('gulp-angular-templatecache');
-var ngGettext = require('gulp-angular-gettext');
-//var manifest = require('asset-builder')('./manifest.json');
+var gutil = require('gulp-util');
 var watch = require('gulp-watch');
-var imageMin = require('gulp-imagemin');
+
+var manifest = require('asset-builder')('./assets/manifest.json');
 
 //default task which runs with every start of gulp
 gulp.task('default', ['watch']);
@@ -25,7 +21,7 @@ gulp.task('js', function(){
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
             .pipe(sourcemaps.init())
-                .(concat('main.js'))
+                .concat('main.js'))
                 //Only uglifies the js files when you run gulp using '--type production', that means only when we are finishing a release
                 .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
             .pipe(sourcemaps.write())
@@ -37,8 +33,9 @@ gulp.task('sass', function() {
   return gulp.src('source/sass/**/*.scss')
     .pipe(sourcemaps.init())  // Process the original sources
       .pipe(sass())
+      .pipe(autoprefixer())
+      .pipe(minifyCss())
     .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(autoprefixer())
     .pipe(gulp.dest('public/assets/css'));
 });
 
