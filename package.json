@@ -13,6 +13,7 @@
   "author": "PERNA DEV",
   "license": "ISC",
   "devDependencies": {
+    "asset-builder": "^1.1.0",
     "bower": "^1.7.9",
     "gulp": "^3.9.1",
     "gulp-angular-gettext": "^2.1.0",
