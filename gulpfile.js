@@ -22,7 +22,7 @@ gulp.task('js', function(){
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
             .pipe(sourcemaps.init())
-                .concat('main.js'))
+                .concat('main.js')
                 //Only uglifies the js files when you run gulp using '--type production', that means only when we are finishing a release
                 .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
             .pipe(sourcemaps.write())
@@ -42,6 +42,6 @@ gulp.task('sass', function() {
 
 //defines the watch task
 gulp.task('watch', function(){
-    gulp.watch('source/js/*js, ['js']');
+    gulp.watch('source/js/*js', ['js']);
     gulp.watch('source/sass/*scss', ['sass']);
 });
