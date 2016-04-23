@@ -11,7 +11,7 @@ var gutil = require('gulp-util');
 var watch = require('gulp-watch');
 
 //Import the manifest file
-var manifest = require('asset-builder')('./assets/manifest.json');
+//var manifest = require('asset-builder')('./assets/manifest.json');
 
 //default task which runs with every start of gulp
 gulp.task('default', ['watch']);

@@ -8,3 +8,7 @@ node_modules
 
 ### Sass ###
 .sass-cache
+
+### Distribution ###
+public/*
+dist/*
