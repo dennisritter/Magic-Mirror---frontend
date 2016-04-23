@@ -1,3 +1,6 @@
+### PHPStorm ###
+.idea/*
+
 ### Directories ###
 bower_components
 node_modules
