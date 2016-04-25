@@ -1,0 +1,15 @@
+body, html {
+  min-height: 100vh;
+}
+
+a {
+  &:hover, &:active, &:visited, &:focus {
+    text-decoration: none ;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
