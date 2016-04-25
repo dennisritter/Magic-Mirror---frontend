@@ -59,11 +59,11 @@ gulp.task( 'images', [], function () {
 
 //defines the watch task
 gulp.task('watch', function(){
-    watch(, function(){
+    watch(paths.source + 'scripts/**/*.js', function(){
         gulp.start('js');
     });
 
-    watch('source/sass/*scss', function(){
+    watch(paths.source + 'styles/**/*scss', function(){
         gulp.start('sass');
     });
 
