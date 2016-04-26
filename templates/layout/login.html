@@ -1,7 +1,39 @@
-<label for="userName">Vorname</label>
-<input type="text" maxlength="64" id="userName" name="userName" class="form-control" required/>
+<form name="loginForm" ng-controller="formCtrl" novalidate>
 
-<label for="password">Passwort</label>
-<input type="password" maxlength="64" id="password" name="password" class="form-control" required/>
+    <div class="form-group"
+         ng-class="{ 'touched': registrationForm.email.$touched, 'invalid': registrationForm.email.$invalid }">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" id="email"
+               ng-minlength="8"
+               ng-maxlength="64"
+               required/>
+        <div class="form-control-messages" ng-messages="registrationForm.email.$error"
+             ng-if="registrationForm.email.$touched">
+            <li ng-message="minlength">Your email is too short.</li>
+            <li ng-message="maxlength">Your email is too long.</li>
+            <li ng-message="required">Please enter your email.</li>
+        </div>
+    </div>
 
-<button type="submit">Login</button>
+    <div class="form-group"
+         ng-class="{ 'touched': registrationForm.password.$touched, 'invalid': registrationForm.password.$invalid }">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password"
+               ng-minlength="6"
+               ng-maxlength="64"
+               ng-pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+               required/>
+        <div class="form-control-messages" ng-messages="registrationForm.password.$error"
+             ng-if="registrationForm.password.$touched">
+            <li ng-message="minlength">Your password is too short.</li>
+            <li ng-message="maxlength">Your password is too long.</li>
+            <li ng-message="required">Please enter a password.</li>
+            <li ng-message="pattern">Your password doesn´t follow the pattern.</li>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
+
+</form>
