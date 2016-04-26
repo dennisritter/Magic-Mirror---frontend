@@ -11,25 +11,36 @@ var gutil = require('gulp-util');
 var watch = require('gulp-watch');
 
 //Import the manifest file
-var manifest = require('asset-builder')('./assets/manifest.json');
+var manifest = require('asset-builder')('./manifest.json');
 
 //Initialize all var according to the mainifest.json
 var globs = manifest.globs;
 var project = manifest.getProjectGlobs();
 var paths = manifest.paths;
 
-
 //default task which runs with every start of gulp
 gulp.task('default', ['watch']);
 
-//defines the gulp task for every js file
-gulp.task('js', function(){
+//defines the gulp task for every first party js file
+gulp.task('js_app', function(){
     var js = manifest.getDependencyByName("app.js");
     return gulp.src(js.globs)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(sourcemaps.init())
-    .concat(js.name)
+    .pipe(concat(js.name))
+    //Only uglifies the js files when you run gulp using '--type production', that means only when we are finishing a release
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(paths.dist.scripts));
+});
+
+//defines the gulp task for every third party js file
+gulp.task('js_libs', function(){
+    var js = manifest.getDependencyByName("libs.js");
+    return gulp.src(js.globs)
+    .pipe(sourcemaps.init())
+    .pipe(concat(js.name))
     //Only uglifies the js files when you run gulp using '--type production', that means only when we are finishing a release
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(sourcemaps.write())
@@ -37,9 +48,9 @@ gulp.task('js', function(){
 });
 
 //defines the gulp task for every sass file
-gulp.task('sass', function() {
-    var sass = getDependencyByName("main.css");
-    return gulp.src(sass.globs)
+gulp.task('css', function() {
+    var css = manifest.getDependencyByName("main.css");
+    return gulp.src(css.globs)
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
     .pipe(autoprefixer())
@@ -60,11 +71,11 @@ gulp.task( 'images', [], function () {
 //defines the watch task
 gulp.task('watch', function(){
     watch(paths.source + 'scripts/**/*.js', function(){
-        gulp.start('js');
+        gulp.start('js_app');
     });
 
-    watch(paths.source + 'styles/**/*scss', function(){
-        gulp.start('sass');
+    watch(paths.source + 'styles/sass/**/*scss', function(){
+        gulp.start('css');
     });
 
     watch( paths.imageSource, function () {

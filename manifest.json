@@ -8,12 +8,11 @@
             "bower": [
                 "jquery",
                 "bootstrap-sass",
-                "angular",
+                "angular"
             ]
         },
         "main.css": {
-            "files": ["./styles/main.scss"],
-
+            "files": ["./styles/main.scss"]
         },
         "templates.js": {
             "files": ["./templates/**/*.html"]
@@ -28,6 +27,6 @@
                 "images": "./public/dist/img"
             },
             "bower": "./bower_components"
-        },
+        }
     }
 }
