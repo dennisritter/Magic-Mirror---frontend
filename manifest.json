@@ -8,7 +8,8 @@
             "bower": [
                 "jquery",
                 "bootstrap-sass",
-                "angular"
+                "angular",
+                "angular-messages"
             ]
         },
         "main.css": {
