@@ -11,6 +11,6 @@ angular.module('perna').directive('formControlMessages', function () {
     },
     // The whole is loaded only if there´s some input in it
     transclude: true
-  }
+    };
 
 });
