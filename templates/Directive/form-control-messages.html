@@ -1,0 +1,5 @@
+<ul class="form-control-messages" ng-messages="input.$error" ng-show="input.$touched && !input.$valid">
+  <li ng-message="required">Please fill out this field.</li>
+  <li ng-message="email">Please enter a valid email address.</li>
+  <ng-transclude></ng-transclude>
+</ul>
