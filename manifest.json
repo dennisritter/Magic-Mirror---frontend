@@ -29,5 +29,8 @@
             "images": "./public/dist/img"
         },
         "bower": "./bower_components"
-    }
+    },
+    "config": {
+        "ngModuleName": "perna-frontend"
+  }
 }
