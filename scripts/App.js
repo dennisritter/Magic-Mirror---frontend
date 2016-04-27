@@ -1,3 +1,4 @@
-angular.module( 'perna', [
-  'ngMessages',
-] );
+angular.module('perna', [
+    'ngMessages',
+    'ngRoute'
+]);

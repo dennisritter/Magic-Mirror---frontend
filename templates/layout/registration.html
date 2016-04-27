@@ -46,7 +46,7 @@
                ng-model="user.password"
                ng-minlength="6"
                ng-maxlength="64"
-               ng-pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+               ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
                required/>
         <form-control-messages input="registrationForm.password">
             <li ng-message="minlength">Your password is too short.</li>
@@ -61,7 +61,7 @@
                ng-model="user.passwordRepeat"
                ng-minlength="6"
                ng-maxlength="64"
-               ng-pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+               ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
                required/>
         <form-control-messages input="registrationForm.passwordRepeat">
             <li ng-message="minlength">Your password is too short.</li>

@@ -1,4 +1,4 @@
-angular.module('perna').controller( 'SubmitController', [ '$scope',
+angular.module('perna').controller( 'formCtrl', [ '$scope',
   function ( $scope ) {
 
-  }] );
+  } ] );
