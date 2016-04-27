@@ -1,10 +1,12 @@
 var gulp = require('gulp');
+var minifyHtml = require('gulp-minify-html');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
+var ngTemplate = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var flatten = require('gulp-flatten');
 var gutil = require('gulp-util');
@@ -46,6 +48,19 @@ gulp.task('js_libs', function(){
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.dist.scripts));
 });
+
+//defines the gulp task for every template file
+gulp.task( 'templates', function () {
+  var templates = manifest.getDependencyByName( 'templates.js' );
+  return gulp.src( templates.globs )
+    .pipe( minifyHtml() )
+    .pipe( ngTemplate( {
+      module: manifest.config.ngModuleName
+    } ) )
+    .pipe( concat( templates.name ) )
+    .pipe( uglify() )
+    .pipe( gulp.dest( paths.dist.scripts ) );
+} );
 
 //defines the gulp task for every sass file
 gulp.task('css', function() {
