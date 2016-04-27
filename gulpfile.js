@@ -12,6 +12,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var ngTemplate = require('gulp-angular-templatecache');
 var flatten = require('gulp-flatten');
+var imageMin = require('gulp-imagemin');
 
 //Import the manifest file
 var manifest = require('asset-builder')('./manifest.json');
