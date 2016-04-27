@@ -1,0 +1,36 @@
+{
+    "dependencies": {
+        "app.js": {
+            "files": ["./scripts/**/*.js"],
+            "main": true
+        },
+        "libs.js": {
+            "bower": [
+                "jquery",
+                "bootstrap-sass",
+                "angular",
+                "angular-messages"
+            ]
+        },
+        "main.css": {
+            "files": ["./styles/sass/main.scss"]
+        },
+        "templates.js": {
+            "files": ["./templates/**/*.html"]
+        }
+    },
+    "paths": {
+        "source": "./",
+        "imageSource": "./assets/img/**/*",
+        "dist": {
+            "scripts": "./public/dist/scripts",
+            "styles": "./public/dist/styles",
+            "fonts": "./public/dist/fonts",
+            "images": "./public/dist/img"
+        },
+        "bower": "./bower_components"
+    },
+    "config": {
+        "ngModuleName": "perna-frontend"
+  }
+}
