@@ -11,13 +11,14 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
     "angular": "^1.5.3",
     "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
-    "jquery": "2.2.3"
+    "jquery": "2.2.3",
+    "angular-messages": "~1.5.6",
+    "angular-route": "~1.4.8",
+    "font-awesome": "~4.5.0"
   }
 }
