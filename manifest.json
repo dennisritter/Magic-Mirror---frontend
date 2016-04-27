@@ -13,21 +13,21 @@
             ]
         },
         "main.css": {
-            "files": ["./styles/main.scss"]
+            "files": ["./styles/sass/main.scss"]
         },
         "templates.js": {
             "files": ["./templates/**/*.html"]
-        },
-        "paths": {
-            "source": "./",
-            "imageSource": "./assets/img/**/*",
-            "dist": {
-                "scripts": "./public/dist/scripts",
-                "styles": "./public/dist/styles",
-                "fonts": "./public/dist/fonts",
-                "images": "./public/dist/img"
-            },
-            "bower": "./bower_components"
         }
+    },
+    "paths": {
+        "source": "./",
+        "imageSource": "./assets/img/**/*",
+        "dist": {
+            "scripts": "./public/dist/scripts",
+            "styles": "./public/dist/styles",
+            "fonts": "./public/dist/fonts",
+            "images": "./public/dist/img"
+        },
+        "bower": "./bower_components"
     }
 }
