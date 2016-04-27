@@ -96,4 +96,8 @@ gulp.task('watch', function(){
     watch( paths.imageSource, function () {
         gulp.start('images');
     });
+
+    watch( paths.source + 'templates/**/*.html', function () {
+    gulp.start('templates');
+    });
 });
