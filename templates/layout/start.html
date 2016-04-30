@@ -5,35 +5,32 @@
       <h3 class="text-center">
         welcome to perna.
       </h3>
-      
-      <img class="img-circle" alt="Hier könnte Ihre Werbung stehen." src="http://lorempixel.com/140/140/" >
+
+      <img class="img-circle" alt="Hier könnte Ihre Werbung stehen." src="http://lorempixel.com/140/140/">
       <div class="panel-group" id="panel-main" aria-multiselectable="false">
         <div class="panel panel-default">
           <div class="panel-heading">
-             <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-main" href="#panel-element-login" aria-expanded="true">
-                 LOGIN
-             </a>
+            <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-main"
+               href="#panel-element-login" aria-expanded="true">
+              LOGIN
+            </a>
           </div>
 
           <div id="panel-element-login" class="panel-collapse collapse in">
-            <div class="panel-body">  
-
-                //hier müsste jetzt login.html geladen werden
-
+            <div class="panel-body">
+              <ng-include src="'layout/components/login.html'"></ng-include>
             </div>
           </div>
 
-      </div>
+        </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-             <a class="panel-title" data-toggle="collapse" data-parent="#panel-main" href="#panel-element-registration">REGISTER</a>
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-main" href="#panel-element-registration">REGISTER</a>
           </div>
-         
+
           <div id="panel-element-registration" class="panel-collapse collapse">
             <div class="panel-body">
-
-                //hier müsste jetzt registration.html geladen werden
-
+              <ng-include src="'layout/components/registration.html'"></ng-include>
             </div>
           </div>
         </div>
