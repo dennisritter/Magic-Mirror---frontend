@@ -110,7 +110,8 @@ gulp.task( 'templates', function () {
     } ) )
     .pipe( concat( templates.name ) )
     .pipe( uglify() )
-    .pipe( gulp.dest( paths.dist.scripts ) );
+    .pipe( gulp.dest( paths.dist.scripts ) )
+    .pipe(reload);
 } );
 
 //defines the gulp task to process all images
