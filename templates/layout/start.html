@@ -1,19 +1,19 @@
-<div class="container-fluid">
+<div class="container-fluid vertical-center">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4 col-md-offset-4" >
+    <div class="col-xs-12">
+
 
       <h3 class="text-center">
-        welcome to perna.
+        welcome to perna
       </h3>
 
-      <img class="img-circle" alt="Hier könnte Ihre Werbung stehen." src="http://lorempixel.com/140/140/">
+      <!-- hier wird das Logo eingefügt -->
       <div class="panel-group" id="panel-main" aria-multiselectable="false">
         <div class="panel panel-default">
           <div class="panel-heading">
             <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-main"
-               href="#panel-element-login" aria-expanded="true">
-              LOGIN
-            </a>
+               href="#panel-element-login">LOG IN</a>
           </div>
 
           <div id="panel-element-login" class="panel-collapse collapse in">
@@ -21,11 +21,11 @@
               <ng-include src="'layout/components/login.html'"></ng-include>
             </div>
           </div>
-
         </div>
+
         <div class="panel panel-default">
           <div class="panel-heading">
-            <a class="panel-title" data-toggle="collapse" data-parent="#panel-main" href="#panel-element-registration">REGISTER</a>
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-main" href="#panel-element-registration">SIGN UP</a>
           </div>
 
           <div id="panel-element-registration" class="panel-collapse collapse">
@@ -36,6 +36,7 @@
         </div>
       </div>
 
+    </div>
     </div>
   </div>
 </div>
