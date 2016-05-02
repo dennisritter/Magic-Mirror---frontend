@@ -27,7 +27,6 @@ var paths = manifest.paths;
 
 //Import the browsersynch plugin
 var browserSync = require('browser-sync').create();
-var reload      = browserSync.reload;
 
 //Initialize the browser-sync server @ perna.dev
 gulp.task('serve', function() {
@@ -57,7 +56,7 @@ gulp.task('js_app', function(){
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.scripts))
-    .pipe(reload);
+    .pipe(browserSync.stream());
 });
 
 //defines the gulp task for every third party js file
@@ -77,12 +76,11 @@ gulp.task('css', function() {
     return gulp.src(css.globs)
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
-    .pipe(reload({stream: true}))
     .pipe(autoprefixer())
     .pipe(minifyCss())
     .pipe(sourcemaps.write('../maps')) // Add the map to modified source.
     .pipe(gulp.dest(paths.dist.styles))
-    .pipe(reload({stream: true}));
+    .pipe(browserSync.stream());
 });
 
 //defines the gulp task for every template file
@@ -100,7 +98,7 @@ gulp.task( 'templates', function () {
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe( gulp.dest( paths.dist.scripts ) )
-    .pipe(reload);
+    .pipe(browserSync.stream());
 } );
 
 //defines the gulp task to process all images
@@ -111,7 +109,7 @@ gulp.task( 'images', [], function () {
       svgoPlugins: [{removeViewBox: false}]
     }))
     .pipe( gulp.dest( paths.dist.images ) )
-    .pipe(reload);
+    .pipe(browserSync.stream());
 } );
 
 //Runs all tasks in sequence
