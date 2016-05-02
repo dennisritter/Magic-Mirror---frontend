@@ -11,7 +11,6 @@ var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var ngTemplate = require('gulp-angular-templatecache');
-var flatten = require('gulp-flatten');
 var imageMin = require('gulp-imagemin');
 
 //default task which runs with every start of gulp
