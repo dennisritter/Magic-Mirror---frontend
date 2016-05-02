@@ -41,25 +41,6 @@ gulp.task('serve', function() {
 //default task which runs with every start of gulp
 gulp.task('default', ['serve']);
 
-//defines the watch tasks
-gulp.task('watch', function(){
-    watch(paths.source + 'scripts/**/*.js', function(){
-        gulp.start('js_app');
-    });
-
-    watch(paths.source + 'styles/sass/**/*scss', function(){
-        gulp.start('css');
-    });
-
-    watch( paths.imageSource, function () {
-        gulp.start('images');
-    });
-
-    watch( paths.source + 'templates/**/*.html', function () {
-    gulp.start('templates');
-    });
-});
-
 //Runs all tasks in sequence
 gulp.task( 'build', function () {
   return runSequence( [
