@@ -67,8 +67,7 @@ gulp.task('js_libs', function(){
     .pipe(concat(js.name))
     .pipe( uglify() )
     .pipe(sourcemaps.write('../maps'))
-    .pipe(gulp.dest(paths.dist.scripts))
-    .pipe(reload);
+    .pipe(gulp.dest(paths.dist.scripts));
 });
 
 //defines the gulp task for every sass file
