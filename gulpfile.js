@@ -32,7 +32,8 @@ var reload      = browserSync.reload;
 //Initialize the browser-sync server @ perna.dev
 gulp.task('serve', function() {
     browserSync.init({
-        proxy: "perna.dev"
+        proxy: "perna.dev",
+        browser: "google chrome"
     });
 
     gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
