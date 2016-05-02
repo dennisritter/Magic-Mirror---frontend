@@ -33,7 +33,7 @@ gulp.task('serve', function() {
         proxy: "perna.dev",
         browser: "google chrome"
     });
-
+    //BrowserSync specific watch tasks
     gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
     gulp.watch(paths.source + 'templates/**/*.html', ['templates']);
     gulp.watch(paths.source + 'scripts/**/*.js', ['js_app']);
@@ -73,22 +73,22 @@ gulp.task('js_libs', function(){
 gulp.task('css', function() {
     var css = manifest.getDependencyByName("main.css");
     return gulp.src(css.globs)
-    .pipe(sourcemaps.init())  // Process the original sources
+    .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(minifyCss())
-    .pipe(sourcemaps.write('../maps')) // Add the map to modified source.
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.styles))
     .pipe(browserSync.stream());
 });
 
 //defines the gulp task for every template file
 gulp.task( 'templates', function () {
-  var templates = manifest.getDependencyByName( 'templates.js' );
-  return gulp.src( templates.globs )
+    var templates = manifest.getDependencyByName( 'templates.js' );
+    return gulp.src( templates.globs )
     .pipe( minifyHtml() )
     .pipe( ngTemplate( {
-      module: manifest.config.ngModuleName
+        module: manifest.config.ngModuleName
     } ) )
     .pipe( concat( templates.name ) )
     /**
@@ -102,10 +102,10 @@ gulp.task( 'templates', function () {
 
 //defines the gulp task to process all images
 gulp.task( 'images', [], function () {
-  return gulp.src( paths.imageSource )
+    return gulp.src( paths.imageSource )
     .pipe( imageMin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}]
     }))
     .pipe( gulp.dest( paths.dist.images ) )
     .pipe(browserSync.stream());
@@ -113,11 +113,11 @@ gulp.task( 'images', [], function () {
 
 //Runs all tasks in sequence
 gulp.task( 'build', function () {
-  return runSequence( [
-    'js_app',
-    'js_libs',
-    'css',
-    'templates',
-    'images'
-  ] );
+    return runSequence( [
+        'js_app',
+        'js_libs',
+        'css',
+        'templates',
+        'images'
+    ] );
 } );
