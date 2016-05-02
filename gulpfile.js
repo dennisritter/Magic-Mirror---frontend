@@ -22,8 +22,24 @@ var globs = manifest.globs;
 var project = manifest.getProjectGlobs();
 var paths = manifest.paths;
 
+//Import the browsersynch plugin
+var browserSync = require('browser-sync').create();
+var reload      = browserSync.reload;
+
+//Initialize the browser-sync server @ perna.dev
+gulp.task('serve', function() {
+    browserSync.init({
+        proxy: "perna.dev"
+    });
+
+    gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
+    gulp.watch(paths.source + 'templates/**/*.html', ['templates']);
+    gulp.watch(paths.source + 'scripts/**/*.js', ['js_app']);
+    gulp.watch(paths.imageSource, ['images']);
+});
+
 //default task which runs with every start of gulp
-gulp.task('default', ['watch']);
+gulp.task('default', ['serve']);
 
 //defines the watch tasks
 gulp.task('watch', function(){
