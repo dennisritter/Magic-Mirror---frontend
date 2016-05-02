@@ -65,11 +65,7 @@ gulp.task('js_libs', function(){
     return gulp.src(js.globs)
     .pipe(sourcemaps.init())
     .pipe(concat(js.name))
-    /**
-    Only uglifies the js files when you run gulp using '--type production',
-    that means only when we are finishing a release
-    **/
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe( uglify() )
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.scripts))
     .pipe(reload);
@@ -98,7 +94,11 @@ gulp.task( 'templates', function () {
       module: manifest.config.ngModuleName
     } ) )
     .pipe( concat( templates.name ) )
-    .pipe( uglify() )
+    /**
+    Only uglifies the js files when you run gulp using '--type production',
+    that means only when we are finishing a release
+    **/
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe( gulp.dest( paths.dist.scripts ) )
     .pipe(reload);
 } );
