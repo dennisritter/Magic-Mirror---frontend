@@ -28,7 +28,8 @@
             "fonts": "./public/dist/fonts",
             "images": "./public/dist/img"
         },
-        "bower": "./bower_components"
+        "bower": "./bower_components",
+        "distribution" : "./public"
     },
     "config": {
         "ngModuleName": "perna"

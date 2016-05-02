@@ -13,24 +13,25 @@ var autoprefixer = require('gulp-autoprefixer');
 var ngTemplate = require('gulp-angular-templatecache');
 var imageMin = require('gulp-imagemin');
 
-//default task which runs with every start of gulp
+
+// default task which runs with every start of gulp
 gulp.task('default', ['serve']);
 
 //Import the manifest file
 var manifest = require('asset-builder')('./manifest.json');
 
-//Initialize all var according to the mainifest.json
+//Initialize all vars according to the mainifest.json
 var globs = manifest.globs;
 var project = manifest.getProjectGlobs();
 var paths = manifest.paths;
 
-//Import the browsersynch plugin
+//Import the browsersync plugin
 var browserSync = require('browser-sync').create();
 
 //Initialize the browser-sync server @ perna.dev
 gulp.task('serve', function() {
     browserSync.init({
-        proxy: "perna.dev",
+        server: paths.distribution,
         browser: "google chrome"
     });
     //BrowserSync specific watch tasks
