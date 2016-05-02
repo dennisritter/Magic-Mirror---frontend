@@ -1,9 +1,9 @@
-angular.module('perna').service('StorageService', ['$http', '$q', function ($http, $q) {
+angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
     //Saves userdata on Mongodb
-    var register = function (data) {
+    var login = function (data) {
         var defer = $q.defer();
         $http({
-            url: "http://api.perna.dev/v1/register",
+            url: "http://api.perna.dev/v1/login",
             method: "POST",
             data: data
         })
@@ -17,6 +17,6 @@ angular.module('perna').service('StorageService', ['$http', '$q', function ($htt
     };
 
     return {
-        register: register
+        login: login
     };
 }]);

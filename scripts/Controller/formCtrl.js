@@ -1,7 +1,27 @@
-angular.module('perna').controller('formCtrl', ['$scope', 'StorageService',
-    function ($scope, StorageService) {
+angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageService', 'AuthService',
+    function ($scope, $location, StorageService, AuthService) {
 
         $scope.btnDisabled = false;
+
+        $scope.login = function () {
+            var loginData = {
+                email: $scope.user.email,
+                password: $scope.user.password
+            };
+            var successCallback = function (response) {
+                $location.path('/dashboard');
+                console.log(loginData.email + " is now logged in.");
+                console.log("response: " +response);
+                $scope.btnDisabled = false;
+            };
+            var errorCallback = function (response) {
+                console.log("Login failed");
+                console.log("response: " +response);
+                $scope.btnDisabled = false;
+            };
+
+            AuthService.login(loginData).then(successCallback, errorCallback);
+        };
 
         $scope.save = function () {
             var form = $scope.registrationForm;
@@ -16,15 +36,19 @@ angular.module('perna').controller('formCtrl', ['$scope', 'StorageService',
                 password: $scope.user.password
             };
             $scope.btnDisabled = true;
-            var successCallback = function (data) {
-                console.log(data);
+            var successCallback = function (response) {
+                console.log("Registered User");
+                console.log("response: " +response);
+                // Login after registering
+                $scope.login();
                 $scope.btnDisabled = false;
             };
-            var errorCallback = function (data) {
-                console.log(data);
+            var errorCallback = function (response) {
+                console.log("Failed to register User");
+                console.log("response: " +response);
                 $scope.btnDisabled = false;
             };
 
-            StorageService.registerUser(userdata).then(successCallback, errorCallback);
+            StorageService.register(userdata).then(successCallback, errorCallback);
         };
     }]);
