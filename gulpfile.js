@@ -121,5 +121,6 @@ gulp.task( 'images', [], function () {
       progressive: true,
       svgoPlugins: [{removeViewBox: false}]
     }))
-    .pipe( gulp.dest( paths.dist.images ) );
+    .pipe( gulp.dest( paths.dist.images ) )
+    .pipe(reload);
 } );
