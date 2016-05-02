@@ -54,7 +54,7 @@ gulp.task('js_app', function(){
     that means only when we are finishing a release
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.scripts))
     .pipe(reload);
 });
@@ -70,7 +70,7 @@ gulp.task('js_libs', function(){
     that means only when we are finishing a release
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.scripts))
     .pipe(reload);
 });
@@ -84,7 +84,7 @@ gulp.task('css', function() {
     .pipe(reload({stream: true}))
     .pipe(autoprefixer())
     .pipe(minifyCss())
-    .pipe(sourcemaps.write()) // Add the map to modified source.
+    .pipe(sourcemaps.write('../maps')) // Add the map to modified source.
     .pipe(gulp.dest(paths.dist.styles))
     .pipe(reload({stream: true}));
 });
