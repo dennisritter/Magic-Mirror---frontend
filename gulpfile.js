@@ -92,10 +92,12 @@ gulp.task('css', function() {
     return gulp.src(css.globs)
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
+    .pipe(reload({stream: true}))
     .pipe(autoprefixer())
     .pipe(minifyCss())
     .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(gulp.dest(paths.dist.styles));
+    .pipe(gulp.dest(paths.dist.styles))
+    .pipe(reload({stream: true}));
 });
 
 //defines the gulp task for every template file
