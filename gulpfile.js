@@ -66,7 +66,8 @@ gulp.task('js_app', function(){
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.dist.scripts));
+    .pipe(gulp.dest(paths.dist.scripts))
+    .pipe(reload);
 });
 
 //defines the gulp task for every third party js file
@@ -81,7 +82,8 @@ gulp.task('js_libs', function(){
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.dist.scripts));
+    .pipe(gulp.dest(paths.dist.scripts))
+    .pipe(reload);
 });
 
 //defines the gulp task for every sass file
