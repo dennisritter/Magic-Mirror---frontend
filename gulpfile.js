@@ -14,6 +14,9 @@ var ngTemplate = require('gulp-angular-templatecache');
 var flatten = require('gulp-flatten');
 var imageMin = require('gulp-imagemin');
 
+//default task which runs with every start of gulp
+gulp.task('default', ['serve']);
+
 //Import the manifest file
 var manifest = require('asset-builder')('./manifest.json');
 
@@ -37,20 +40,6 @@ gulp.task('serve', function() {
     gulp.watch(paths.source + 'scripts/**/*.js', ['js_app']);
     gulp.watch(paths.imageSource, ['images']);
 });
-
-//default task which runs with every start of gulp
-gulp.task('default', ['serve']);
-
-//Runs all tasks in sequence
-gulp.task( 'build', function () {
-  return runSequence( [
-    'js_app',
-    'js_libs',
-    'css',
-    'templates',
-    'images'
-  ] );
-} );
 
 //defines the gulp task for every first party js file
 gulp.task('js_app', function(){
@@ -123,4 +112,15 @@ gulp.task( 'images', [], function () {
     }))
     .pipe( gulp.dest( paths.dist.images ) )
     .pipe(reload);
+} );
+
+//Runs all tasks in sequence
+gulp.task( 'build', function () {
+  return runSequence( [
+    'js_app',
+    'js_libs',
+    'css',
+    'templates',
+    'images'
+  ] );
 } );
