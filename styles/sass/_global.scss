@@ -1,5 +1,28 @@
+@mixin default-fontstyle {
+  font-family: $font-stack;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  color: $white;
+}
+
+@mixin hover-all-textcolor ($color){
+  &:hover,&:active, &:visited, &:focus{
+    color:$color;
+  }
+}
+
+@mixin hover-all-backgroundcolor ($color){
+  &:hover,&:active, &:visited, &:focus{
+    background-color:$color;
+    border-color:$background-color;
+  }
+}
+
 body, html {
+  @include default-fontstyle;
   min-height: 100vh;
+  background-color: $background-color;
 }
 
 a {
