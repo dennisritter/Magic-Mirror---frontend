@@ -1,11 +1,12 @@
 angular.module('perna').service('CookieService', ['$cookies', function ($cookies) {
 
     var setCookie = function (response){
-        var cookieData = {
-            acToken : response.data.token,
-            refToken : response.data.refreshToken.token
-        };
-        $cookies.putObject('MagicMirror', cookieData);
+        $cookies.put('MagicMirror', response.data.token,{
+            expires : response.data.expirationDate
+        });
+        $cookies.put('MagicMirrorRefresh', response.data.refreshToken.token,{
+            expires : response.data.refreshToken.expirationDate
+        });
     };
 
     var getCookie = function(){
