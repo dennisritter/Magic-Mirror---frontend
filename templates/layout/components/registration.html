@@ -1,4 +1,8 @@
+<<<<<<< HEAD:templates/layout/registration.html
 <form name="registrationForm" ng-controller="formCtrl" ng-submit="save()" novalidate>
+=======
+<form name="registrationForm" id="registrationForm" ng-controller="formCtrl" novalidate>
+>>>>>>> feature/initialDesign:templates/layout/components/registration.html
 
   <div class="form-group" error-classes="registrationForm.firstName">
     <label for="firstName">First name</label>
@@ -72,10 +76,16 @@
     </form-control-messages>
   </div>
 
+<<<<<<< HEAD:templates/layout/registration.html
   <div class="form-group">
     <button type="submit" class="btn btn-success"
             ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'btn-danger': !registrationForm.$valid }">Registrieren
     </button>
   </div>
+=======
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">SIGN UP</button>
+    </div>
+>>>>>>> feature/initialDesign:templates/layout/components/registration.html
 
 </form>
