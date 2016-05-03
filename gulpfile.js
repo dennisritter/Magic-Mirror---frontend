@@ -11,49 +11,35 @@ var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var ngTemplate = require('gulp-angular-templatecache');
-var flatten = require('gulp-flatten');
 var imageMin = require('gulp-imagemin');
+
+
+// default task which runs with every start of gulp
+gulp.task('default', ['serve']);
 
 //Import the manifest file
 var manifest = require('asset-builder')('./manifest.json');
 
-//Initialize all var according to the mainifest.json
+//Initialize all vars according to the mainifest.json
 var globs = manifest.globs;
 var project = manifest.getProjectGlobs();
 var paths = manifest.paths;
 
-//default task which runs with every start of gulp
-gulp.task('default', ['watch']);
+//Import the browsersync plugin
+var browserSync = require('browser-sync').create();
 
-//defines the watch tasks
-gulp.task('watch', function(){
-    watch(paths.source + 'scripts/**/*.js', function(){
-        gulp.start('js_app');
+//Initialize the browser-sync server @ perna.dev
+gulp.task('serve', function() {
+    browserSync.init({
+        server: paths.distribution,
+        browser: "google chrome"
     });
-
-    watch(paths.source + 'styles/sass/**/*scss', function(){
-        gulp.start('css');
-    });
-
-    watch( paths.imageSource, function () {
-        gulp.start('images');
-    });
-
-    watch( paths.source + 'templates/**/*.html', function () {
-    gulp.start('templates');
-    });
+    //BrowserSync specific watch tasks
+    gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
+    gulp.watch(paths.source + 'templates/**/*.html', ['templates']);
+    gulp.watch(paths.source + 'scripts/**/*.js', ['js_app']);
+    gulp.watch(paths.imageSource, ['images']);
 });
-
-//Runs all tasks in sequence
-gulp.task( 'build', function () {
-  return runSequence( [
-    'js_app',
-    'js_libs',
-    'css',
-    'templates',
-    'images'
-  ] );
-} );
 
 //defines the gulp task for every first party js file
 gulp.task('js_app', function(){
@@ -68,8 +54,9 @@ gulp.task('js_app', function(){
     that means only when we are finishing a release
     **/
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.dist.scripts));
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest(paths.dist.scripts))
+    .pipe(browserSync.stream());
 });
 
 //defines the gulp task for every third party js file
@@ -78,12 +65,8 @@ gulp.task('js_libs', function(){
     return gulp.src(js.globs)
     .pipe(sourcemaps.init())
     .pipe(concat(js.name))
-    /**
-    Only uglifies the js files when you run gulp using '--type production',
-    that means only when we are finishing a release
-    **/
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
+    .pipe( uglify() )
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.scripts));
 });
 
@@ -91,33 +74,51 @@ gulp.task('js_libs', function(){
 gulp.task('css', function() {
     var css = manifest.getDependencyByName("main.css");
     return gulp.src(css.globs)
-    .pipe(sourcemaps.init())  // Process the original sources
+    .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(minifyCss())
-    .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(gulp.dest(paths.dist.styles));
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest(paths.dist.styles))
+    .pipe(browserSync.stream());
 });
 
 //defines the gulp task for every template file
 gulp.task( 'templates', function () {
-  var templates = manifest.getDependencyByName( 'templates.js' );
-  return gulp.src( templates.globs )
+    var templates = manifest.getDependencyByName( 'templates.js' );
+    return gulp.src( templates.globs )
     .pipe( minifyHtml() )
     .pipe( ngTemplate( {
-      module: manifest.config.ngModuleName
+        module: manifest.config.ngModuleName
     } ) )
     .pipe( concat( templates.name ) )
-    .pipe( uglify() )
-    .pipe( gulp.dest( paths.dist.scripts ) );
+    /**
+    Only uglifies the js files when you run gulp using '--type production',
+    that means only when we are finishing a release
+    **/
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe( gulp.dest( paths.dist.scripts ) )
+    .pipe(browserSync.stream());
 } );
 
 //defines the gulp task to process all images
 gulp.task( 'images', [], function () {
-  return gulp.src( paths.imageSource )
+    return gulp.src( paths.imageSource )
     .pipe( imageMin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}]
     }))
-    .pipe( gulp.dest( paths.dist.images ) );
+    .pipe( gulp.dest( paths.dist.images ) )
+    .pipe(browserSync.stream());
+} );
+
+//Runs all tasks in sequence
+gulp.task( 'build', function () {
+    return runSequence( [
+        'js_app',
+        'js_libs',
+        'css',
+        'templates',
+        'images'
+    ] );
 } );
