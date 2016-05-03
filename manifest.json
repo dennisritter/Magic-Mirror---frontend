@@ -10,7 +10,9 @@
                 "bootstrap-sass",
                 "angular",
                 "angular-messages",
-                "angular-password"
+                "angular-password",
+                "angular-cookies",
+                "angular-route"
             ]
         },
         "main.css": {
