@@ -8,20 +8,22 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
                 email: $scope.user.email,
                 password: $scope.user.password
             };
+            $scope.btnDisabled = true;
             var successCallback = function (response) {
                 $location.path('/dashboard');
                 console.log(loginData.email + " is now logged in.");
-                console.log("response: " +response);
+                console.log("response: " , response);
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
                 console.log("Login failed");
-                console.log("response: " +response);
+                console.log("response: " , response);
                 $scope.btnDisabled = false;
             };
 
             AuthService.login(loginData).then(successCallback, errorCallback);
-        };
+        }
+
 
         $scope.save = function () {
             var form = $scope.registrationForm;
@@ -38,14 +40,13 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             $scope.btnDisabled = true;
             var successCallback = function (response) {
                 console.log("Registered User");
-                console.log("response: " +response);
-                // Login after registering
+                console.log("response: " , response);
                 $scope.login();
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
                 console.log("Failed to register User");
-                console.log("response: " +response);
+                console.log("response: " , response);
                 $scope.btnDisabled = false;
             };
 
