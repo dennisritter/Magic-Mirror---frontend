@@ -22,7 +22,7 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             };
 
             AuthService.login(loginData).then(successCallback, errorCallback);
-        }
+        };
 
 
         $scope.save = function () {

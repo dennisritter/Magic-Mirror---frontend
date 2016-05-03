@@ -1,4 +1,5 @@
 angular.module('perna', [
     'ngMessages',
-    'ngRoute'
+    'ngRoute',
+    'ngPassword'
 ]);

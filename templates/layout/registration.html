@@ -62,11 +62,13 @@
            ng-minlength="6"
            ng-maxlength="64"
            ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
+           match-password="password"
            required/>
     <form-control-messages input="registrationForm.passwordRepeat">
       <li ng-message="minlength">Your password is too short.</li>
       <li ng-message="maxlength">Your password is too long.</li>
       <li ng-message="pattern">Your password doesn´t follow the pattern.</li>
+      <li ng-message="passwordMatch">The Password doesn´t match your previous one.</li>
     </form-control-messages>
   </div>
 
