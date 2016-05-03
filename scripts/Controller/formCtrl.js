@@ -18,6 +18,8 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             var errorCallback = function (response) {
                 console.log("Login failed");
                 console.log("response: " , response);
+                $scope.submitError = true;
+                $scope.errorMessage = response.message;
                 $scope.btnDisabled = false;
             };
 
@@ -47,6 +49,8 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             var errorCallback = function (response) {
                 console.log("Failed to register User");
                 console.log("response: " , response);
+                $scope.submitError = true;
+                $scope.errorMessage = response.message;
                 $scope.btnDisabled = false;
             };
 
