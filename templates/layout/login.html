@@ -1,4 +1,4 @@
-<form name="loginForm" ng-controller="formCtrl" novalidate>
+<form name="loginForm" ng-controller="formCtrl" ng-submit="login()" novalidate>
 
     <div class="form-group">
         <label for="email">Email</label>
@@ -18,6 +18,6 @@
         <button type="submit" class="btn btn-success">Login</button>
     </div>
 
-    <a href="/registration" type="button" class="btn btn-lg btn-block btn-orange">registration</a>
+    <a href="/registration" type="button" class="btn btn-lg btn-block btn-orange" ng-class="{ disabled: btnDisabled }">registration</a>
 
 </form>
