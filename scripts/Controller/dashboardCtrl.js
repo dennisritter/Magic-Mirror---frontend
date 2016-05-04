@@ -9,7 +9,7 @@ angular.module('perna').controller('dashboardCtrl', ['$scope', '$location', 'Aut
                 $location.path('/start');
             };
             var errorCallback = function (response) {
-                console.log("Response ", response);
+                console.error("Response ", response);
             };
 
             AuthService.logout(accessToken).then(successCallback, errorCallback);

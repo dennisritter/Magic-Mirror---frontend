@@ -10,14 +10,13 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             };
             $scope.btnDisabled = true;
             var successCallback = function (response) {
-                console.log("Logged in");
                 $location.path('/dashboard');
                 //Saving Tokens in Cookies
                 CookieService.setCookies(response);
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
-                console.log("Response ", response);
+                console.error("Response ", response);
                 //Errormessage under SubmitButton
                 $scope.submitError = true;
                 $scope.errorMessage = response.message;
@@ -42,13 +41,11 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             };
             $scope.btnDisabled = true;
             var successCallback = function (response) {
-                console.log("Registered User");
                 $scope.login();
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
-                console.log("Failed to register User");
-                console.log("Response ", response);
+                console.error("Response ", response);
                 //Errormessage under SubmitButton
                 $scope.submitError = true;
                 $scope.errorMessage = response.message;
