@@ -7,6 +7,7 @@ angular.module('perna').service('CookieService', ['$cookies', function ($cookies
         $cookies.put('MagicMirrorRefresh', response.data.refreshToken.token,{
             expires : response.data.refreshToken.expirationDate
         });
+        console.log("cookies saved");
     };
 
     var getCookies = function(){
@@ -18,7 +19,7 @@ angular.module('perna').service('CookieService', ['$cookies', function ($cookies
     };
 
     return{
-        set : setCookie,
-        get : getCookie
+        setCookies : setCookies,
+        getCookies : getCookies
     };
 }]);

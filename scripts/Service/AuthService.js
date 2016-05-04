@@ -1,5 +1,5 @@
 angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
-    //Saves userdata on Mongodb
+    
     var login = function (data) {
         var defer = $q.defer();
         $http({
