@@ -33,6 +33,7 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
                 console.log("The form is not valid");
                 return;
             }
+            //TODO Passwort auch Clientseitig verschlüsseln --> SHA2
             var userdata = {
                 firstName: $scope.user.firstName,
                 lastName: $scope.user.lastName,
