@@ -1,5 +1,3 @@
-
-<form name="registrationForm" ng-controller="formCtrl" ng-submit="save()" novalidate>
 <form name="registrationForm" id="registrationForm" ng-controller="formCtrl" novalidate>
 
   <div class="form-group" error-classes="registrationForm.firstName">
@@ -76,7 +74,7 @@
 
   <div class="form-group">
     <button type="submit" class="btn btn-success" ^
-            ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'btn-danger': !registrationForm.$valid }">Registrieren
+            ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'btn-danger': !registrationForm.$valid }">Sign Up
     </button>
       <div ng-if="submitError">{{ errorMessage }}</div>
   </div>

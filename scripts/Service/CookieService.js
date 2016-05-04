@@ -20,7 +20,7 @@ angular.module('perna').service('CookieService', ['$cookies', function ($cookies
     var deleteCookies = function() {
         $cookies.remove('MagicMirror');
         $cookies.remove('MagicMirrorRefresh');
-    }
+    };
 
     return{
         setCookies : setCookies,
