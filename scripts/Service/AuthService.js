@@ -1,5 +1,5 @@
 angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
-    //Saves userdata on Mongodb
+
     var login = function (data) {
         var defer = $q.defer();
         $http({
@@ -16,7 +16,26 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
         return defer.promise;
     };
 
+    var logout = function (accessToken) {
+        var defer = $q.defer();
+        $http({
+            url: "http://api.perna.dev/v1/logout",
+            method: "POST",
+            headers: {
+                'Access-Token' : accessToken
+            }
+        })
+            .success(function (response) {
+                defer.resolve(response);
+            })
+            .error(function (response) {
+                defer.reject(response);
+            });
+        return defer.promise;
+    };
+
     return {
-        login: login
+        login: login,
+        logout: logout
     };
 }]);

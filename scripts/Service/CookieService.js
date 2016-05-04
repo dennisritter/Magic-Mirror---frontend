@@ -11,14 +11,20 @@ angular.module('perna').service('CookieService', ['$cookies', function ($cookies
 
     var getCookies = function(){
         var cookieData = {
-            access : $cookies.getObject('MagicMirror'),
-            refresh : $cookies.getObject('MagicMirrorRefresh')
+            accessToken : $cookies.getAll()['MagicMirror'],
+            refreshToken : $cookies.getAll()['MagicMirrorRefresh']
         };
         return cookieData;
     };
 
+    var deleteCookies = function() {
+        $cookies.remove('MagicMirror');
+        $cookies.remove('MagicMirrorRefresh');
+    }
+
     return{
-        set : setCookie,
-        get : getCookie
+        setCookies : setCookies,
+        getCookies : getCookies,
+        deleteCookies : deleteCookies
     };
 }]);

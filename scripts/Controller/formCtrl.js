@@ -10,15 +10,15 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             };
             $scope.btnDisabled = true;
             var successCallback = function (response) {
+                console.log("Logged in");
                 $location.path('/dashboard');
-                console.log(loginData.email + " is now logged in.");
-                console.log("response: " , response);
-                CookieService.set(response);
+                //Saving Tokens in Cookies
+                CookieService.setCookies(response);
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
-                console.log("Login failed");
-                console.log("response: " , response);
+                console.log("Response ", response);
+                //Errormessage under SubmitButton
                 $scope.submitError = true;
                 $scope.errorMessage = response.message;
                 $scope.btnDisabled = false;
@@ -26,7 +26,6 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
 
             AuthService.login(loginData).then(successCallback, errorCallback);
         };
-
 
         $scope.save = function () {
             var form = $scope.registrationForm;
@@ -43,13 +42,13 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             $scope.btnDisabled = true;
             var successCallback = function (response) {
                 console.log("Registered User");
-                console.log("response: " , response);
                 $scope.login();
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
                 console.log("Failed to register User");
-                console.log("response: " , response);
+                console.log("Response ", response);
+                //Errormessage under SubmitButton
                 $scope.submitError = true;
                 $scope.errorMessage = response.message;
                 $scope.btnDisabled = false;
