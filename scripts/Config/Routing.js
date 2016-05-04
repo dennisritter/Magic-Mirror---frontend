@@ -8,10 +8,6 @@ angular.module('perna').config(['$routeProvider', '$locationProvider', function 
             templateUrl: 'layout/start.html',
             activeTab: 'home'
         })
-        .when('/registration', {
-            templateUrl: 'layout/registration.html',
-            activeTab: 'submit'
-        })
         .when('/dashboard', {
             templateUrl: 'layout/dashboard.html',
             activeTab: 'submit'
