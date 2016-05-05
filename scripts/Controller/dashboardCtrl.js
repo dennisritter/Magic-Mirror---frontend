@@ -1,5 +1,9 @@
-angular.module('perna').controller('dashboardCtrl', ['$scope', '$location', 'AuthService', 'CookieService',
-    function ($scope, $location, AuthService, CookieService) {
+angular.module('perna').controller('dashboardCtrl', ['$scope', '$location', 'AuthService', 'CookieService','MouseService',
+    function ($scope, $location, AuthService, CookieService, MouseService) {
+
+        $scope.mouseIsMoving = function(){
+            MouseService.mouseIsMoving();
+        };
 
         $scope.logout = function () {
             var accessToken = CookieService.getCookies().accessToken;
