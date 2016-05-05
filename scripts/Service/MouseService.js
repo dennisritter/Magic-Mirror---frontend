@@ -8,10 +8,10 @@ angular.module('perna').service('MouseService', ['$timeout', function ($timeout)
         this.mouseData.isMoving = true;
         stopTimer();
         startTimer();
-    }
+    };
     var stopTimer = function(){
         $timeout.cancel(isMovingTimer);
-    }
+    };
 
     var _service = this;
     var isMovingTimer;
@@ -19,7 +19,7 @@ angular.module('perna').service('MouseService', ['$timeout', function ($timeout)
         isMovingTimer = $timeout(function () {
             _service.mouseData.isMoving = false;
         }, 2000);
-    }
+    };
 
     return {
         mouseData: this.mouseData,
