@@ -1,6 +1,6 @@
-angular.module('perna').controller('usersettingsCtrl', ['$scope',
-    function ($scope) {
+angular.module('perna').controller('usersettingsCtrl', ['$scope', 'GoogleOAuthService',
+    function ($scope, GoogleOAuthService) {
         $scope.googleOAuth = function(){
-            console.log('GoogleSignIn is not implemented yet');
+
         };
     }]);
