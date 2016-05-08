@@ -1,12 +1,12 @@
-angular.module('perna').service('GoogleOAuthService', ['$http', '$q',
+angular.module('perna').service('GoogleAuthService', ['$http', '$q',
     function ($http, $q) {
 
         /**
-         * Requests a Google OAuth URL from the server.
+         * Requests a Google Auth URL from the server.
          * @param accessToken
          * @returns {Promise}
          */
-        var getGoogleOAuthURL = function (accessToken) {
+        var googleAuth = function (accessToken) {
             var defer = $q.defer();
             $http({
                 url: "http://api.perna.dev/v1/google-auth/auth-url",
@@ -17,7 +17,7 @@ angular.module('perna').service('GoogleOAuthService', ['$http', '$q',
             })
                 .success(function(response){
                     //response.data.url : the GoogleOAuth URL received from the server
-                    var popupGoogleAuth = $window.open(response.data.url, "GoogleOAuth", "width=500,height=400");
+                    var popupGoogleAuth = $window.open(response.data.url, "googleAuth", "width=500,height=400");
                     //response.data.state : a unique Session ID to identify the users AuthSession
                     var state = response.data.state;
                     $window.addEventListener("pernaGoogleAuth", function(event){
@@ -42,7 +42,7 @@ angular.module('perna').service('GoogleOAuthService', ['$http', '$q',
         };
 
         return {
-            getGoogleOAuthURL: getGoogleOAuthURL
+            googleAuth: googleAuth
         };
 
     }]);
