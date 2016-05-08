@@ -1,5 +1,5 @@
 angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
-
+    
     var login = function (data) {
         var defer = $q.defer();
         $http({
