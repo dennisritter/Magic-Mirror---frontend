@@ -1,11 +1,19 @@
-angular.module('perna').service('GoogleOAuthService', ['$http', '$q', 'CookieService',
-    function ($http, $q, CookieService) {
-        var getGoogleOAuthURL = function () {
-            var accessToken = CookieService.getCookies().accessToken;
+angular.module('perna').service('GoogleOAuthService', ['$http', '$q',
+    function ($http, $q) {
+
+        /**
+         * Requests a Google OAuth URL from the server.
+         * @param accessToken
+         * @returns {Promise}
+         */
+        var getGoogleOAuthURL = function (accessToken) {
+            var defer = $q.defer();
             $http({
-                http: "http://api.perna.dev/v1/google-auth/auth-url",
+                url: "http://api.perna.dev/v1/google-auth/auth-url",
                 method: "GET",
-                data: accessToken
+                headers: {
+                    'Access-Token' : accessToken
+                }
             })
                 .success(function(response){
                     defer.resolve(response);
@@ -14,11 +22,10 @@ angular.module('perna').service('GoogleOAuthService', ['$http', '$q', 'CookieSer
                     defer.reject(response);
                 });
             return defer.promise;
-
         };
 
         return {
             getGoogleOAuthURL: getGoogleOAuthURL
-        }
+        };
 
     }]);
