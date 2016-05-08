@@ -17,19 +17,22 @@ angular.module('perna').service('GoogleOAuthService', ['$http', '$q',
             })
                 .success(function(response){
                     //response.data.url : the GoogleOAuth URL received from the server
-                    $window.open(response.data.url, "GoogleOAuth", "width=500,height=400");
+                    var popupGoogleAuth = $window.open(response.data.url, "GoogleOAuth", "width=500,height=400");
                     //response.data.state : a unique Session ID to identify the users AuthSession
                     var state = response.data.state;
-                    $window.addEventListener("message", function(event){
+                    $window.addEventListener("pernaGoogleAuth", function(event){
+                        if(event.origin !== "http://api.perna.dev"){
+                            defer.reject(event.data);
+                        }
                         if(!event.data.success){
                             defer.reject(event.data);
                         }
                         if(state !== event.data.state){
                             defer.reject(event.data);
                         }
-                        //close the Popupwindow
+                        popupGoogleAuth.close();
                         defer.resolve();
-                    }, false)
+                    }, false);
                     //Eventlistener am Ende wieder abmelden
                 })
                 .error(function(response){
