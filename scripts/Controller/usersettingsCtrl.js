@@ -7,7 +7,7 @@ angular.module('perna').controller('usersettingsCtrl', ['$scope', '$location', '
         $scope.googleAuth = function () {
 
             var successCallback = function () {
-
+                console.log("success");
             };
             var errorCallback = function (response) {
                 console.error(response);
