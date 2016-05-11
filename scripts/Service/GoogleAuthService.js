@@ -1,5 +1,5 @@
-angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window',
-    function ($http, $q, $window) {
+angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 'AuthService',
+    function ($http, $q, $window, AuthService) {
 
         /**
          * Requests a GoogleAuth URL and a stateToken from the Server.
@@ -7,13 +7,13 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window',
          * @param accessToken
          * @returns {Promise}
          */
-        var googleAuth = function (accessToken) {
+        var googleAuth = function () {
             var defer = $q.defer();
             $http({
                 url: "http://api.perna.dev/v1/google-auth/auth-url",
                 method: "GET",
                 headers: {
-                    'Access-Token': accessToken
+                    'Access-Token': AuthService.credentials.accessToken
                 }
             })
                 .success(function (response) {
