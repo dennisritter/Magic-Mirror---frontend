@@ -13,7 +13,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
                 url: "http://api.perna.dev/v1/google-auth/auth-url",
                 method: "GET",
                 headers: {
-                    'Access-Token': AuthService.credentials.accessToken.token
+                    'Access-Token': AuthService.credentials.accessToken
                 }
             })
                 .success(function (response) {
