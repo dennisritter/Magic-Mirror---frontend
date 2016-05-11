@@ -1,5 +1,5 @@
-angular.module('perna').controller('usersettingsCtrl', ['$scope', '$location', '$window', 'CookieService', 'GoogleAuthService',
-    function ($scope, $location, $window, CookieService, GoogleAuthService) {
+angular.module('perna').controller('usersettingsCtrl', ['$scope', 'CookieService', 'GoogleAuthService',
+    function ($scope, CookieService, GoogleAuthService) {
 
         /**
          * Redirects the user to it´s specific Google OAuth page delivered by the server.
