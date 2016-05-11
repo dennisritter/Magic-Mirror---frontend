@@ -51,5 +51,5 @@ angular.module('perna').service('ValidationService', [ function () {
         validateForm: validateForm,
         resetValidation: resetValidation,
         forEachControl: forEachControl
-    }
+    };
 }]);
