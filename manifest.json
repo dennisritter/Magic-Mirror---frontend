@@ -12,7 +12,8 @@
                 "angular-messages",
                 "angular-password",
                 "angular-cookies",
-                "angular-route"
+                "angular-route",
+                "js-sha256"
             ]
         },
         "main.css": {
