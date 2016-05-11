@@ -47,6 +47,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             }
         })
             .success(function (response) {
+                CookieService.deleteCookies();
                 defer.resolve(response);
             })
             .error(function (response) {
