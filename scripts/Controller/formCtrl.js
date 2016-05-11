@@ -6,7 +6,7 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
         $scope.login = function () {
             var loginData = {
                 email: $scope.user.email,
-                password: $scope.user.password
+                password: sha256($scope.user.password)
             };
             $scope.btnDisabled = true;
             var successCallback = function (response) {
@@ -32,12 +32,11 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
                 console.log("The form is not valid");
                 return;
             }
-            //TODO Passwort auch Clientseitig verschlüsseln --> SHA2
             var userdata = {
                 firstName: $scope.user.firstName,
                 lastName: $scope.user.lastName,
                 email: $scope.user.email,
-                password: $scope.user.password
+                password: sha256($scope.user.password)
             };
             $scope.btnDisabled = true;
             var successCallback = function (response) {
