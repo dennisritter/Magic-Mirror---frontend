@@ -16,8 +16,8 @@ angular.module('perna').service('CookieService', ['$cookies', function ($cookies
 
     var getCookies = function () {
         var cookieData = {
-            accessToken: $cookies.getAll().MagicMirror,
-            refreshToken: $cookies.getAll().MagicMirrorRefresh
+            accessToken: $cookies.get('MagicMirror'),
+            refreshToken: $cookies.getObject('MagicMirrorRefresh')
         };
         return cookieData;
     };
