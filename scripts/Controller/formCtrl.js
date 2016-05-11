@@ -1,5 +1,5 @@
-angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageService', 'AuthService', 'CookieService',
-    function ($scope, $location, StorageService, AuthService, CookieService) {
+angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageService', 'AuthService', 'CookieService', 'ValidationService',
+    function ($scope, $location, StorageService, AuthService, CookieService, ValidationService) {
 
         $scope.btnDisabled = false;
 
@@ -26,10 +26,9 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             AuthService.login(loginData).then(successCallback, errorCallback);
         };
 
-        $scope.save = function () {
-            var form = $scope.registrationForm;
-            if (!form.$valid) {
-                console.log("The form is not valid");
+        $scope.save = function (form) {
+            var formIsValid = ValidationService.validateForm(form);
+            if (!formIsValid){
                 return;
             }
             //TODO Passwort auch Clientseitig verschlüsseln --> SHA2
@@ -39,7 +38,7 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
                 email: $scope.user.email,
                 password: $scope.user.password
             };
-            $scope.btnDisabled = true;
+           $scope.btnDisabled = true;
             var successCallback = function (response) {
                 $scope.login();
                 $scope.btnDisabled = false;
