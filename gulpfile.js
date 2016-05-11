@@ -38,6 +38,7 @@ gulp.task('serve', function() {
     gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
     gulp.watch(paths.source + 'templates/**/*.html', ['templates']);
     gulp.watch(paths.source + 'scripts/**/*.js', ['js_app']);
+    gulp.watch(paths.bowerJSON, ['js_libs']);
     gulp.watch(paths.imageSource, ['images']);
 });
 
