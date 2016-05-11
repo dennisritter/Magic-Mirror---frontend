@@ -1,6 +1,19 @@
 angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
-    
-    var login = function (data) {
+
+    var AuthService =  function(){
+        this.credentials = {
+            accessToken: {
+                token: undefined,
+                expirationDate: undefined
+            },
+            refreshToken: {
+                token: undefined,
+                expirationDate: undefined
+            },
+        }
+    }
+
+    AuthService.prototype.login = function (data) {
         var defer = $q.defer();
         $http({
             url: "http://api.perna.dev/v1/login",
@@ -16,7 +29,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
         return defer.promise;
     };
 
-    var logout = function (accessToken) {
+    AuthService.prototype.logout = function (accessToken) {
         var defer = $q.defer();
         $http({
             url: "http://api.perna.dev/v1/logout",
@@ -34,8 +47,6 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
         return defer.promise;
     };
 
-    return {
-        login: login,
-        logout: logout
-    };
+    return new AuthService();
+
 }]);
