@@ -9,10 +9,8 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
                 password: $scope.user.password
             };
             $scope.btnDisabled = true;
-            var successCallback = function (response) {
+            var successCallback = function () {
                 $location.path('/dashboard');
-                //Saving Tokens in Cookies
-                CookieService.setCookies(response);
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {

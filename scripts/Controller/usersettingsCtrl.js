@@ -12,7 +12,6 @@ angular.module('perna').controller('usersettingsCtrl', ['$scope', 'CookieService
             var errorCallback = function (response) {
                 console.error(response);
             };
-            var accessToken = CookieService.getCookies().accessToken;
-            GoogleAuthService.googleAuth(accessToken).then(successCallback, errorCallback);
+            GoogleAuthService.googleAuth().then(successCallback, errorCallback);
         };
     }]);

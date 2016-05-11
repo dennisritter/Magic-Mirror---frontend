@@ -1,6 +1,7 @@
-angular.module('perna').service('AuthService', ['$http', '$q', function ($http, $q) {
+angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
+    function ($http, $q, CookieService) {
 
-    var AuthService =  function(){
+    var AuthService = function() {
         this.credentials = {
             accessToken: {
                 token: undefined,
@@ -10,10 +11,11 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
                 token: undefined,
                 expirationDate: undefined
             },
-        }
-    }
+        };
+    };
 
     AuthService.prototype.login = function (data) {
+        var _authService = this;
         var defer = $q.defer();
         $http({
             url: "http://api.perna.dev/v1/login",
@@ -21,7 +23,12 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
             data: data
         })
             .success(function (response) {
-                defer.resolve(response);
+                _authService.credentials.accessToken.token = response.data.token;
+                _authService.credentials.accessToken.expirationDate = response.data.expirationDate;
+                _authService.credentials.refreshToken.token = response.data.refreshToken.token;
+                _authService.credentials.refreshToken.expirationDate = response.data.refreshToken.expirationDate;
+                CookieService.setCookies(response);
+                defer.resolve();
             })
             .error(function (response) {
                 defer.reject(response);
@@ -29,13 +36,14 @@ angular.module('perna').service('AuthService', ['$http', '$q', function ($http, 
         return defer.promise;
     };
 
-    AuthService.prototype.logout = function (accessToken) {
+    AuthService.prototype.logout = function () {
+        var _authService = this;
         var defer = $q.defer();
         $http({
             url: "http://api.perna.dev/v1/logout",
             method: "POST",
             headers: {
-                'Access-Token' : accessToken
+                'Access-Token' : _authService.credentials.accessToken.token
             }
         })
             .success(function (response) {
