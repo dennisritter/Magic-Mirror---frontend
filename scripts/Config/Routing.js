@@ -1,5 +1,7 @@
 /**
- *
+ * @author Dennis Ritter
+ * @name Routing
+ * @desc Defines which template should be loaded for a specific url affix
  */
 angular.module('perna').config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 

@@ -1,3 +1,9 @@
+/**
+ * @author Dennis Ritter
+ * @name AuthService
+ * @desc A Service which includes functions for user autentification
+ * @return An Instance of AuthService
+ */
 angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
     function ($http, $q, CookieService) {
 
