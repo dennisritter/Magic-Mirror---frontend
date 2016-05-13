@@ -16,6 +16,13 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
                 }
 
             };
+            this.isAuthenticated = false;
+        };
+        
+        AuthService.prototype.clearCredentials = function(){
+            this.credentials.accessToken = undefined;
+            this.credentials.refreshToken.accessToken = undefined;
+            this.credentials.refreshToken.refreshToken = undefined;
         };
 
         AuthService.prototype.autoLogin = function (data) {
@@ -30,6 +37,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
                     _authService.credentials.accessToken = response.data.token;
                     _authService.credentials.refreshToken = response.data.refreshToken.token;
                     CookieService.setCookies(response);
+                    _authService.isAuthenticated = true;
                     defer.resolve();
                 })
                 .error(function (response) {
@@ -50,6 +58,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
                     _authService.credentials.accessToken = response.data.token;
                     _authService.credentials.refreshToken = response.data.refreshToken.token;
                     CookieService.setCookies(response);
+                    _authService.isAuthenticated = true;
                     defer.resolve();
                 })
                 .error(function (response) {
@@ -70,6 +79,8 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             })
                 .success(function (response) {
                     CookieService.deleteCookies();
+                    _authService.clearCredentials();
+                    _authService.isAuthenticated = false;
                     defer.resolve(response);
                 })
                 .error(function (response) {
