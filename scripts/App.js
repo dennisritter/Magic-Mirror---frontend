@@ -1,6 +1,6 @@
 angular.module('perna', [
     'ngMessages',
-    'ngRoute',
+    'ui.router',
     'ngPassword',
-    'ngCookies'
+    'ngCookies',
 ]);

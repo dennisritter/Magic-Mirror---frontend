@@ -1,5 +1,5 @@
-angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageService', 'AuthService',
-    function ($scope, $location, StorageService, AuthService) {
+angular.module('perna').controller('formCtrl', ['$scope', '$state', 'StorageService', 'AuthService',
+    function ($scope, $state, StorageService, AuthService) {
 
         $scope.btnDisabled = false;
 
@@ -10,7 +10,7 @@ angular.module('perna').controller('formCtrl', ['$scope', '$location', 'StorageS
             };
             $scope.btnDisabled = true;
             var successCallback = function () {
-                $location.path('/dashboard');
+                $state.go('dashboard');
                 $scope.btnDisabled = false;
             };
             var errorCallback = function (response) {
