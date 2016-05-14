@@ -15,7 +15,7 @@ angular.module('perna').service('GridService', [ function () {
      * @type {{currentSize: number, buildElements: myGrid.buildElements}}
      */
     var myGrid = {
-        currentSize: elementSize,
+        currentSize: items.length,
         buildElements: function($grid, items){
             var item, i;
             for (i = 0; i < items.length; i++) {
@@ -42,12 +42,7 @@ angular.module('perna').service('GridService', [ function () {
                 });
                 $grid.append($item);
             }
-        },
-        resize: function(size) {
-            if (size) {
-                this.currentSize = size;
-            }
-            $('#grid').gridList('resize', this.currentSize);
+        
         }
     };
 
@@ -77,7 +72,9 @@ angular.module('perna').service('GridService', [ function () {
 
     /* Should refresh the whole grid*/
     var refreshGrid = function(){
-        //TODO: refresh the grid
+        // var grid = $('#grid');
+        // grid.gridList({});
+        // console.log( grid.data('_gridList') );
     }
 
     return {
