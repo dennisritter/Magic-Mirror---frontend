@@ -1,25 +1,26 @@
 angular.module('perna').service('GridService', [ function () {
 
     /**
-     * This array contents each box-element which will be seen in the liveview.
+     * This array contents all elements of the liveview.
      * @type {*[]}
      */
-    var items = [{w: 1, h: 1, x: 0, y: 0},
-        {w: 1, h: 1, x: 1, y: 0},
-        {w: 1, h: 1, x: 0, y: 1}];
+    var items = [{w: 1, h: 1, x: 0, y: 0}];
+
+    /* The initial element size of the grid */
+    var elementSize = 3;
 
     /**
-     * Initialize the grid's structure, i.e. add the resize-buttons,
-     * the item-number and the item-position and -size.
+     * Creates each liveview-element, with its resize-buttons,
+     * item-number and the item-position and -size.
      * @type {{currentSize: number, buildElements: myGrid.buildElements}}
      */
     var myGrid = {
-        currentSize: 3,
+        currentSize: elementSize,
         buildElements: function($grid, items){
             var item, i;
             for (i = 0; i < items.length; i++) {
                 item = items[i];
-                $item = $(
+                var $item = $(
                     '<li>' +
                     '<div class="inner">' +
                     '<div class="controls">' +
@@ -41,13 +42,17 @@ angular.module('perna').service('GridService', [ function () {
                 });
                 $grid.append($item);
             }
+        },
+        resize: function(size) {
+            if (size) {
+                this.currentSize = size;
+            }
+            $('#grid').gridList('resize', this.currentSize);
         }
     };
 
-    /**
-     * Add the Grid into the html document.
-     */
-    var initGrid = function() {
+    /* Defines where to build the grid in the DOM. */
+    var buildGrid = function() {
         myGrid.buildElements($('#grid'), items);
 
         $('#grid').gridList({
@@ -55,8 +60,31 @@ angular.module('perna').service('GridService', [ function () {
         });
     };
 
+    /* Adds a new item to the array */
+    var add = function (item){
+        items.push(item);
+        console.log("Current array-size: " + items.length);
+    };
+
+    /* Creates a new item */
+    var newItem = function (w, h, x, y){
+        this.w = w;
+        this.h = h;
+        this.x = x;
+        this.y = y;
+        return this;
+    };
+
+    /* Should refresh the whole grid*/
+    var refreshGrid = function(){
+        //TODO: refresh the grid
+    }
+
     return {
-        initGrid: initGrid
+        buildGrid: buildGrid,
+        add: add,
+        newItem: newItem,
+        refreshGrid: refreshGrid
     };
 
 }]);

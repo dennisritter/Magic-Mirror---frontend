@@ -4,15 +4,18 @@
   <div>Hi User. This IS your dashboard!</div>
 
   <div ng-controller="liveviewCtrl" class="grid-container">
+      <button type="button" class="btn btn-success" ng-click="add()">addNewItem and refresh</button>
     <ul id="grid" class="grid">
       <li class="position-highlight">
         <div class="inner"></div>
       </li>
     </ul>
+
   </div>
 
 </div>
-  <div class="button-bar" show-on-mouse-move>
+
+<div class="button-bar" show-on-mouse-move>
     <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
     <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
-  </div>
+</div>

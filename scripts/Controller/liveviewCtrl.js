@@ -1,6 +1,11 @@
-angular.module('perna').controller('liveviewCtrl', [ 'GridService',
-    function ( GridService ) {
+angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
+    function ( $scope, GridService ) {
 
-        GridService.initGrid();
+        GridService.buildGrid();
+        $scope.add = function(){
+            GridService.add(GridService.newItem(1,1,0,1));
+            GridService.refreshGrid();
+        };
 
+        
     }]);
