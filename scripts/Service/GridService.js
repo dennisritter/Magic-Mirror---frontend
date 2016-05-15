@@ -4,7 +4,7 @@ angular.module('perna').service('GridService', [ function () {
      * This array contents all elements of the liveview.
      * @type {*[]}
      */
-    var items = [{w: 1, h: 1, x: 0, y: 0}];
+    var items = [ {w: 1, h: 1, x: 0, y: 0} ];
 
     /* The initial element size of the grid */
     var elementSize = 3;
@@ -14,6 +14,7 @@ angular.module('perna').service('GridService', [ function () {
      * item-number and the item-position and -size.
      * @type {{currentSize: number, buildElements: myGrid.buildElements}}
      */
+
     var myGrid = {
         currentSize: items.length,
         buildElements: function($grid, items){
@@ -42,11 +43,13 @@ angular.module('perna').service('GridService', [ function () {
                 });
                 $grid.append($item);
             }
-        
+
         }
     };
 
-    /* Defines where to build the grid in the DOM. */
+   
+
+    /* Defines where to build the grid within the DOM. */
     var buildGrid = function() {
         myGrid.buildElements($('#grid'), items);
 
@@ -75,7 +78,7 @@ angular.module('perna').service('GridService', [ function () {
         // var grid = $('#grid');
         // grid.gridList({});
         // console.log( grid.data('_gridList') );
-    }
+    };
 
     return {
         buildGrid: buildGrid,
