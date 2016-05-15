@@ -15,7 +15,7 @@
                 "font-awesome",
                 "jquery",
                 "jquery-ui",
-                "grid"
+                "grid-list"
             ]
         },
         "main.css": {
