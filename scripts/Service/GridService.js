@@ -6,9 +6,6 @@ angular.module('perna').service('GridService', [ function () {
      */
     var items = [ {w: 1, h: 1, x: 0, y: 0} ];
 
-    /* The initial element size of the grid */
-    var elementSize = 3;
-
     /**
      * Creates each liveview-element, with its resize-buttons,
      * item-number and the item-position and -size.
@@ -51,12 +48,20 @@ angular.module('perna').service('GridService', [ function () {
 
     /* Defines where to build the grid within the DOM. */
     var buildGrid = function() {
+
         myGrid.buildElements($('#grid'), items);
 
         $('#grid').gridList({
             lanes: myGrid.currentSize
         });
     };
+
+    /* Removes all grid-elements already existing in the DOM and re-builds the grid */
+    var refreshGrid = function() {
+        $('#grid').children().remove();
+
+        buildGrid();
+    }
 
     /* Adds a new item to the array */
     var add = function (item){
@@ -71,13 +76,6 @@ angular.module('perna').service('GridService', [ function () {
         this.x = x;
         this.y = y;
         return this;
-    };
-
-    /* Should refresh the whole grid*/
-    var refreshGrid = function(){
-        // var grid = $('#grid');
-        // grid.gridList({});
-        // console.log( grid.data('_gridList') );
     };
 
     return {
