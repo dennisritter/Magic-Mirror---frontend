@@ -158,7 +158,7 @@ GridList.prototype = {
       currentColumn = Math.max(currentColumn, position.x);
     }
 
-    this._pullItemsToLeft();
+    // this._pullItemsToLeft();
   },
 
   findPositionForItem: function(item, start, fixedRow) {
@@ -222,7 +222,7 @@ GridList.prototype = {
     });
 
     this._updateItemPosition(item, [position.x, position.y]);
-    this._resolveCollisions(item);
+    // this._resolveCollisions(item);
   },
 
   resizeItem: function(item, size) {
@@ -240,9 +240,9 @@ GridList.prototype = {
 
     this._updateItemSize(item, width, height);
 
-    this._resolveCollisions(item);
+    // this._resolveCollisions(item);
 
-    this._pullItemsToLeft();
+    // this._pullItemsToLeft();
   },
 
   getChangedItems: function(initialItems, idAttribute) {
@@ -473,19 +473,19 @@ GridList.prototype = {
              position2.y + position2.h <= position1.y);
   },
 
-  _resolveCollisions: function(item) {
-    if (!this._tryToResolveCollisionsLocally(item)) {
-      this._pullItemsToLeft(item);
-    }
-    this._pullItemsToLeft();
-  },
+  // _resolveCollisions: function(item) {
+    // if (!this._tryToResolveCollisionsLocally(item)) {
+    //   this._pullItemsToLeft(item);
+    // }
+    // this._pullItemsToLeft();
+  // },
 
   _tryToResolveCollisionsLocally: function(item) {
     /**
      * Attempt to resolve the collisions after moving a an item over one or more
      * other items within the grid, by shifting the position of the colliding
      * items around the moving one. This might result in subsequent collisions,
-     * in which case we will revert all position permutations. To be able to
+     // * in which case we will revert all position permutations. To be able to
      * revert to the initial item positions, we create a virtual grid in the
      * process
      */
@@ -544,43 +544,43 @@ GridList.prototype = {
     return true;
   },
 
-  _pullItemsToLeft: function(fixedItem) {
-    /**
-     * Build the grid from scratch, by using the current item positions and
-     * pulling them as much to the left as possible, removing as space between
-     * them as possible.
-     *
-     * If a "fixed item" is provided, its position will be kept intact and the
-     * rest of the items will be layed around it.
-     */
-
-
-    // Start a fresh grid with the fixed item already placed inside
-    this._sortItemsByPosition();
-    this._resetGrid();
-
-    // Start the grid with the fixed item as the first positioned item
-    if (fixedItem) {
-      var fixedPosition = this._getItemPosition(fixedItem);
-      this._updateItemPosition(fixedItem, [fixedPosition.x, fixedPosition.y]);
-    }
-
-    for (var i = 0; i < this.items.length; i++) {
-      var item = this.items[i],
-          position = this._getItemPosition(item);
-
-      // The fixed item keeps its exact position
-      if (fixedItem && item == fixedItem) {
-        continue;
-      }
-
-      var x = this._findLeftMostPositionForItem(item),
-          newPosition = this.findPositionForItem(
-            item, {x: x, y: 0}, position.y);
-
-      this._updateItemPosition(item, newPosition);
-    }
-  },
+  // _pullItemsToLeft: function(fixedItem) {
+  //   /**
+  //    * Build the grid from scratch, by using the current item positions and
+  //    * pulling them as much to the left as possible, removing as space between
+  //    * them as possible.
+  //    *
+  //    * If a "fixed item" is provided, its position will be kept intact and the
+  //    * rest of the items will be layed around it.
+  //    */
+  //
+  //
+  //   // Start a fresh grid with the fixed item already placed inside
+  //   this._sortItemsByPosition();
+  //   this._resetGrid();
+  //
+  //   // Start the grid with the fixed item as the first positioned item
+  //   if (fixedItem) {
+  //     var fixedPosition = this._getItemPosition(fixedItem);
+  //     this._updateItemPosition(fixedItem, [fixedPosition.x, fixedPosition.y]);
+  //   }
+  //
+  //   for (var i = 0; i < this.items.length; i++) {
+  //     var item = this.items[i],
+  //         position = this._getItemPosition(item);
+  //
+  //     // The fixed item keeps its exact position
+  //     if (fixedItem && item == fixedItem) {
+  //       continue;
+  //     }
+  //
+  //     var x = this._findLeftMostPositionForItem(item),
+  //         newPosition = this.findPositionForItem(
+  //           item, {x: x, y: 0}, position.y);
+  //
+  //     this._updateItemPosition(item, newPosition);
+  //   }
+  // },
 
   _findLeftMostPositionForItem: function(item) {
     /**
