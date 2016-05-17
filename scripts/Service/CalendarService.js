@@ -19,9 +19,6 @@ angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService'
             $http({
                 url: "http://api.perna.dev/v1/calendar/calendars",
                 method: "GET",
-                headers :{
-                    'Access-Token': AuthService.credentials.accessToken
-                }
             })
                 .success(function(response){
                     _calendarService.calendars = response.data;
@@ -43,9 +40,6 @@ angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService'
             $http({
                 url: "http://api.perna.dev/v1/calendar/events",
                 method: "GET",
-                headers :{
-                    'Access-Token': AuthService.credentials.accessToken
-                },
                 params: {calendarIds: calendarIds.join(",")}
             })
                 .success(function(response){
