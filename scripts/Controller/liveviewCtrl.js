@@ -7,5 +7,17 @@ angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
             GridService.refreshGrid();
         };
 
+        $('#grid li .resize').click(function(e) {
+            e.preventDefault();
+            var itemElement = $(e.currentTarget).closest('li'),
+                itemWidth = $(e.currentTarget).data('w'),
+                itemHeight = $(e.currentTarget).data('h');
+
+            $('#grid').gridList('resizeItem', itemElement, {
+                w: itemWidth,
+                h: itemHeight
+            });
+        });
+
         
     }]);
