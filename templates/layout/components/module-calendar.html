@@ -1,3 +1,8 @@
-<div class="module-calendar">
-  <p>Here will be your calendar.</p>
+<div class="module-calendar" ng-controller="calendarCtrl as calendar">
+  <div class="module-calendar-settings">
+    <form name="calendarChooser">
+      <label ng-repeat="calendar in availableCalendars"><input type="checkbox" ng-model="availableCalendars" ng-change="setUsedCalendars(calendar.id)">{{ calendar.summary }}</label>
+    </form>
+    <button class="btn btn-info" ng-click="getEvents()">getEvents</button>
+  </div>
 </div>
