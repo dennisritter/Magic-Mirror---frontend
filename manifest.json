@@ -14,8 +14,7 @@
                 "bootstrap-sass",
                 "font-awesome",
                 "jquery",
-                "jquery-ui",
-                "grid-list"
+                "jquery-ui"
             ]
         },
         "main.css": {

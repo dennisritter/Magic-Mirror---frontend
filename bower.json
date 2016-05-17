@@ -22,13 +22,6 @@
     "angular-password": "^1.0.1",
     "font-awesome": "~4.5.0",
     "angular-cookies": "^1.5.5",
-    "jquery-ui": "^1.11.4",
-    "grid": "git://github.com/hootsuite/grid#^0.1.0",
-    "grid-list": "^0.1.0"
-  },
-  "overrides": {
-    "grid-list": {
-      "main": ["./src/gridList.js", "./src/jquery.gridList.js"]
-    }
+    "jquery-ui": "^1.11.4"
   }
 }
