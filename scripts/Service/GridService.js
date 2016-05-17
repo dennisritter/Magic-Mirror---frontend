@@ -12,16 +12,17 @@ angular.module('perna').service('GridService', [ function () {
      * @type {{currentSize: number, buildElements: myGrid.buildElements}}
      */
 
+
     var myGrid = {
-        currentSize: items.length,
+        currentSize: 3,
         buildElements: function($grid, items){
             var item, i;
             for (i = 0; i < items.length; i++) {
                 item = items[i];
                 var $item = $(
-                    '<li>' +
+                    '<li >' +
                     '<div class="inner">' +
-                    '<div class="controls">' +
+                    '<div class="controls" >' +
                     '<a href="#zoom1" class="resize" data-w="1" data-h="1">1x1</a>' +
                     '<a href="#zoom2" class="resize" data-w="2" data-h="1">2x1</a>' +
                     '<a href="#zoom3" class="resize" data-w="3" data-h="1">3x1</a>' +
@@ -41,14 +42,19 @@ angular.module('perna').service('GridService', [ function () {
                 $grid.append($item);
             }
 
+        },
+        resize: function(size) {
+            if (size) {
+                this.currentSize = size;
+            }
+            $('#grid').gridList('resize', this.currentSize);
         }
+
     };
 
-   
 
     /* Defines where to build the grid within the DOM. */
     var buildGrid = function() {
-
         myGrid.buildElements($('#grid'), items);
 
         $('#grid').gridList({
@@ -71,10 +77,12 @@ angular.module('perna').service('GridService', [ function () {
 
     /* Creates a new item */
     var newItem = function (w, h, x, y){
+
         this.w = w;
         this.h = h;
         this.x = x;
         this.y = y;
+
         return this;
     };
 
@@ -84,5 +92,7 @@ angular.module('perna').service('GridService', [ function () {
         newItem: newItem,
         refreshGrid: refreshGrid
     };
+
+
 
 }]);
