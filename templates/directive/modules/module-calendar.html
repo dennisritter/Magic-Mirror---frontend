@@ -3,6 +3,6 @@
     <form name="calendarChooser">
       <label ng-repeat="calendar in availableCalendars"><input type="checkbox" ng-model="availableCalendars" ng-change="setUsedCalendars(calendar.id)">{{ calendar.summary }}</label>
     </form>
-    <button class="btn btn-info" ng-click="getEvents()">getEvents</button>
+    <button class="btn btn-info" ng-click="save()">Save</button>
   </div>
 </div>
