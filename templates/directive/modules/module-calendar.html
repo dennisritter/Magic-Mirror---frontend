@@ -1,8 +1,14 @@
 <div class="module-calendar">
-  <div class="module-calendar-settings">
+  <div class="module-calendar-settings" ng-if="configMode">
     <form name="calendarChooser">
       <label ng-repeat="calendar in availableCalendars"><input type="checkbox" ng-model="availableCalendars" ng-change="setUsedCalendars(calendar.id)">{{ calendar.summary }}</label>
     </form>
+    <button class="btn btn-info" ng-click="save()">Save</button>
+  </div>
+  <div class="module-calendar-events" ng-if="!configMode">
+    <ul class="module-calendar-eventlist">
+      <li class="module-calendar-event" ng-model="events" ng-repeat="event in events">heres an event!</li>
+    </ul>
     <button class="btn btn-info" ng-click="save()">Save</button>
   </div>
 </div>
