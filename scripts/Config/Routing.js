@@ -3,8 +3,8 @@
  * @name Routing
  * @desc Defines which template should be loaded for a specific url affix
  */
-angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
-    function ($qProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
+angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', 'routes',
+    function ($qProvider, $stateProvider, $locationProvider, $urlRouterProvider, routes) {
 
         // fixes a ui-router Bug with ui.router module, showing unhandled rejection errors
         // source: https://github.com/angular-ui/ui-router/issues/2699
@@ -21,16 +21,16 @@ angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvid
         $stateProvider
             .state('start', {
                 url: '/',
-                templateUrl: 'layout/start.html',
+                templateUrl: routes.home,
             })
             .state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'layout/dashboard.html',
+                templateUrl: routes.dashboard,
                 onEnter: authRedirect
             })
             .state('usersettings', {
                 url: '/usersettings',
-                templateUrl: 'layout/usersettings.html',
+                templateUrl: routes.usersettings,
                 onEnter: authRedirect
             });
 

@@ -1,5 +1,5 @@
-angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 'AuthService',
-    function ($http, $q, $window, AuthService) {
+angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 'AuthService', 'api',
+    function ($http, $q, $window, AuthService, api) {
 
         /**
          * Requests a GoogleAuth URL and a stateToken from the Server.
@@ -10,7 +10,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
         var googleAuth = function () {
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/google-auth/auth-url",
+                url: api.gauth,
                 method: "GET",
                 headers: {
                     'Access-Token': AuthService.credentials.accessToken
@@ -22,7 +22,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
                     //response.data.state : a unique Session ID to identify the users AuthSession
                     var state = response.data.state;
                     $window.addEventListener("message", function (event) {
-                        if(event.data.event !== "pernaGoogleAuth" || event.origin !== "http://api.perna.dev"){
+                        if(event.data.event !== "pernaGoogleAuth" || event.origin !== api.source){
                             console.error("Received a wrong message:");
                             console.error(event);
                             return;

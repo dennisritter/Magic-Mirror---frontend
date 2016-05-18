@@ -4,8 +4,8 @@
  * @desc A Service which includes functions for user autentification
  * @return An Instance of AuthService
  */
-angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
-    function ($http, $q, CookieService) {
+angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 'api',
+    function ($http, $q, CookieService, api) {
 
         var AuthService = function () {
             this.credentials = {
@@ -18,7 +18,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             };
             this.isAuthenticated = false;
         };
-        
+
         AuthService.prototype.clearCredentials = function(){
             this.credentials.accessToken = undefined;
             this.credentials.refreshToken.accessToken = undefined;
@@ -29,7 +29,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             var _authService = this;
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/refresh",
+                url: api.refresh,
                 method: "POST",
                 data: data
             })
@@ -50,7 +50,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             var _authService = this;
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/login",
+                url: api.login,
                 method: "POST",
                 data: data
             })
@@ -71,7 +71,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService',
             var _authService = this;
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/logout",
+                url: api.logout,
                 method: "POST",
                 headers: {
                     'Access-Token': _authService.credentials.accessToken
