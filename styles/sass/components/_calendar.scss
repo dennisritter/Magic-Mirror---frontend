@@ -3,6 +3,13 @@
   height: 100%;
   background-color: $black;
 
+  .module-calendars-settings-availablecalendar{
+    font-weight: normal;
+    input {
+      margin: 0 5px 0 0;
+    }
+  }
+
   .module-calendar-btn-edit{
     @extend .btn;
     background-color: #808080; //grey
@@ -11,12 +18,19 @@
 
   .module-calendar-eventscontainer{
     padding: 10px;
-    border: solid $white 2px;
 
     .module-calendar-event{
       padding: 10px;
-      border: solid $white 2px;
+      border-bottom: solid $white 2px;
       margin-bottom: 10px;
+
+      .module-calendar-event-summary{
+        font-weight: bold;
+      }
+    }
+    .module-calendar-event:last-child{
+      padding: 10px;
+      border-bottom: none;
     }
   }
 }
