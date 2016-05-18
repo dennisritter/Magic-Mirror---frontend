@@ -5,15 +5,15 @@
     </form>
     <button class="btn btn-info" ng-click="save()">Save</button>
   </div>
-  <div class="module-calendar-events" ng-if="!configMode">
-    <button class="btn btn-info" ng-click="edit()">Edit</button>
+  <button class="module-calendar-btn-edit btn btn-info" ng-if="!configMode" ng-click="edit()">Edit</button>
+  <div class="module-calendar-eventscontainer" ng-if="!configMode">
     <ul class="module-calendar-eventlist">
       <li class="module-calendar-event" ng-model="events" ng-repeat="event in events">
         <ul class="module-calendar-eventdata">
-          <li>{{ event.summary }}</li>
-          <li>{{ event.location }}</li>
-          <li>{{ event.startTime }}</li>
-          <li>{{ event.endTime | date : format : shortTime }}</li>
+          <li class="module-calendar-event-summary">{{ event.summary }}</li>
+          <li class="module-calendar-event-location">{{ event.location }}</li>
+          <li class="module-calendar-event-startTime">{{ event.startTime | date : format : shortTime }}</li>
+          <li class="module-calendar-event-endTime">{{ event.endTime | date : format : shortTime }}</li>
         </ul>
       </li>
     </ul>
