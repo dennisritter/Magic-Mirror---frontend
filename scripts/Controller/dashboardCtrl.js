@@ -1,5 +1,5 @@
-angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'calendarService',
-    function ($scope, $state, AuthService, MouseService, calendarService) {
+angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService',
+    function ($scope, $state, AuthService, MouseService, CalendarService) {
 
         $scope.mouseIsMoving = function () {
             MouseService.mouseIsMoving();
@@ -17,7 +17,7 @@ angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthSe
         };
 
         $scope.addCalendar = function () {
-            if (calendarService.calendars.length === 0) {
+            if (CalendarService.calendars.length === 0) {
                 getCalendars();
             }
             //make new container including a calendar
@@ -25,12 +25,12 @@ angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthSe
 
         var getCalendars = function () {
             var successCallback = function (response) {
-                console.log("Loaded Calendars into --> calendarService.calendars");
+                console.log("Loaded Calendars into --> CalendarService.calendars");
             };
             var errorCallback = function (response) {
                 console.error(response);
             };
-            calendarService.getCalendars().then(successCallback, errorCallback);
+            CalendarService.getCalendars().then(successCallback, errorCallback);
         };
 
 

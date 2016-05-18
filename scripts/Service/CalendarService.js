@@ -1,10 +1,10 @@
-angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService',
+angular.module('perna').service('CalendarService', ['$http', '$q', 'AuthService',
     function ($http, $q, AuthService) {
 
         /**
          * A list of the users calendars.
          */
-        var calendarService = function(){
+        var CalendarService = function(){
             this.calendars = [];
         };
 
@@ -13,7 +13,7 @@ angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService'
          * @param accessToken
          * @returns {Promise}
          */
-        calendarService.prototype.getCalendars = function() {
+        CalendarService.prototype.getCalendars = function() {
             var _calendarService = this;
             var defer = $q.defer();
             $http({
@@ -34,7 +34,7 @@ angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService'
          * Requests the Events of the given calendars from the Server
          * @param calendars     an array of calendarIds
          */
-        calendarService.prototype.getEvents = function(calendarIds){
+        CalendarService.prototype.getEvents = function(calendarIds){
             var defer = $q.defer();
             console.log(calendarIds.join(","));
             $http({
@@ -51,6 +51,6 @@ angular.module('perna').service('calendarService', ['$http', '$q', 'AuthService'
             return defer.promise;
         };
 
-        return new calendarService();
+        return new CalendarService();
 
     }]);
