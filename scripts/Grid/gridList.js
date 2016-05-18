@@ -678,6 +678,7 @@ GridList.prototype = {
       item.y = position[0];
     }
   }
+  
 };
 
 var GridCol = function(lanes) {

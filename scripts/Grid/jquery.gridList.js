@@ -91,6 +91,8 @@
       // Read items and their meta data. Ignore other list elements (like the
       // position highlight)
       this.$items = this.$element.children(this.options.itemSelector);
+
+        /** HIER WIRD AUF DIE DOM-LISTE ZUGEGRIFFEN */
       this.items = this._generateItemsFromDOM();
       this._widestItem = Math.max.apply(
         null, this.items.map(function(item) { return item.w; }));
@@ -204,6 +206,25 @@
       return items;
     },
 
+    // _updateItemsInDOM: function(item) {
+    //     /**
+    //      * After an item was moved, take its new position and update this information
+    //      * also in the DOM.
+    //      *
+    //      * @author: Nathalie Junker
+    //      * */
+    //     console.log('here we are.');
+    //     var domElement = $(item.currentTarget).closest('li');
+    //     console.log(domElement);
+    //     domElement.attr({
+    //         'data-w': item.w,
+    //         'data-h': item.h,
+    //         'data-x': item.x,
+    //         'data-y': item.y
+    //     });
+    //
+    // },
+
     _getItemByElement: function(element) {
       // XXX: this could be optimized by storing the item reference inside the
       // meta data of the DOM element
@@ -258,7 +279,12 @@
           left: this.items[i].x * this._cellWidth,
           top: this.items[i].y * this._cellHeight
         });
+
+          /*** HIER MÜSSTE EIG DAS DOM GEUPDATED WERDEN*/
+
+        // this._updateItemsInDOM(this.items[i]);
       }
+
       // Update the width of the entire grid container with enough room on the
       // right to allow dragging items to the end of the grid.
       // if (this.options.direction === "horizontal") {

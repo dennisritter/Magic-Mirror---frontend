@@ -4,7 +4,10 @@ angular.module('perna').service('GridService', [ function () {
      * This array contents all elements of the liveview.
      * @type {*[]}
      */
-    var items = [ {w: 1, h: 1, x: 0, y: 0} ];
+    var items = [ {w: 1, h: 1, x: 0, y: 0},
+        {w: 1, h: 2, x: 0, y: 1},
+        {w: 3, h: 1, x: 2, y: 0},
+        {w: 1, h: 1, x: 3, y: 2}];
 
     /**
      * Creates each liveview-element, with its resize-buttons,
@@ -14,7 +17,7 @@ angular.module('perna').service('GridService', [ function () {
 
 
     var myGrid = {
-        currentSize: 3,
+        currentSize: 4,
         buildElements: function($grid, items){
             var item, i;
             for (i = 0; i < items.length; i++) {
@@ -23,7 +26,7 @@ angular.module('perna').service('GridService', [ function () {
                     '<li >' +
                     '<div class="inner">' +
                     '<div class="controls" >' +
-                    '<a href="#zoom1" class="resize" data-w="1" data-h="1">1x1</a>' +
+                    '<a href="#zoom1" class="resize" data-w="1" data-h="1" >1x1</a>' +
                     '<a href="#zoom2" class="resize" data-w="2" data-h="1">2x1</a>' +
                     '<a href="#zoom3" class="resize" data-w="3" data-h="1">3x1</a>' +
                     '<a href="#zoom1" class="resize" data-w="1" data-h="2">1x2</a>' +
@@ -85,6 +88,7 @@ angular.module('perna').service('GridService', [ function () {
 
         return this;
     };
+
 
     return {
         buildGrid: buildGrid,
