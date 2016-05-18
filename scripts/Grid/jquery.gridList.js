@@ -261,13 +261,13 @@
       }
       // Update the width of the entire grid container with enough room on the
       // right to allow dragging items to the end of the grid.
-      if (this.options.direction === "horizontal") {
-        this.$element.width(
-          (this.gridList.grid.length + this._widestItem) * this._cellWidth);
-      } else {
-        this.$element.height(
-          (this.gridList.grid.length + this._tallestItem) * this._cellHeight);
-      }
+      // if (this.options.direction === "horizontal") {
+      //   this.$element.width(
+      //     (this.gridList.grid.length + this._widestItem) * this._cellWidth);
+      // } else {
+      //   this.$element.height(
+      //     (this.gridList.grid.length + this._tallestItem) * this._cellHeight);
+      // }
     },
 
     _dragPositionChanged: function(newPosition) {
