@@ -71,7 +71,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 
             var _authService = this;
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/logout",
+                url: api.logout,
                 method: "POST",
                 headers: {
                     'Access-Token': _authService.credentials.accessToken
