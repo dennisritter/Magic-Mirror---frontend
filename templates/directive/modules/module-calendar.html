@@ -6,9 +6,16 @@
     <button class="btn btn-info" ng-click="save()">Save</button>
   </div>
   <div class="module-calendar-events" ng-if="!configMode">
+    <button class="btn btn-info" ng-click="edit()">Edit</button>
     <ul class="module-calendar-eventlist">
-      <li class="module-calendar-event" ng-model="events" ng-repeat="event in events">heres an event!</li>
+      <li class="module-calendar-event" ng-model="events" ng-repeat="event in events">
+        <ul class="module-calendar-eventdata">
+          <li>{{ event.summary }}</li>
+          <li>{{ event.location }}</li>
+          <li>{{ event.startTime }}</li>
+          <li>{{ event.endTime | date : format : shortTime }}</li>
+        </ul>
+      </li>
     </ul>
-    <button class="btn btn-info" ng-click="save()">Save</button>
   </div>
 </div>

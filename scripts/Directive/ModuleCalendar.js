@@ -41,6 +41,10 @@ angular.module('perna').directive('moduleCalendar', function () {
                     $scope.configMode = false;
                     $scope.getEvents();
                 };
+
+                $scope.edit = function(){
+                    $scope.configMode = true;
+                };
         }],
 
         //link:
