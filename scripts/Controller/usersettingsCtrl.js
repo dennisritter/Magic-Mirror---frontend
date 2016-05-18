@@ -1,5 +1,5 @@
-angular.module('perna').controller('usersettingsCtrl', ['$scope','AuthService', 'CookieService', 'GoogleAuthService', 'calendarService',
-    function ($scope, AuthService, CookieService, GoogleAuthService, calendarService) {
+angular.module('perna').controller('usersettingsCtrl', ['$scope','AuthService', 'CookieService', 'GoogleAuthService', 'CalendarService',
+    function ($scope, AuthService, CookieService, GoogleAuthService, CalendarService) {
 
         /**
          * Redirects the user to it´s specific Google OAuth page delivered by the server.
@@ -17,11 +17,11 @@ angular.module('perna').controller('usersettingsCtrl', ['$scope','AuthService', 
 
         $scope.getCalendars = function(){
             var successCallback = function(response){
-                console.log("loaded calendars into --> calendarService.calendars");
+                console.log("loaded calendars into --> CalendarService.calendars");
             };
             var errorCallback = function(response){
                 console.error(response);
             };
-            calendarService.getCalendars(AuthService.credentials.accessToken).then(successCallback, errorCallback);
+            CalendarService.getCalendars(AuthService.credentials.accessToken).then(successCallback, errorCallback);
         };
     }]);
