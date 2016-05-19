@@ -7,21 +7,12 @@ angular.module('perna').controller('usersettingsCtrl', ['$scope','AuthService', 
         $scope.googleAuth = function () {
 
             var successCallback = function () {
-                console.log("success");
+                console.log("Connected Google Account");
             };
             var errorCallback = function (response) {
                 console.error(response);
             };
             GoogleAuthService.googleAuth().then(successCallback, errorCallback);
         };
-
-        $scope.getCalendars = function(){
-            var successCallback = function(response){
-                console.log("loaded calendars into --> CalendarService.calendars");
-            };
-            var errorCallback = function(response){
-                console.error(response);
-            };
-            CalendarService.getCalendars(AuthService.credentials.accessToken).then(successCallback, errorCallback);
-        };
+        
     }]);

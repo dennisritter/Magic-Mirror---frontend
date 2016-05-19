@@ -20,12 +20,12 @@ angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthSe
             if (CalendarService.calendars.length === 0) {
                 getCalendars();
             }
-            //make new container including a calendar
+            //TODO: make new container including a calendar
         };
 
         var getCalendars = function () {
             var successCallback = function (response) {
-                console.log("Loaded Calendars into --> CalendarService.calendars");
+                console.log("Loaded available Calendars");
             };
             var errorCallback = function (response) {
                 console.error(response);
