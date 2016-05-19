@@ -13,13 +13,14 @@
 
     //calendar-event-view
     .calendar-container--events {
-        padding: 10px;
-
         .calendar-listitem--event {
             border-bottom: solid $white 2px;
             margin-bottom: 10px;
+            padding-bottom: 10px;
             &:last-child {
                 border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
             }
 
             &--summary {

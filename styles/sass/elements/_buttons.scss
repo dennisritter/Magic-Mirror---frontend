@@ -2,7 +2,8 @@
   @extend .btn;
 
   &.button__module--edit {
-    background-color: #808080; //grey
+    background-color: #c0c0c0; //grey
+    color: $black;
     float: right;
   }
 }
