@@ -1,0 +1,8 @@
+.button {
+  @extend .btn;
+
+  &.button__module--edit {
+    background-color: #808080; //grey
+    float: right;
+  }
+}
