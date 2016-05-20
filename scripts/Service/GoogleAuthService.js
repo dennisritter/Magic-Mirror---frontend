@@ -10,11 +10,8 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
         var googleAuth = function () {
             var defer = $q.defer();
             $http({
-                url: api.gauth,
-                method: "GET",
-                headers: {
-                    'Access-Token': AuthService.credentials.accessToken
-                }
+                url: "http://api.perna.dev/v1/google-auth/auth-url",
+                method: "GET"
             })
                 .success(function (response) {
                     //response.data.url : the GoogleOAuth URL received from the server

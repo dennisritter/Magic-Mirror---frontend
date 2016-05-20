@@ -18,7 +18,7 @@ angular.module('perna').service('MouseService', ['$timeout', function ($timeout)
     var startTimer = function () {
         isMovingTimer = $timeout(function () {
             _service.mouseData.isMoving = false;
-        }, 2000);
+        }, 5000);
     };
 
     return {

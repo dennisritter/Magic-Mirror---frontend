@@ -37,6 +37,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 
                     _authService.credentials.accessToken = response.data.token;
                     _authService.credentials.refreshToken = response.data.refreshToken.token;
                     CookieService.setCookies(response);
+                    $http.defaults.headers.common = {'Access-Token' : _authService.credentials.accessToken};
                     _authService.isAuthenticated = true;
                     defer.resolve();
                 })
@@ -58,6 +59,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 
                     _authService.credentials.accessToken = response.data.token;
                     _authService.credentials.refreshToken = response.data.refreshToken.token;
                     CookieService.setCookies(response);
+                    $http.defaults.headers.common = {'Access-Token' : _authService.credentials.accessToken};
                     _authService.isAuthenticated = true;
                     defer.resolve();
                 })
@@ -73,9 +75,6 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 
             $http({
                 url: api.logout,
                 method: "POST",
-                headers: {
-                    'Access-Token': _authService.credentials.accessToken
-                }
             })
                 .success(function (response) {
                     CookieService.deleteCookies();
