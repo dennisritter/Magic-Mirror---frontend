@@ -162,12 +162,24 @@
         // Since the items list is a deep copy, we need to fetch the item
         // corresponding to this drag action again
         item = this._getItemByElement(ui.helper);
+
         this.gridList.moveItemToPosition(item, newPosition);
+
+        //add the new position in the DOM attributes
+        this._updatePositionInDom(item, newPosition);
 
         // Visually update item positions and highlight shape
         this._applyPositionToItems();
         this._highlightPositionForItem(item);
       }
+    },
+
+    _updatePositionInDom: function(item, newPosition){
+        /**
+         // * Save the new position of an item also in its DOM attributes.
+         */
+        item.$element.attr('data-x', newPosition[0] );
+        item.$element.attr('data-y', newPosition[1] );
     },
 
     _onStop: function(event, ui) {
@@ -190,6 +202,7 @@
        * trace back to it and re-render it once its properties are changed by the
        * GridList lib
        */
+
       var _this = this,
           items = [],
           item;
@@ -205,25 +218,6 @@
       });
       return items;
     },
-
-    // _updateItemsInDOM: function(item) {
-    //     /**
-    //      * After an item was moved, take its new position and update this information
-    //      * also in the DOM.
-    //      *
-    //      * @author: Nathalie Junker
-    //      * */
-    //     console.log('here we are.');
-    //     var domElement = $(item.currentTarget).closest('li');
-    //     console.log(domElement);
-    //     domElement.attr({
-    //         'data-w': item.w,
-    //         'data-h': item.h,
-    //         'data-x': item.x,
-    //         'data-y': item.y
-    //     });
-    //
-    // },
 
     _getItemByElement: function(element) {
       // XXX: this could be optimized by storing the item reference inside the
@@ -256,12 +250,21 @@
       return item.h * this._cellHeight;
     },
 
+    _updateSizeInDOM: function(item){
+        /**
+         * Save the new size of an item in its DOM attributes.
+         */
+          item.$element.attr('data-w', item.w );
+          item.$element.attr('data-h', item.h );
+      },
+
     _applySizeToItems: function() {
       for (var i = 0; i < this.items.length; i++) {
         this.items[i].$element.css({
           width: this._getItemWidth(this.items[i]),
           height: this._getItemHeight(this.items[i])
         });
+        this._updateSizeInDOM(this.items[i]);
       }
       if (this.options.heightToFontSizeRatio) {
         this.$items.css('font-size', this._fontSize);
@@ -280,9 +283,6 @@
           top: this.items[i].y * this._cellHeight
         });
 
-          /*** HIER MÜSSTE EIG DAS DOM GEUPDATED WERDEN*/
-
-        // this._updateItemsInDOM(this.items[i]);
       }
 
       // Update the width of the entire grid container with enough room on the
