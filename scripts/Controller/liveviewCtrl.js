@@ -1,6 +1,14 @@
 angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
     function ( $scope, GridService ) {
 
+
+        //Hier kommt vielleicht irgendwann die liste mit gespeicherten items an.
+        // $scope.items = [ {w: 1, h: 1, x: 0, y: 0},
+        //     {w: 1, h: 2, x: 0, y: 1}];
+        //
+        // $scope.test= "hallo";
+
+
         GridService.buildGrid();
         $scope.add = function(){
             GridService.add(GridService.newItem(1,1,0,1));

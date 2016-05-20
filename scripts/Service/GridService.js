@@ -17,7 +17,7 @@ angular.module('perna').service('GridService', [ function () {
 
 
     var myGrid = {
-        currentSize: 4,
+        currentSize: 3,
         buildElements: function($grid, items){
             var item, i;
             for (i = 0; i < items.length; i++) {
@@ -26,7 +26,7 @@ angular.module('perna').service('GridService', [ function () {
                     '<li >' +
                     '<div class="inner">' +
                     '<div class="controls" >' +
-                    '<a href="#zoom1" class="resize" data-w="1" data-h="1" >1x1</a>' +
+                    '<a href="#zoom1" class="resize" data-w="1" data-h="1">1x1</a>' +
                     '<a href="#zoom2" class="resize" data-w="2" data-h="1">2x1</a>' +
                     '<a href="#zoom3" class="resize" data-w="3" data-h="1">3x1</a>' +
                     '<a href="#zoom1" class="resize" data-w="1" data-h="2">1x2</a>' +
@@ -51,10 +51,20 @@ angular.module('perna').service('GridService', [ function () {
                 this.currentSize = size;
             }
             $('#grid').gridList('resize', this.currentSize);
+
+
+            /*update array*/
         }
 
     };
 
+    /* Hier brauchen wir noch eine update Array-Methode,
+    die ein die Elemente aus dem DOM zieht und sie im item array speichert. */
+    var updateItems = function(){
+
+        //TODO get parameters of each li element and save them in the array.
+
+    };
 
     /* Defines where to build the grid within the DOM. */
     var buildGrid = function() {
@@ -69,7 +79,9 @@ angular.module('perna').service('GridService', [ function () {
     var refreshGrid = function() {
         $('#grid').children().remove();
 
+
         buildGrid();
+        updateItems();
     }
 
     /* Adds a new item to the array */
