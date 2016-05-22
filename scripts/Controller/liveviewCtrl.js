@@ -13,6 +13,7 @@ angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
         $scope.add = function(){
             GridService.add(GridService.newItem(1,1,0,1));
             GridService.refreshGrid();
+            // GridService.updateItems();
         };
 
         $('#grid li .resize').click(function(e) {
@@ -25,6 +26,7 @@ angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
                 w: itemWidth,
                 h: itemHeight
             });
+            
         });
 
         

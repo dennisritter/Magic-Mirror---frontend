@@ -174,14 +174,6 @@
       }
     },
 
-    _updatePositionInDom: function(item, newPosition){
-        /**
-         // * Save the new position of an item also in its DOM attributes.
-         */
-        item.$element.attr('data-x', newPosition[0] );
-        item.$element.attr('data-y', newPosition[1] );
-    },
-
     _onStop: function(event, ui) {
       this._updateGridSnapshot();
       this._previousDragPosition = null;
@@ -249,14 +241,6 @@
     _getItemHeight: function(item) {
       return item.h * this._cellHeight;
     },
-
-    _updateSizeInDOM: function(item){
-        /**
-         * Save the new size of an item in its DOM attributes.
-         */
-          item.$element.attr('data-w', item.w );
-          item.$element.attr('data-h', item.h );
-      },
 
     _applySizeToItems: function() {
       for (var i = 0; i < this.items.length; i++) {
@@ -360,7 +344,34 @@
       }
       this.options.onChange.call(
         this, this.gridList.getChangedItems(this._items, '$element'));
-    }
+    },
+
+    _updatePositionInDom: function(item, newPosition){
+      /**
+       * Save the new position of an item also in its DOM attributes.
+       */
+      item.$element.attr('data-x', newPosition[0] );
+      item.$element.attr('data-y', newPosition[1] );
+    },
+
+    _updateSizeInDOM: function(item){
+      /**
+       * Save the new size of an item in its DOM attributes.
+       */
+      item.$element.attr('data-w', item.w );
+      item.$element.attr('data-h', item.h );
+      console.log("data-w: " + item.$element.attr('data-w'));
+    },
+
+    // _getActualParamsFromDOM: function(item){
+    //   var w = item.w;
+    //   var h = item.h;
+    //   var x = item.x;
+    //   var y = item.y;
+    //
+    //   return [w, h, x, y];
+    // }
+
   };
 
   $.fn.gridList = function(options, draggableOptions) {
