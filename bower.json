@@ -22,6 +22,6 @@
     "font-awesome": "~4.5.0",
     "angular-cookies": "^1.5.5",
     "angular-ui-router": "^0.2.18",
-    "js-sha256": "^0.3.0"
-  }
+    "js-sha256": "^0.3.0",
+    "jquery-ui": "^1.11.4"
 }

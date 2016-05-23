@@ -6,14 +6,16 @@
         },
         "libs.js": {
             "bower": [
-                "jquery",
-                "bootstrap-sass",
                 "angular",
                 "angular-messages",
                 "angular-password",
                 "angular-cookies",
                 "angular-route",
-                "js-sha256"
+                "js-sha256",
+                "bootstrap-sass",
+                "font-awesome",
+                "jquery",
+                "jquery-ui"
             ]
         },
         "main.css": {

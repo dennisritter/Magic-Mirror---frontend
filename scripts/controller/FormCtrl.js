@@ -1,5 +1,5 @@
-angular.module('perna').controller('formCtrl', ['$scope', '$state', 'StorageService', 'AuthService',
-    function ($scope, $state, StorageService, AuthService) {
+angular.module('perna').controller('formCtrl', ['$scope', '$state', 'StorageService', 'AuthService', 'ValidationService',
+    function ($scope, $state, StorageService, AuthService, ValidationService) {
 
         $scope.btnDisabled = false;
 
@@ -24,10 +24,9 @@ angular.module('perna').controller('formCtrl', ['$scope', '$state', 'StorageServ
             AuthService.login(loginData).then(successCallback, errorCallback);
         };
 
-        $scope.save = function () {
-            var form = $scope.registrationForm;
-            if (!form.$valid) {
-                console.log("The form is not valid");
+        $scope.save = function (form) {
+            var formIsValid = ValidationService.validateForm(form);
+            if (!formIsValid){
                 return;
             }
             var userdata = {
