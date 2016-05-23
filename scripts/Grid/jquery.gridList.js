@@ -348,6 +348,7 @@
 
     _updatePositionInDom: function(item, newPosition){
       /**
+       * @author nathalie
        * Save the new position of an item also in its DOM attributes.
        */
       item.$element.attr('data-x', newPosition[0] );
@@ -356,21 +357,12 @@
 
     _updateSizeInDOM: function(item){
       /**
+       * @author nathalie
        * Save the new size of an item in its DOM attributes.
        */
       item.$element.attr('data-w', item.w );
       item.$element.attr('data-h', item.h );
-      console.log("data-w: " + item.$element.attr('data-w'));
-    },
-
-    // _getActualParamsFromDOM: function(item){
-    //   var w = item.w;
-    //   var h = item.h;
-    //   var x = item.x;
-    //   var y = item.y;
-    //
-    //   return [w, h, x, y];
-    // }
+    }
 
   };
 

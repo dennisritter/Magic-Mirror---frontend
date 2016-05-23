@@ -4,18 +4,16 @@ angular.module('perna').service('GridService', [ function () {
      * This array contents all elements of the liveview.
      * @type {*[]}
      */
-    var items = [ {w: 1, h: 1, x: 0, y: 0},
-        {w: 1, h: 2, x: 0, y: 1},
-        {w: 3, h: 1, x: 2, y: 0},
-        {w: 1, h: 1, x: 3, y: 2}];
+    var items = [ {w:1, h:1, x:0, y:1},
+        {w:1, h:2, x:2, y:0},
+        {w:3, h:1, x:4, y:2}
+    ];
 
     /**
      * Creates each liveview-element, with its resize-buttons,
      * item-number and the item-position and -size.
      * @type {{currentSize: number, buildElements: myGrid.buildElements}}
      */
-
-
     var myGrid = {
         currentSize: 3,
         buildElements: function($grid, items){
@@ -55,18 +53,18 @@ angular.module('perna').service('GridService', [ function () {
 
     };
 
-    /* Hier brauchen wir noch eine update Array-Methode,
-    die ein die Elemente aus dem DOM zieht und sie im item array speichert. */
+    /* Hier brauchen wir -möglicherweise- noch eine update Array-Methode,
+    die die Elemente aus dem DOM zieht und sie im item array speichert. 
+    So klappts auf jeden fall nicht:*/
     var updateItems = function(){
         var liste = $('#grid li');
-        var i = 0;
-        liste.each(function(){
-            items[i][0] = this.attr('data-w');
-            items[i][1] = this.attr('data-h');
-            items[i][2] = this.attr('data-x');
-            items[i][3] = this.attr('data-y');
-            i++;
-        })
+        liste.each(function(i, element){
+            var element = $(element);
+            items[i].w = element.attr('data-w');
+            items[i].h = element.attr('data-h');
+            items[i].x = element.attr('data-x');
+            items[i].y = element.attr('data-y');
+        });
     };
 
     /* Defines where to build the grid within the DOM. */
@@ -82,9 +80,7 @@ angular.module('perna').service('GridService', [ function () {
     var refreshGrid = function() {
         $('#grid').children().remove();
 
-
         buildGrid();
-        updateItems();
     }
 
     /* Adds a new item to the array */
@@ -108,8 +104,7 @@ angular.module('perna').service('GridService', [ function () {
         buildGrid: buildGrid,
         add: add,
         newItem: newItem,
-        refreshGrid: refreshGrid,
-        updateItems: updateItems
+        refreshGrid: refreshGrid
     };
 
 
