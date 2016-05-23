@@ -1,5 +1,5 @@
-angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 'AuthService', 'api',
-    function ($http, $q, $window, AuthService, api) {
+angular.module('perna').service('GoogleAuthService', ['$http', '$q', 'AuthService', 'api',
+    function ($http, $q, AuthService, api) {
 
         /**
          * Requests a GoogleAuth URL and a stateToken from the Server.
@@ -7,7 +7,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
          * @param accessToken
          * @returns {Promise}
          */
-        var googleAuth = function () {
+        var googleAuth = function (popupWindow) {
             var defer = $q.defer();
             $http({
                 url: "http://api.perna.dev/v1/google-auth/auth-url",
@@ -15,10 +15,10 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
             })
                 .success(function (response) {
                     //response.data.url : the GoogleOAuth URL received from the server
-                    var popupGoogleAuth = $window.open(response.data.url, "googleAuth", "width=500,height=400");
+                    popupWindow.location.href = response.data.url;
                     //response.data.state : a unique Session ID to identify the users AuthSession
                     var state = response.data.state;
-                    $window.addEventListener("message", function (event) {
+                    popupWindow.addEventListener("message", function (event) {
                         if(event.data.event !== "pernaGoogleAuth" || event.origin !== api.source){
                             console.error("Received a wrong message:");
                             console.error(event);
@@ -28,7 +28,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', '$window', 
                             defer.reject(event.data);
                         }
                         popupGoogleAuth.close();
-                        $window.removeEventListener("pernaGoogleAuth", function(){});
+                        popupWindow.removeEventListener("pernaGoogleAuth", function(){});
                         defer.resolve();
                     }, false);
                 })
