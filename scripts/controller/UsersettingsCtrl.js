@@ -1,10 +1,15 @@
-angular.module('perna').controller('usersettingsCtrl', ['$scope', 'AuthService', 'CookieService', 'GoogleAuthService',
-    function ($scope, AuthService, CookieService, GoogleAuthService) {
+angular.module('perna').controller('usersettingsCtrl', ['$scope', '$window', 'AuthService', 'CookieService', 'GoogleAuthService',
+    function ($scope, $window, AuthService, CookieService, GoogleAuthService) {
 
         /**
          * Redirects the user to it´s specific Google OAuth page delivered by the server.
          */
         $scope.googleAuth = function () {
+
+            // open blank popup and change url to OAuth-url later.
+            // necessary to prevent popup from being blocked --> Popup opens directly after userinteraction
+            var popupGoogleAuth = $window.open('', '_blank', "googleAuth", "width=500,height=400");
+            popupGoogleAuth.document.write('Loading Google Authentication...');
 
             var successCallback = function () {
                 console.log("Connected Google Account");
@@ -12,7 +17,7 @@ angular.module('perna').controller('usersettingsCtrl', ['$scope', 'AuthService',
             var errorCallback = function (response) {
                 console.error(response);
             };
-            GoogleAuthService.googleAuth().then(successCallback, errorCallback);
+            GoogleAuthService.googleAuth(popupGoogleAuth).then(successCallback, errorCallback);
         };
         
     }]);
