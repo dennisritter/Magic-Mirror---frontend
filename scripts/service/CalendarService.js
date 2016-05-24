@@ -1,5 +1,5 @@
-angular.module('perna').service('CalendarService', ['$http', '$q',
-    function ($http, $q) {
+angular.module('perna').service('CalendarService', 'api', ['$http', '$q',
+    function ($http, $q, api) {
 
         var CalendarService = function(){
             /**
@@ -20,7 +20,7 @@ angular.module('perna').service('CalendarService', ['$http', '$q',
             var _calendarService = this;
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/calendar/calendars",
+                url: api.calendars,
                 method: "GET",
             })
                 .success(function(response){
@@ -42,7 +42,7 @@ angular.module('perna').service('CalendarService', ['$http', '$q',
             var defer = $q.defer();
             console.log(calendarIds.join(","));
             $http({
-                url: "http://api.perna.dev/v1/calendar/events",
+                url: api.events,
                 method: "GET",
                 params: {calendarIds: calendarIds.join(",")}
             })

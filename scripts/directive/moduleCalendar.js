@@ -4,11 +4,11 @@
  * @desc The directive to use when including a calendar module the dashboard.
  * Manages and describes the functioning and structure of a calendar module.
  */
-angular.module('perna').directive('moduleCalendar',
-    function () {
+angular.module('perna').directive('moduleCalendar', 'routes',
+    function (routes) {
         return {
             restrict: 'E',
-            templateUrl: 'directive/modules/module-calendar.html',
+            templateUrl: routes.calendar,
             controller: ['$scope', 'AuthService', 'CalendarService',
                 function ($scope, AuthService, CalendarService) {
                     /**

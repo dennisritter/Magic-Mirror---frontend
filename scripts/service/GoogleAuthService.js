@@ -10,7 +10,7 @@ angular.module('perna').service('GoogleAuthService', ['$http', '$q', 'AuthServic
         var googleAuth = function (popupWindow) {
             var defer = $q.defer();
             $http({
-                url: "http://api.perna.dev/v1/google-auth/auth-url",
+                url: api.gauth,
                 method: "GET"
             })
                 .success(function (response) {
