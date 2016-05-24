@@ -16,6 +16,7 @@
     "asset-builder": "^1.1.0",
     "bower": "^1.7.9",
     "browser-sync": "^2.12.5",
+    "casperjs": "^1.1.1",
     "graceful-fs": "^4.1.4",
     "gulp": "^3.9.1",
     "gulp-angular-gettext": "^2.1.0",
@@ -37,6 +38,7 @@
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.1.0",
     "lodash": "^4.13.0",
+    "phantomjs": "^2.1.7",
     "run-sequence": "^1.1.5"
   }
 }
