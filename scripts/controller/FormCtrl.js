@@ -25,6 +25,7 @@ angular.module('perna').controller('FormCtrl', ['$scope', '$state', 'StorageServ
         };
 
         $scope.save = function (form) {
+            console.log("save(form) has been called..");
             var formIsValid = ValidationService.validateForm(form);
             if (!formIsValid){
                 return;

@@ -10,7 +10,7 @@
                 "angular-messages",
                 "angular-password",
                 "angular-cookies",
-                "angular-route",
+                "angular-ui-router",
                 "js-sha256",
                 "bootstrap-sass",
                 "font-awesome",
