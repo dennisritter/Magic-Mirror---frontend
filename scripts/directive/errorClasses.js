@@ -1,4 +1,4 @@
-angular.module('perna').directive('errorClasses', function () {
+angular.module('perna').directive('errorClasses', [function () {
   return {
     restrict: 'A',
     scope: {
@@ -17,4 +17,4 @@ angular.module('perna').directive('errorClasses', function () {
       $scope.$watch( 'input.$touched', updateClass, true );
     }
   };
-});
+}]);

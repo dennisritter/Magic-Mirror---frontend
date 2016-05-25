@@ -1,4 +1,5 @@
-angular.module('perna').service('ValidationService', [ function () {
+angular.module('perna').service('ValidationService', [
+    function () {
 
     /**
      * Checks whether the form is valid or not.

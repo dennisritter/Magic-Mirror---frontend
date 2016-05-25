@@ -1,4 +1,5 @@
-angular.module('perna').service('CookieService', ['$cookies', function ($cookies) {
+angular.module('perna').service('CookieService', ['$cookies', 
+    function ($cookies) {
 
     var setCookies = function (response) {
         $cookies.put('MagicMirror', response.data.token, {

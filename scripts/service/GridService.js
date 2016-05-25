@@ -1,4 +1,5 @@
-angular.module('perna').service('GridService', [ function () {
+angular.module('perna').service('GridService', [
+    function () {
 
     /**
      * This array contents all elements of the liveview.

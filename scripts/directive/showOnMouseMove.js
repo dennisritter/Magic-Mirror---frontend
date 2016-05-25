@@ -1,4 +1,4 @@
-angular.module('perna').directive('showOnMouseMove', function () {
+angular.module('perna').directive('showOnMouseMove', [function () {
     return {
         restrict: 'A',
         controller: ['$scope', 'MouseService', function ($scope, MouseService) {
@@ -14,4 +14,4 @@ angular.module('perna').directive('showOnMouseMove', function () {
             }, true);
         }
     };
-});
+}]);

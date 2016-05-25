@@ -1,4 +1,4 @@
-angular.module('perna').directive('formControlMessages', 'routes', function (routes) {
+angular.module('perna').directive('formControlMessages', ['routes', function (routes) {
 
   return {
   	// This Directive is usable as Single Element only. Not as an Attribute or something else..
@@ -13,4 +13,4 @@ angular.module('perna').directive('formControlMessages', 'routes', function (rou
     transclude: true
     };
 
-});
+}]);

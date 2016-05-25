@@ -1,4 +1,4 @@
-angular.module('perna').service('CalendarService', 'api', ['$http', '$q',
+angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
     function ($http, $q, api) {
 
         var CalendarService = function(){
