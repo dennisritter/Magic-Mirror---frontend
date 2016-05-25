@@ -1,4 +1,4 @@
-angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService',
+angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService',
     function ($scope, $state, AuthService, MouseService, CalendarService) {
 
         $scope.mouseIsMoving = function () {
@@ -6,6 +6,7 @@ angular.module('perna').controller('dashboardCtrl', ['$scope', '$state', 'AuthSe
         };
 
         $scope.logout = function () {
+            console.log("logout() in DashboardCtrl called..");
             var successCallback = function () {
                 $state.go('start');
             };

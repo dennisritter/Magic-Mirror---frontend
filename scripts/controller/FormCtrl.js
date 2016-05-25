@@ -1,4 +1,4 @@
-angular.module('perna').controller('formCtrl', ['$scope', '$state', 'StorageService', 'AuthService', 'ValidationService',
+angular.module('perna').controller('FormCtrl', ['$scope', '$state', 'StorageService', 'AuthService', 'ValidationService',
     function ($scope, $state, StorageService, AuthService, ValidationService) {
 
         $scope.btnDisabled = false;

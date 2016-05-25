@@ -70,6 +70,7 @@ angular.module('perna').service('AuthService', ['$http', '$q', 'CookieService', 
         };
 
         AuthService.prototype.logout = function () {
+            console.log("logout in AuthService called..");
             var _authService = this;
             var defer = $q.defer();
             $http({

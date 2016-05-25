@@ -1,4 +1,4 @@
-angular.module('perna').controller('usersettingsCtrl', ['$scope', '$window', 'AuthService', 'CookieService', 'GoogleAuthService',
+angular.module('perna').controller('UsersettingsCtrl', ['$scope', '$window', 'AuthService', 'CookieService', 'GoogleAuthService',
     function ($scope, $window, AuthService, CookieService, GoogleAuthService) {
 
         /**

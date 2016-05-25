@@ -109,7 +109,7 @@ GridList.prototype = {
     for (i = 0; i < widthOfGrid; i++) {
       output += ' ' + this._padNumber(i, ' ');
       border += '---';
-    };
+    }
     output += border;
 
     // Render table contents row by row, as we go on the y axis
@@ -120,7 +120,7 @@ GridList.prototype = {
         item = this.grid[j][i];
         output += item ? this._padNumber(this.items.indexOf(item), '0') : '--';
       }
-    };
+    }
     output += '\n';
     return output;
   },

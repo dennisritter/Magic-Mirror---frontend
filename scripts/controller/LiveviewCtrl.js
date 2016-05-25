@@ -1,4 +1,4 @@
-angular.module('perna').controller('liveviewCtrl', [ '$scope', 'GridService',
+angular.module('perna').controller('LiveviewCtrl', [ '$scope', 'GridService',
     function ( $scope, GridService ) {
 
 

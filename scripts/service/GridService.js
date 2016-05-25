@@ -56,16 +56,17 @@ angular.module('perna').service('GridService', [ function () {
     /* Hier brauchen wir -möglicherweise- noch eine update Array-Methode,
     die die Elemente aus dem DOM zieht und sie im item array speichert. 
     So klappts auf jeden fall nicht:*/
-    var updateItems = function(){
-        var liste = $('#grid li');
-        liste.each(function(i, element){
-            var element = $(element);
-            items[i].w = element.attr('data-w');
-            items[i].h = element.attr('data-h');
-            items[i].x = element.attr('data-x');
-            items[i].y = element.attr('data-y');
-        });
-    };
+
+    // var updateItems = function(){
+    //     var liste = $('#grid li');
+    //     liste.each(function(i, element){
+    //         var element = $(element);
+    //         items[i].w = element.attr('data-w');
+    //         items[i].h = element.attr('data-h');
+    //         items[i].x = element.attr('data-x');
+    //         items[i].y = element.attr('data-y');
+    //     });
+    // };
 
     /* Defines where to build the grid within the DOM. */
     var buildGrid = function() {
@@ -81,7 +82,7 @@ angular.module('perna').service('GridService', [ function () {
         $('#grid').children().remove();
 
         buildGrid();
-    }
+    };
 
     /* Adds a new item to the array */
     var add = function (item){
