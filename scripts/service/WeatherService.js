@@ -6,18 +6,19 @@ angular.module('perna').service('WeatherService', ['$http', '$q', 'api',
     function ($http, $q, api) {
     
     var WeatherService = function (){
-        this.autocomplCity;
+        this.locationsFound = [];
     }
         
-    WeatherService.prototype.autocomplete = function ( query, accesstoken ) {
+    WeatherService.prototype.autocompleteCity = function ( query, accesstoken ) {
         var _weatherService = this;
         var deferred = $q.defer();
         $http({
-            url: api.autocomplete(query, accesstoken),
-            method: "GET"
+            url: api.weather_autocomplete,
+            method: "GET",
+            params: {query: query, token: accesstoken}
         })
             .success(function(response){
-                _weatherService.autocomplCity = response.data;
+                _weatherService.autocompletedCity = response.data;
                 deferred.resolve(response);
             })
             .error(function(response){
@@ -26,9 +27,7 @@ angular.module('perna').service('WeatherService', ['$http', '$q', 'api',
 
         return deferred.promise;
     };
-    
-    
-    
-    
+   
+    return new WeatherService();
     
     }]);
