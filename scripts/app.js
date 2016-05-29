@@ -8,7 +8,8 @@ angular.module('perna', [
     dashboard : 'layout/dashboard.html',
     usersettings : 'layout/usersettings.html',
     formcontrol : 'directive/form-control-messages.html',
-    calendar : 'directive/modules/module-calendar.html'
+    calendar : 'directive/modules/module-calendar.html',
+    module : 'directive/modules/liveview-module.html'
 }).constant('api', {
     source : 'http://api.perna.dev',
     login : 'http://api.perna.dev/v1/login',

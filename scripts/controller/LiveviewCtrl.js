@@ -1,28 +1,35 @@
-angular.module('perna').controller('LiveviewCtrl', [ '$scope', 'GridService',
-    function ( $scope, GridService ) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService',
+    function ($scope, GridService) {
 
+        /**
+         * @desc: Load the Grid after pageload is completed.
+         */
+        var refreshGrid = function(){
+            angular.element(document).ready(function () {
+                GridService.buildGrid();
+            });
+        }
 
-        //Hier kommt vielleicht irgendwann die liste mit gespeicherten items an?
-        // $scope.items = [ {w: 1, h: 1, x: 0, y: 0},
-        //     {w: 1, h: 2, x: 0, y: 1}];
-        //
-        // $scope.test= "hallo";
+        $scope.modules = [];
 
-        //Lade das Grid sofort
-        GridService.buildGrid();
-        
-        $scope.add = function(){
-            
-            //erstelle ein neues Item mit default-Werten und refreshe das Grid
-            GridService.add(GridService.newItem(1,1,0,0));
-            GridService.refreshGrid();
+        var DEFAULT_MODULE = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}};
+        $scope.$watch(function(){
+            return GridService.grid.modules
+        },
+        function(){
+            $scope.modules = GridService.grid.modules;
+        })
+
+        $scope.addModule = function () {
+            GridService.addModule(DEFAULT_MODULE);
+            refreshGrid();
         };
 
         /*
-        * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
-        * für jedes Item zur Verfügung.
-        * */
-        $('#grid li .resize').click(function(e) {
+         * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
+         * für jedes Item zur Verfügung.
+         * */
+        $('#grid li .resize').click(function (e) {
             e.preventDefault();
             var itemElement = $(e.currentTarget).closest('li'),
                 itemWidth = $(e.currentTarget).data('w'),
@@ -32,8 +39,6 @@ angular.module('perna').controller('LiveviewCtrl', [ '$scope', 'GridService',
                 w: itemWidth,
                 h: itemHeight
             });
-            
         });
 
-        
     }]);
