@@ -8,7 +8,8 @@ angular.module('perna', [
     dashboard : 'layout/dashboard.html',
     usersettings : 'layout/usersettings.html',
     formcontrol : 'directive/form-control-messages.html',
-    calendar : 'directive/modules/module-calendar.html'
+    calendar : 'directive/modules/module-calendar.html',
+    weather : 'directive/modules/module-weather.html'
 }).constant('api', {
     source : 'http://api.perna.dev',
     login : 'http://api.perna.dev/v1/login',
@@ -17,5 +18,7 @@ angular.module('perna', [
     logout : 'http://api.perna.dev/v1/logout',
     gauth : 'http://api.perna.dev/v1/google-auth/auth-url',
     calendars: 'http://api.perna.dev/v1/calendar/calendars',
-    events: 'http://api.perna.dev/v1/calendar/events'
+    events: 'http://api.perna.dev/v1/calendar/events',
+    weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
+    weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby'
 });

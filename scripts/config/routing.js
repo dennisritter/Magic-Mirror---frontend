@@ -32,7 +32,12 @@ angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvid
                 url: '/usersettings',
                 templateUrl: routes.usersettings,
                 onEnter: authRedirect
-            });
+            })
+            .state('weathersearch', {
+                url: '/weathersearch',
+                templateUrl: routes.weather,
+                onEnter: authRedirect
+        });
 
         $urlRouterProvider.otherwise('/');
 
