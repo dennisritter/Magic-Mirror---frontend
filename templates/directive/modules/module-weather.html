@@ -1,3 +1,11 @@
-<div class="weather">
-
-</div>
+<module-weather>
+    <form name="weatherSearch">
+        <input id="search" type="text" ng-model="query" ng-change="getLocations()" ng-minlength="3" style="color:black" >
+        <label ng-repeat="location in locationsFound">
+            {{ locationsFound.name + ", " + locationsFound.countryCode }}
+        </label>
+        <p>
+        {{ "Your query was: " + query }}
+        </p>
+    </form>
+</module-weather>
