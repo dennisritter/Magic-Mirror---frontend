@@ -8,6 +8,9 @@ angular.module('perna').service('WeatherService', ['$http', '$q', 'api',
     var WeatherService = function (){
         this.locationsFound = [];
     };
+
+        //testcommit
+
         
     WeatherService.prototype.autocompleteCity = function ( query, accesstoken ) {
         var _weatherService = this;
