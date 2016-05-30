@@ -1,10 +1,12 @@
 <module-weather>
-    <form name="weatherSearch">
-        <input id="search" type="text" ng-model="query" ng-change="getLocations()" ng-minlength="3" style="color:black" >
-        <ul>
-            <li ng-repeat="location in locationsFound">
+    <form name="weatherSearch" > <!-- ng-submit="printLoc()"-->
+        <input id="search" type="text" ng-model="query"  ng-change="getLocations()" ng-minlength="3"
+               style="color:black" list="locations">
+        <datalist id="locations">
+            <option ng-repeat="location in locationsFound" ng-attr-id="{{location.id}}"> <!-- ng-model="locationSelected"-->
             {{ location.name + ", " + location.countryCode }}
-            </li>
-        </ul>
+            </option>
+        </datalist>
+        <button type="submit">get weather</button>
     </form>
 </module-weather>
