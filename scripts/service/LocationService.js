@@ -33,9 +33,9 @@
          LocationService.prototype.provideAutocompleteResults = function(query) {
             var deferred = $q.defer();
             $http({
-                url : api.weather_nearby,
+                url : api.weather_autocomplete,
                 method : 'GET',
-                data : locationCoords
+                data : query
             })
             .success(function(response){
                 defer.resolve(response.data);
