@@ -46,7 +46,7 @@ angular.module('perna').directive('liveviewModule', ['routes',
                 element.attr('data-w', scope.module.size.w);
                 element.attr('data-h', scope.module.size.h);
                 element.attr('data-x', scope.module.position.x);
-                element.attr('data-y', scope.module.position.y)
+                element.attr('data-y', scope.module.position.y);
             },
             transclude: true
         };
