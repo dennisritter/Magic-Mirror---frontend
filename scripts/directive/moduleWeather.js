@@ -12,11 +12,15 @@ angular.module('perna').directive('moduleWeather', ['routes',
             templateURL: routes.weather,
             controller: ['$scope', 'WeatherService',
                 function( $scope, WeatherService ){
-                    $scope.query = "default";
+                    $scope.query = "city";
+                    $scope.idLoc;
+                    $scope.locationSelected = "";
 
                     $scope.getLocations = function(){
+
+                        //check if query !> 3
+
                         var successCallback = function (response){
-                            console.log("locations matched query: ", response);
                             $scope.locationsFound = response.data;
                         };
                         var errorCallback = function (response){
@@ -24,6 +28,28 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         };
                         
                         WeatherService.autocompleteCity($scope.query).then(successCallback, errorCallback);
+                    };
+
+                    $scope.getWeatherData = function() {
+
+                        var successCallback = function (response){
+                            console.log("das hat geklappt. response: " + response);
+                            $scope.weatherData = response.data;
+                        };
+                        var errorCallback = function (response ){
+                            console.error(response);
+                        };
+
+                        WeatherService.getWeatherFor(12345).then(successCallback, errorCallback);
+
+                    };
+
+                    $scope.printLoc = function(id) {
+                        console.log("the id is: " + id);
+                    };
+
+                    $scope.setId = function(id) {
+                        console.log(id);
                     };
                 }]
             
