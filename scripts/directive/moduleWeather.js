@@ -12,12 +12,12 @@ angular.module('perna').directive('moduleWeather', ['routes',
             templateURL: routes.weather,
             controller: ['$scope', 'WeatherService',
                 function( $scope, WeatherService ){
-                    $scope.query = "default";                    
-                    
+                    $scope.query = "default";
+
                     $scope.getLocations = function(){
                         var successCallback = function (response){
                             console.log("locations matched query: ", response);
-                            $scope.locations = response.data;
+                            $scope.locationsFound = response.data;
                         };
                         var errorCallback = function (response){
                             console.error(response);
