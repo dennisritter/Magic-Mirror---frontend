@@ -17,14 +17,15 @@ angular.module('perna').directive('liveviewModule', ['routes',
                             h: 1
                         },
                         position: {
-                            x: 1,
-                            y: 1,
+                            x: 0,
+                            y: 0,
                         }
                     };
 
                     $scope.resize = function(w, h){
-                        console.log(w,h);
-                    }
+                        $scope.module.size.w = w;
+                        $scope.module.size.h = h;
+                    };
                     /*
                      * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
                      * für jedes Item zur Verfügung.
@@ -45,8 +46,9 @@ angular.module('perna').directive('liveviewModule', ['routes',
                 element.attr('data-w', scope.module.size.w);
                 element.attr('data-h', scope.module.size.h);
                 element.attr('data-x', scope.module.position.x);
-                element.attr('data-y', scope.module.position.y);
-            }
+                element.attr('data-y', scope.module.position.y)
+            },
+            transclude: true
         };
     }])
 ;

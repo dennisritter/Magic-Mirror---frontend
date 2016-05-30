@@ -1,5 +1,5 @@
-angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService',
-    function ($scope, $state, AuthService, MouseService, CalendarService) {
+angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService', 'GridService',
+    function ($scope, $state, AuthService, MouseService, CalendarService, GridService) {
         
         $scope.mouseIsMoving = function () {
             MouseService.mouseIsMoving();
@@ -16,12 +16,12 @@ angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthSe
 
             AuthService.logout().then(successCallback, errorCallback);
         };
-
+        /*
+         * Moved to liveviewCtrl
         $scope.addCalendar = function () {
             if (CalendarService.calendars.length === 0) {
                 getCalendars();
             }
-            //TODO: make new container including a calendar
         };
 
         var getCalendars = function () {
@@ -33,6 +33,6 @@ angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthSe
             };
             CalendarService.getCalendars().then(successCallback, errorCallback);
         };
-
+        */
 
     }]);

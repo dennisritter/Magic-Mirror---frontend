@@ -11,8 +11,8 @@ angular.module('perna').service('GridService', [
                 size: 3,
                 dom: $('#grid'),
                 modules: []
-            }
-        }
+            };
+        };
         /**
          * @name: buildGrid()
          * @desc: Defines where to build the grid within the DOM.
@@ -21,6 +21,7 @@ angular.module('perna').service('GridService', [
             this.grid.dom.gridList({
                 lanes: this.grid.size
             });
+            console.log("built grid.");
         };
 
         /**
@@ -29,6 +30,8 @@ angular.module('perna').service('GridService', [
          */
         GridService.prototype.addModule = function (module) {
             this.grid.modules.push(module);
+            console.log("Added module to Gridservice.grid.modules");
+            console.log("modules: ", this.grid.modules);
         };
 
         /* Hier brauchen wir -möglicherweise- noch eine update Array-Methode,
@@ -45,7 +48,5 @@ angular.module('perna').service('GridService', [
         //         items[i].y = element.attr('data-y');
         //     });
         // };
-        
-
         return new GridService();
     }]);
