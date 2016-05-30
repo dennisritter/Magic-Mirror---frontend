@@ -14,14 +14,35 @@
 
          LocationService.prototype.determineUserLocation = function() {
             //get LocationID using the html5 geolocation api and perna api
+            var locationCoords = ;
             var deferred = $q.defer();
             $http({
-                url : api.weather_nearby;
+                url : api.weather_nearby,
+                method : 'GET',
+                data : locationCoords
+            })
+            .success(function(response){
+                this.userLocationID = response.id;
+                defer.resolve();
+            })
+            .error(function(response){
+                defer.reject(response);
             })
          }
 
          LocationService.prototype.provideAutocompleteResults = function(query) {
-            //get up to 10 LocationID`s for the provided search query and provide them to the calling function
+            var deferred = $q.defer();
+            $http({
+                url : api.weather_nearby,
+                method : 'GET',
+                data : locationCoords
+            })
+            .success(function(response){
+                defer.resolve(response.data);
+            })
+            .error(function(response){
+                defer.reject(response);
+            })
          }
          return new LocationService();
      }]);
