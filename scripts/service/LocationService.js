@@ -13,7 +13,6 @@
          };
 
          LocationService.prototype.determineUserLocation = function() {
-            //get LocationID using the html5 geolocation api and perna api
             var locationCoords = ;
             var deferred = $q.defer();
             $http({
