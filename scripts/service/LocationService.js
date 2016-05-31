@@ -12,6 +12,9 @@ function ($http, $q, api) {
         this.userLocationID = undefined;
     };
 
+    /**
+    * @desc Uses the HTML5 geolocation api to get the users coordinates and uses them to return up to 10 examples of nearby cities
+    */
     LocationService.prototype.determineUserLocation = function() {
         var locationCoords = navigator.geolocation.getCurrentLocation();
         var deferred = $q.defer();
@@ -24,14 +27,17 @@ function ($http, $q, api) {
             }
         })
         .success(function(response){
-            this.userLocationID = response.id;
-            defer.resolve();
+            defer.resolve(response.data);
         })
         .error(function(response){
             defer.reject(response);
         })
     };
 
+    /**
+    * @param A string containing the query
+    * @desc Uses the "autocomplete" endpoint to return up to 10 results for the provided query
+    */
     LocationService.prototype.provideAutocompleteResults = function(query) {
         var deferred = $q.defer();
         $http({
@@ -47,6 +53,14 @@ function ($http, $q, api) {
         .error(function(response){
             defer.reject(response);
         })
+    };
+
+    /**
+    * @param A CityID
+    * @desc Sets the userLocationID for later userLocationID
+    */
+    LocationService.prototype.setUserLocationID(id){
+        this.userLocationID = id;
     };
     return new LocationService();
 }]);
