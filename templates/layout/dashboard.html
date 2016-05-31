@@ -6,15 +6,14 @@
                     <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
                     <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
                     <button type="button" class="btn btn-danger" ng-click="addCalendar()">New Calendar Module</button>
-                    <button type="button" class="btn btn-success" ng-click="addModule()">Add a new Module</button>
+                    <button type="button" class="btn btn-success" ng-click="addDefaultModule()">Add a new Module</button>
                 </div>
                 <ul id="grid" class="grid">
                     <li class="position-highlight">
                         <div class="inner">
                         </div>
                     </li>
-                    <li liveview-module ng-model="modules" ng-repeat="module in modules track by $index">
-                        <module-calendar></module-calendar>
+                    <li liveview-module class="grid__module" ng-model="modules" ng-repeat="module in modules track by $index">
                     </li>
                 </ul>
             </div>

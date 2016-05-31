@@ -88,7 +88,6 @@
         },
 
         _init: function () {
-            console.log("Initializing Grid...");
             // Read items and their meta data. Ignore other list elements (like the
             // position highlight)
             this.$items = this.$element.children(this.options.itemSelector);

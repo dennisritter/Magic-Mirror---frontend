@@ -14,8 +14,7 @@ angular.module('perna').service('GridService', [
                     {
                         size: {w: 1, h: 1},
                         position: {x: 0, y: 0,},
-                        id: 0,
-                        type: "calendar"
+                        type: 'calendar'
                     }
                 ]
             };
@@ -28,7 +27,7 @@ angular.module('perna').service('GridService', [
             this.grid.dom.gridList({
                 lanes: this.grid.size
             });
-            console.log("built grid.");
+            // console.log("built grid.");
         };
 
         /**
@@ -36,11 +35,7 @@ angular.module('perna').service('GridService', [
          * @desc: Adds a new module to the modules array
          */
         GridService.prototype.addModule = function (module) {
-            //generate module-ID
-            //module.id = NEW MODULE ID
             this.grid.modules.push(module);
-            console.log("Added module to Gridservice.grid.modules");
-            console.log("modules: ", this.grid.modules);
         };
 
         /* Hier brauchen wir -möglicherweise- noch eine update Array-Methode,

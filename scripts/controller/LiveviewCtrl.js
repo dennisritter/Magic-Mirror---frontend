@@ -13,7 +13,6 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'Ca
 
         $scope.modules = [];
 
-        var DEFAULT_MODULE = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, id: 0};
         $scope.$watch(function () {
                 return GridService.grid.modules;
             },
@@ -21,8 +20,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'Ca
                 $scope.modules = GridService.grid.modules;
             });
 
-        $scope.addModule = function () {
-            GridService.addModule(DEFAULT_MODULE);
+        var addModule = function (module) {
+            GridService.addModule(module);
             refreshGrid();
         };
 
@@ -36,9 +35,15 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'Ca
             CalendarService.getCalendars().then(successCallback, errorCallback);
         };
 
+        var defaultModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'naked'};
+        $scope.addDefaultModule = function () {
+            addModule(defaultModule);
+        };
+
+        var calendarModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'calendar'};
         $scope.addCalendar = function () {
             getCalendars();
-            $scope.addModule();
+            addModule(calendarModule);
         };
 
 

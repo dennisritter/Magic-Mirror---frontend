@@ -19,8 +19,29 @@ angular.module('perna').directive('liveviewModule', ['routes',
                         position: {
                             x: 0,
                             y: 0,
-                        }
+                        },
+                        type: undefined
                     };
+
+                    $scope.index = undefined;
+
+                    $scope.setIndex = function(index){
+                        $scope.index = index;
+                    };
+
+                    $scope.$watch(
+                        function(){
+                            if($scope.index !== undefined){
+                                return GridService.grid.modules[$scope.index];
+                            }
+                        }, function(){
+                            $scope.module = GridService.grid.modules[$scope.index];
+                            console.log("I updated my Module-Data, this is me: ",  $scope.module );
+                            console.log("My Index is: ",  $scope.index );
+                            console.log("============================================================");
+                            console.log("This is the current grid: ", GridService.grid.modules);
+                        }
+                    );
 
                     $scope.resize = function(w, h){
                         $scope.module.size.w = w;
@@ -47,8 +68,7 @@ angular.module('perna').directive('liveviewModule', ['routes',
                 element.attr('data-h', scope.module.size.h);
                 element.attr('data-x', scope.module.position.x);
                 element.attr('data-y', scope.module.position.y);
-            },
-            transclude: true
+            }
         };
     }])
 ;
