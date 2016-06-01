@@ -1,28 +1,28 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'CalendarService',
-    function ($scope, GridService, CalendarService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService', 'CalendarService',
+    function ($scope, LiveviewService, CalendarService) {
 
         /**
-         * @desc: Load the Grid after pageload is completed.
+         * @desc: Load the Liveview after pageload is completed.
          */
-        var refreshGrid = function () {
+        var refreshLiveview = function () {
             angular.element(document).ready(function () {
-                GridService.buildGrid();
+                LiveviewService.buildLiveview();
             });
         };
-        refreshGrid();
+        refreshLiveview();
 
         $scope.modules = [];
 
         $scope.$watch(function () {
-                return GridService.grid.modules;
+                return LiveviewService.liveview.modules;
             },
             function () {
-                $scope.modules = GridService.grid.modules;
+                $scope.modules = LiveviewService.liveview.modules;
             });
 
         var addModule = function (module) {
-            GridService.addModule(module);
-            refreshGrid();
+            LiveviewService.addModule(module);
+            refreshLiveview();
         };
 
         var getCalendars = function () {
@@ -51,22 +51,5 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'Ca
         //     getCalendars();
         //     addModule(calendarModule);
         // };
-
-
-        /*
-         * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
-         * für jedes Item zur Verfügung.
-         * */
-        $('#grid li .resize').click(function (e) {
-            e.preventDefault();
-            var itemElement = $(e.currentTarget).closest('li'),
-                itemWidth = $(e.currentTarget).data('w'),
-                itemHeight = $(e.currentTarget).data('h');
-
-            $('#grid').gridList('resizeItem', itemElement, {
-                w: itemWidth,
-                h: itemHeight
-            });
-        });
 
     }]);

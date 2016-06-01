@@ -1,5 +1,5 @@
-angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService', 'GridService',
-    function ($scope, $state, AuthService, MouseService, CalendarService, GridService) {
+angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthService', 'MouseService', 'CalendarService',
+    function ($scope, $state, AuthService, MouseService) {
         
         $scope.mouseIsMoving = function () {
             MouseService.mouseIsMoving();

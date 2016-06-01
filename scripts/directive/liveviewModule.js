@@ -9,8 +9,8 @@ angular.module('perna').directive('liveviewModule', ['routes',
         return {
             restrict: 'AE',
             templateUrl: routes.module,
-            controller: ['$scope', 'GridService',
-                function ($scope, GridService) {
+            controller: ['$scope', 'LiveviewService',
+                function ($scope, LiveviewService) {
 
 
                     $scope.module = {
@@ -33,21 +33,21 @@ angular.module('perna').directive('liveviewModule', ['routes',
 
                     $scope.setIndex = function(index){
                         $scope.index = index;
-                        updateModule(GridService.grid.modules[index]);
+                        updateModule(LiveviewService.liveview.modules[index]);
                     };
 
                     $scope.$watch(
                         function(){
                             if($scope.index !== undefined){
-                                return GridService.grid.modules[$scope.index];
+                                return LiveviewService.liveview.modules[$scope.index];
                             }
                         }, function(){
-                            updateModule(GridService.grid.modules[$scope.index]);
+                            updateModule(LiveviewService.liveview.modules[$scope.index]);
                             $scope.resize($scope.module.size.w, $scope.module.size.h);
                             console.log("I updated my Module-Data, this is me: ",  $scope.module );
                             console.log("My Index is: ",  $scope.index );
                             console.log("============================================================");
-                            console.log("This is the current grid: ", GridService.grid.modules);
+                            console.log("This is the current liveview: ", LiveviewService.liveview.modules);
                         }
                     );
 
