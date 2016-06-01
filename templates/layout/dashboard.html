@@ -1,13 +1,13 @@
 <div ng-controller="DashboardCtrl">
-    <div class="container">
+    <div class="container" ng-controller="LiveviewCtrl">
         <div class="row">
-            <div ng-controller="LiveviewCtrl" class="grid-container" ng-mousemove="mouseIsMoving()">
-                <div class="button-bar" show-on-mouse-move>
-                    <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
-                    <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
-                    <button type="button" class="btn btn-danger" ng-click="addCalendar()">New Calendar Module</button>
-                    <button type="button" class="btn btn-success" ng-click="addDefaultModule()">Add a new Module</button>
-                </div>
+            <div class="button-bar" show-on-mouse-move>
+                <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
+                <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
+                <button type="button" class="btn btn-danger" ng-click="addCalendar()">New Calendar Module</button>
+                <button type="button" class="btn btn-success" ng-click="addDefaultModule()">Add a new Module</button>
+            </div>
+            <div class="grid-container" ng-mousemove="mouseIsMoving()">
                 <ul id="grid" class="grid">
                     <li class="position-highlight">
                         <div class="inner">

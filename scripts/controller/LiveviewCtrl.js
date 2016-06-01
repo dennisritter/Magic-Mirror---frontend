@@ -40,11 +40,17 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'GridService', 'Ca
             addModule(defaultModule);
         };
 
-        var calendarModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'calendar'};
+        var calendarModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar'};
         $scope.addCalendar = function () {
             getCalendars();
             addModule(calendarModule);
         };
+
+        // var weatherModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar'};
+        // $scope.addWeather = function () {
+        //     getCalendars();
+        //     addModule(calendarModule);
+        // };
 
 
         /*

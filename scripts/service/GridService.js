@@ -7,16 +7,15 @@ angular.module('perna').service('GridService', [
          * @desc:
          */
         var GridService = function () {
+            /**
+             * @name grid
+             * @desc Describes the grid and it´s modules
+             * @type {{size: number, dom: (*|jQuery|HTMLElement), modules: Array}}
+             */
             this.grid = {
                 size: 3,
                 dom: $('#grid'),
-                modules: [
-                    {
-                        size: {w: 1, h: 1},
-                        position: {x: 0, y: 0,},
-                        type: 'calendar'
-                    }
-                ]
+                modules: []
             };
         };
         /**
@@ -37,20 +36,6 @@ angular.module('perna').service('GridService', [
         GridService.prototype.addModule = function (module) {
             this.grid.modules.push(module);
         };
-
-        /* Hier brauchen wir -möglicherweise- noch eine update Array-Methode,
-         die die Elemente aus dem DOM zieht und sie im item array speichert.
-         So klappts auf jeden fall nicht:*/
-
-        // var updateItems = function(){
-        //     var liste = $('#grid li');
-        //     liste.each(function(i, element){
-        //         var element = $(element);
-        //         items[i].w = element.attr('data-w');
-        //         items[i].h = element.attr('data-h');
-        //         items[i].x = element.attr('data-x');
-        //         items[i].y = element.attr('data-y');
-        //     });
-        // };
+        
         return new GridService();
     }]);

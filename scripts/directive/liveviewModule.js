@@ -11,6 +11,8 @@ angular.module('perna').directive('liveviewModule', ['routes',
             templateUrl: routes.module,
             controller: ['$scope', 'GridService',
                 function ($scope, GridService) {
+
+
                     $scope.module = {
                         size: {
                             w: 1,
@@ -25,8 +27,13 @@ angular.module('perna').directive('liveviewModule', ['routes',
 
                     $scope.index = undefined;
 
+                    var updateModule = function(newModule){
+                        $scope.module = newModule;
+                    };
+
                     $scope.setIndex = function(index){
                         $scope.index = index;
+                        updateModule(GridService.grid.modules[index]);
                     };
 
                     $scope.$watch(
@@ -35,7 +42,8 @@ angular.module('perna').directive('liveviewModule', ['routes',
                                 return GridService.grid.modules[$scope.index];
                             }
                         }, function(){
-                            $scope.module = GridService.grid.modules[$scope.index];
+                            updateModule(GridService.grid.modules[$scope.index]);
+                            $scope.resize($scope.module.size.w, $scope.module.size.h);
                             console.log("I updated my Module-Data, this is me: ",  $scope.module );
                             console.log("My Index is: ",  $scope.index );
                             console.log("============================================================");
@@ -47,6 +55,7 @@ angular.module('perna').directive('liveviewModule', ['routes',
                         $scope.module.size.w = w;
                         $scope.module.size.h = h;
                     };
+
                     /*
                      * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
                      * für jedes Item zur Verfügung.
