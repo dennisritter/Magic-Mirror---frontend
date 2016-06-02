@@ -16,23 +16,5 @@ angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthSe
 
             AuthService.logout().then(successCallback, errorCallback);
         };
-        /*
-         * Moved to liveviewCtrl
-        $scope.addCalendar = function () {
-            if (CalendarService.calendars.length === 0) {
-                getCalendars();
-            }
-        };
-
-        var getCalendars = function () {
-            var successCallback = function (response) {
-                console.log("Loaded available Calendars");
-            };
-            var errorCallback = function (response) {
-                console.error(response);
-            };
-            CalendarService.getCalendars().then(successCallback, errorCallback);
-        };
-        */
 
     }]);

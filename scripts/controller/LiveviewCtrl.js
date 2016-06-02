@@ -18,6 +18,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             },
             function () {
                 $scope.modules = LiveviewService.liveview.modules;
+                // console.log("Current Liveview Modules: ", LiveviewService.liveview.modules);
             });
 
         var addModule = function (module) {
@@ -25,9 +26,9 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             refreshLiveview();
         };
 
-        var getCalendars = function () {
+        var getAvailableCalendars = function () {
             var successCallback = function (response) {
-                console.log("Loaded available Calendars");
+                // console.log("Loaded available Calendars");
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -35,18 +36,18 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             CalendarService.getCalendars().then(successCallback, errorCallback);
         };
 
-        var defaultModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'naked'};
+        var defaultModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'naked', typeData: {}};
         $scope.addDefaultModule = function () {
             addModule(defaultModule);
         };
 
-        var calendarModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar'};
+        var calendarModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar', typeData: { calendarIds: [] }};
         $scope.addCalendar = function () {
-            getCalendars();
-            addModule(calendarModule);
+            getAvailableCalendars();
+            addModule(  angular.copy(calendarModule) );
         };
 
-        // var weatherModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar'};
+        // var weatherModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar', typeData: {}};
         // $scope.addWeather = function () {
         //     getCalendars();
         //     addModule(calendarModule);

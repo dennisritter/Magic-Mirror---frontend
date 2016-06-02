@@ -22,7 +22,8 @@ angular.module('perna').directive('liveviewModule', ['routes',
                             x: 0,
                             y: 0,
                         },
-                        type: undefined
+                        type: undefined,
+                        typeData: {}
                     };
 
                     $scope.index = undefined;
@@ -35,19 +36,20 @@ angular.module('perna').directive('liveviewModule', ['routes',
                         $scope.index = index;
                         updateModule(LiveviewService.liveview.modules[index]);
                     };
+                    $scope.getIndex = function(){
+                        return $scope.index;
+                    };
 
-                    $scope.$watch(
-                        function(){
+                    $scope.$watch( function(){
                             if($scope.index !== undefined){
                                 return LiveviewService.liveview.modules[$scope.index];
                             }
                         }, function(){
                             updateModule(LiveviewService.liveview.modules[$scope.index]);
-                            $scope.resize($scope.module.size.w, $scope.module.size.h);
-                            console.log("I updated my Module-Data, this is me: ",  $scope.module );
-                            console.log("My Index is: ",  $scope.index );
-                            console.log("============================================================");
-                            console.log("This is the current liveview: ", LiveviewService.liveview.modules);
+                            // console.log("I updated my Module-Data, this is me: ",  $scope.module );
+                            // console.log("My Index is: ",  $scope.index );
+                            // console.log("============================================================");
+                            // console.log("This is the current liveview: ", LiveviewService.liveview.modules);
                         }
                     );
 
