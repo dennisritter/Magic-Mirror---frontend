@@ -11,25 +11,25 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
              * @name liveview
              * @desc Describes the liveview and it´s modules
              * @type {{size: number, dom: (*|jQuery|HTMLElement), modules: Array}}
-             * example for a module in the modules array
-             *     modules = [{
-                        size: {
-                            w: 1,
-                            h: 1
-                        },
-                        position: {
-                            x: 0,
-                            y: 0,
-                        },
-                        type: undefined,
-                        typeData: {}
-                  }];
+             * example for a module in the modules array below
              */
             this.liveview = {
                 size: 3,
                 dom: $('#grid'),
                 modules: []
             };
+            /** modules = [{
+                size: {
+                    w: 1,
+                    h: 1
+                },
+                position: {
+                    x: 0,
+                    y: 0,
+                },
+                type: undefined,
+                typeData: {}
+            }]; */
         };
 
         LiveviewService.prototype.prepareLiveviewData = function () {
@@ -68,7 +68,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             var defer = $q.defer();
             $http({
                 url: 'http://api.perna.dev/v1/modules',
-                methd: 'PUT',
+                method: 'PUT',
                 data: liveviewData
             })
                 .success(function (response) {
