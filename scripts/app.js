@@ -1,4 +1,7 @@
+angular.module('perna-filter', []);
+
 angular.module('perna', [
+    'perna-filter',
     'ngMessages',
     'ui.router',
     'ngPassword',
