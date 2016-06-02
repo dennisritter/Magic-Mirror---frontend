@@ -62,13 +62,18 @@ function ($http, $q, api) {
     LocationService.prototype.setUserLocationID(id){
         this.userLocationID = id;
     };
+
+    /**
+    * @param A CityID
+    * @desc Retrieves the data for a specified ID
+    */
     LocationService.prototype.getCityData(id){
         var deferred = $q.defer();
         $http({
-            url : api.weather_autocomplete,
+            url : api.city_data,
             method : 'GET',
             params : {
-                query : query
+                id : id
             }
         })
         .success(function(response){

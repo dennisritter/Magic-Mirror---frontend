@@ -20,5 +20,6 @@ angular.module('perna', [
     calendars: 'http://api.perna.dev/v1/calendar/calendars',
     events: 'http://api.perna.dev/v1/calendar/events',
     weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
-    weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby'
+    weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby',
+    city_data: 'http://api.perna.dev/v1/weather/locations/'
 });
