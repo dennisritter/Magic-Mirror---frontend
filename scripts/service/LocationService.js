@@ -57,14 +57,6 @@ function ($http, $q, api) {
 
     /**
     * @param A CityID
-    * @desc Sets the userLocationID for later use
-    */
-    LocationService.prototype.setUserLocationID(id){
-        this.userLocationID = id;
-    };
-
-    /**
-    * @param A CityID
     * @desc Retrieves the data for a specified ID
     */
     LocationService.prototype.getCityData(id){
@@ -83,5 +75,14 @@ function ($http, $q, api) {
             defer.reject(response);
         })
     };
+
+    /**
+    * @param A CityID
+    * @desc Sets the userLocationID for later use
+    */
+    LocationService.prototype.setUserLocationID(id){
+        this.userLocationID = id;
+    };
+
     return new LocationService();
 }]);
