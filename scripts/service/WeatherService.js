@@ -25,6 +25,8 @@ angular.module('perna').service('WeatherService', ['$http', '$q', 'api',
             .error(function(response){
                 deferred.reject(response);
             });
+
+        return deferred.promise;
         
     };
         

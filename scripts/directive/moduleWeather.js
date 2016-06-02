@@ -5,20 +5,16 @@
  * Manages and describes the functioning and structure of a weather module.
  */
 
-angular.module('perna').directive('moduleWeather', ['routes', 
-    function( routes ) {
+angular.module('perna').directive('moduleWeather', ['routes',
+    function( routes  ) {
         return {
             restrict: 'E',
             templateURL: routes.weather,
             controller: ['$scope', 'WeatherService',
                 function( $scope, WeatherService ){
                     $scope.query = "city";
-                    $scope.idLoc;
-                    $scope.locationSelected = "";
-
+                    $scope.citySelected = false;
                     $scope.getLocations = function(){
-
-                        //check if query !> 3
 
                         var successCallback = function (response){
                             $scope.locationsFound = response.data;
@@ -30,27 +26,23 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         WeatherService.autocompleteCity($scope.query).then(successCallback, errorCallback);
                     };
 
-                    $scope.getWeatherData = function() {
+                    $scope.getWeatherData = function(id, location) {
 
+                        $scope.location = location;
+                        
                         var successCallback = function (response){
-                            console.log("das hat geklappt. response: " + response);
                             $scope.weatherData = response.data;
+                            console.log("das hat geklappt. response: " + $scope.weatherData.daily[0].temperature.average.toString());
+                            $scope.citySelected = true;
                         };
                         var errorCallback = function (response ){
                             console.error(response);
                         };
 
-                        WeatherService.getWeatherFor(12345).then(successCallback, errorCallback);
+                        WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
-                    };
-
-                    $scope.printLoc = function(id) {
-                        console.log("the id is: " + id);
-                    };
-
-                    $scope.setId = function(id) {
-                        console.log(id);
-                    };
+                    };   
+                    
                 }]
             
         };
