@@ -59,7 +59,7 @@ function ($http, $q, api) {
     * @param A CityID
     * @desc Retrieves the data for a specified ID
     */
-    LocationService.prototype.getCityData(id){
+    LocationService.prototype.getCityData = function(id){
         var deferred = $q.defer();
         $http({
             url : api.city_data,
@@ -80,7 +80,7 @@ function ($http, $q, api) {
     * @param A CityID
     * @desc Sets the userLocationID for later use
     */
-    LocationService.prototype.setUserLocationID(id){
+    LocationService.prototype.setUserLocationID = function(id){
         this.userLocationID = id;
     };
 
