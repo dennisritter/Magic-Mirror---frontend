@@ -1,4 +1,7 @@
+angular.module('perna-filter', []);
+
 angular.module('perna', [
+    'perna-filter',
     'ngMessages',
     'ui.router',
     'ngPassword',
@@ -21,5 +24,9 @@ angular.module('perna', [
     events: 'http://api.perna.dev/v1/calendar/events',
     weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
     weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby',
+<<<<<<< HEAD
     city_data: 'http://api.perna.dev/v1/weather/locations/'
+=======
+    weather_getWeather: 'http://api.perna.dev/v1/weather/'
+>>>>>>> feature/weather-module
 });
