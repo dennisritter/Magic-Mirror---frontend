@@ -10,26 +10,37 @@ angular.module('perna').directive('moduleWeather', ['routes',
         return {
             restrict: 'E',
             templateURL: routes.weather,
-            controller: ['$scope', 'WeatherService',
-                function( $scope, WeatherService ){
+            controller: ['$scope', 'WeatherService', 'LocationService',
+                function( $scope, WeatherService, LocationService ){
                     $scope.query = "city";
                     $scope.citySelected = false;
                     $scope.getLocations = function(){
 
                         var successCallback = function (response){
-                            $scope.locationsFound = response.data;
+                            $scope.locationsFound = response;
                         };
                         var errorCallback = function (response){
                             console.error(response);
                         };
-                        
-                        WeatherService.autocompleteCity($scope.query).then(successCallback, errorCallback);
+
+                        LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
                     };
+
+                    $scope.locateUser = function(){
+                        var successCallback = function (response){
+                            $scope.locationsFound = response;
+                        };
+                        var errorCallback = function (response){
+                            console.error(response);
+                        };
+
+                        LocationService.determineUserLocation().then(successCallback, errorCallback);
+                    }
 
                     $scope.getWeatherData = function(id, location) {
 
                         $scope.location = location;
-                        
+
                         var successCallback = function (response){
                             $scope.weatherData = response.data;
                             console.log("das hat geklappt. response: " + $scope.weatherData.daily[0].temperature.average.toString());
@@ -41,12 +52,11 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
-                    };   
-                    
+                    };
                 }]
-            
+
         };
 
-    
+
     }
 ]);

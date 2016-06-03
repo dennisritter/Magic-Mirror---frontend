@@ -16,8 +16,7 @@ function ($http, $q, api) {
     * @desc Uses the HTML5 geolocation api to get the users coordinates and uses them to return up to 10 examples of nearby cities
     */
     LocationService.prototype.determineUserLocation = function() {
-        var locationCoords = navigator.geolocation.getCurrentLocation();
-        var deferred = $q.defer();
+        var defer = $q.defer();
         $http({
             url : api.weather_nearby,
             method : 'GET',
@@ -31,7 +30,8 @@ function ($http, $q, api) {
         })
         .error(function(response){
             defer.reject(response);
-        })
+        });
+        return defer.promise;
     };
 
     /**
@@ -39,7 +39,7 @@ function ($http, $q, api) {
     * @desc Uses the "autocomplete" endpoint to return up to 10 results for the provided query
     */
     LocationService.prototype.provideAutocompleteResults = function(query) {
-        var deferred = $q.defer();
+        var defer = $q.defer();
         $http({
             url : api.weather_autocomplete,
             method : 'GET',
@@ -52,7 +52,8 @@ function ($http, $q, api) {
         })
         .error(function(response){
             defer.reject(response);
-        })
+        });
+        return defer.promise;
     };
 
     /**
@@ -60,7 +61,7 @@ function ($http, $q, api) {
     * @desc Retrieves the data for a specified ID
     */
     LocationService.prototype.getCityData = function(id){
-        var deferred = $q.defer();
+        var defer = $q.defer();
         $http({
             url : api.city_data,
             method : 'GET',
@@ -73,7 +74,8 @@ function ($http, $q, api) {
         })
         .error(function(response){
             defer.reject(response);
-        })
+        });
+        return defer.promise;
     };
 
     /**
