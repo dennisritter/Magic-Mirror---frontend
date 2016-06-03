@@ -5,15 +5,16 @@
  * Manages and describes the functioning and structure of a weather module.
  */
 
-angular.module('perna').directive('moduleWeather', ['routes',
+angular.module('perna').directive('moduleWeather', ['routes', 
     function( routes  ) {
         return {
             restrict: 'E',
             templateURL: routes.weather,
             controller: ['$scope', 'WeatherService', 'LocationService',
                 function( $scope, WeatherService, LocationService ){
-                    $scope.query = "city";
                     $scope.citySelected = false;
+                    $scope.location = "your city here";
+
                     $scope.getLocations = function(){
 
                         var successCallback = function (response){
@@ -22,8 +23,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         var errorCallback = function (response){
                             console.error(response);
                         };
-
-                        LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
+                        $scope.citySelected = false;
+                        LocationService.provideAutocompleteResults($scope.location).then(successCallback, errorCallback);
                     };
 
                     $scope.locateUser = function(){
