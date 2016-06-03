@@ -41,12 +41,12 @@ function ($http, $q, api) {
             .error(function(response){
                 defer.reject(response);
             });
-        };
+        }
 
         function error(err) {
             console.warn('ERROR(' + err.code + '): ' + err.message);
             defer.reject(response);
-        };
+        }
         navigator.geolocation.getCurrentPosition(success, error, options);
 
         return defer.promise;
