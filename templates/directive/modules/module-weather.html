@@ -1,10 +1,10 @@
 <module-weather>
     <form name="weatherSearch">
-        <input type="text" ng-model="query"  ng-change="getLocations()" style="color:black" list="locations">
+        <input type="text" ng-model="search.query"  ng-change="getLocations()" style="color:black" list="locations">
         <button type="button" class="btn btn-primary" ng-click="locateUser()" list="locations">Standort</span></button>
         <ul id="locations">
             <!--listenelemente klickbar gestalten: css coursor pointer-->
-                <li ng-repeat="location in locationsFound" ng-click="getWeatherData(location.id, location.name)">
+                <li ng-repeat="location in locationsFound" ng-click="getWeatherData(location.id, location.name)" ng-model="search.query">
                     {{ location.name + ', ' + location.countryCode }}
                 </li>
         </ul>
@@ -14,8 +14,8 @@
         <ul>
             <li ng-model="weatherData">
                 <ul>
-                    <li >{{ "Die heutige Durchschnittstemperatur für " + location + " beträgt: "
-                        + weatherData.daily[0].temperature.average.toString() }}</li>
+                    <li> Die heutige Durchschnittstemperatur für {{ location }} beträgt:
+                        {{ weatherData.daily[0].temperature.average | celsius }}</li>
                 </ul>
             </li>
         </ul>
