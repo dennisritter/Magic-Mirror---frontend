@@ -51,7 +51,6 @@ angular.module('perna').directive('liveviewModule', ['routes',
                     });
                 }],
             link: function (scope, element, attributes) {
-                console.log(scope.module);
                 element.attr('data-w', scope.module.size.w);
                 element.attr('data-h', scope.module.size.h);
                 element.attr('data-x', scope.module.position.x);
