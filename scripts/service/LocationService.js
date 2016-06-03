@@ -17,20 +17,38 @@ function ($http, $q, api) {
     */
     LocationService.prototype.determineUserLocation = function() {
         var defer = $q.defer();
-        $http({
-            url : api.weather_nearby,
-            method : 'GET',
-            params : {
-                latitude : locationCoords.latitude,
-                longitude : locationCoords.longitude
-            }
-        })
-        .success(function(response){
-            defer.resolve(response.data);
-        })
-        .error(function(response){
+
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function success(pos) {
+            var crd = pos.coords;
+
+            $http({
+                url : api.weather_nearby,
+                method : 'GET',
+                params : {
+                    latitude : crd.latitude,
+                    longitude : crd.longitude
+                }
+            })
+            .success(function(response){
+                defer.resolve(response.data);
+            })
+            .error(function(response){
+                defer.reject(response);
+            });
+        };
+
+        function error(err) {
+            console.warn('ERROR(' + err.code + '): ' + err.message);
             defer.reject(response);
-        });
+        };
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
         return defer.promise;
     };
 
