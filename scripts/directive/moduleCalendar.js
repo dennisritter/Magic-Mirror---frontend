@@ -74,23 +74,17 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                     };
 
                     var persist = function(){
-                        var successCallback = function (response) {
-                            console.log("Persisted the current liveview",response);
-                        };
-                        var errorCallback = function (response) {
-                            console.error("Persisting the current liveview failed: ", response);
-                        };
-                        LiveviewService.persist().then(successCallback, errorCallback);
+                        LiveviewService.persist();
                     };
 
                     $scope.save = function () {
                         $scope.configMode = false;
                         $scope.getEvents();
-                        console.log("All modules after calendarIds change: ",LiveviewService.liveview.modules);
                         persist();
                     };
                     
                     $scope.edit = function () {
+                        CalendarService.getAvailableCalendars();
                         $scope.configMode = true;
                     };
 

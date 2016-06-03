@@ -1,12 +1,13 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService', 'CalendarService',
-    function ($scope, LiveviewService, CalendarService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService',
+    function ($scope, $window, LiveviewService, CalendarService) {
         
         /**
-         * @desc: Load the Liveview after pageload is completed.
+         * @name: requestLiveview
+         * @desc: Request the Liveview after pageload is completed and build it immediatly.
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                // LiveviewService.unpackLiveviewData(angular.copy(response.data));
+                // console.log(response.data);
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -18,13 +19,31 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
         };
         requestLiveview();
 
+        /**
+         * @name: refreshLiveview
+         * @desc: Rebuilds the Liveview after the document is loaded completely
+         */
         var refreshLiveview = function () {
             angular.element(document).ready(function () {
                 LiveviewService.buildLiveview();
             });
         };
 
+        /**
+         * @name: addModule
+         * @desc: adds a module to the Liveview
+         * @param: module    The module to add.
+         */
+        var addModule = function (module) {
+            LiveviewService.addModule(module);
+            refreshLiveview();
+        };
+
         $scope.modules = [];
+
+        $window.addEventListener("moduleDragged", function(){
+            LiveviewService.persist();
+        });
 
         //Wieso watcht der watch-task nicht "richtig" (nach LiveviewService.unpackLiveviewData)?
         $scope.$watch(function () {
@@ -32,43 +51,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             },
             function () {
                 $scope.modules = LiveviewService.liveview.modules;
-                console.log("$watch Callback for liveview.modules: ", LiveviewService.liveview.modules);
                 refreshLiveview();
             });
 
-        var addModule = function (module) {
-            LiveviewService.addModule(module);
-            refreshLiveview();
+        $scope.getAvailableCalendars = function () {
+            CalendarService.getAvailableCalendars();
         };
 
-        var getAvailableCalendars = function () {
-            var successCallback = function (response) {
-                // console.log("Loaded available Calendars");
-            };
-            var errorCallback = function (response) {
-                console.error(response.error);
-            };
-            CalendarService.getCalendars().then(successCallback, errorCallback);
-        };
-
-        var defaultModule = {
-            "type": 'calendar',
-            "width": 1,
-            "height": 1,
-            "xPosition": 1,
-            "yPosition": 1,
-        };
-        $scope.addDefaultModule = function () {
-            addModule(defaultModule);
-        };
-
-        // var calendarModule = {
-        //     id: 0,
-        //     size: {w: 1, h: 3},
-        //     position: {x: 0, y: 0,},
-        //     type: 'calendar',
-        //     typeData: {calendarIds: []}
-        // };
+        // The default calendarModule.
         var calendarModule = {
             "type": 'calendar',
             "width": 1,
@@ -76,16 +66,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             "xPosition": 0,
             "yPosition": 0,
             "calendarIds": []
-        }
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
         $scope.addCalendar = function () {
-            getAvailableCalendars();
+            $scope.getAvailableCalendars();
             addModule(angular.copy(calendarModule));
         };
-
-        // var weatherModule = {size: {w: 1, h: 3}, position: {x: 0, y: 0,}, type: 'calendar', typeData: {}};
-        // $scope.addWeather = function () {
-        //     getCalendars();
-        //     addModule(calendarModule);
-        // };
 
     }]);

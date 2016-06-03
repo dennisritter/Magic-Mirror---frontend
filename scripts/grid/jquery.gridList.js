@@ -188,6 +188,12 @@
 
             this._applyPositionToItems();
             this._removePositionHighlight();
+
+            /**
+             * Author:  Dennis Ritter
+             * Desc:    Fires a moduleDragged-Event which triggers persisting the Liveview.
+             */
+            window.dispatchEvent(new Event('moduleDragged'));
         },
 
         _generateItemsFromDOM: function () {

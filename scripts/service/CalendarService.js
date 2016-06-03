@@ -10,13 +10,29 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
             this.calendars = [];
         };
 
+
+        /**
+         * @name: getAvailableCalendars
+         * @desc: Calls requestCalendars.
+         * @note: Frontend Service-Api function call from Controllers.
+         */
+        CalendarService.prototype.getAvailableCalendars = function(){
+            var successCallback = function (response) {
+                console.log("Loaded available Calendars");
+            };
+            var errorCallback = function (response) {
+                console.error(response.error);
+            };
+            this.requestCalendars().then(successCallback, errorCallback);
+        };
+
         /**
          * @name getCalendars
          * @desc Requests the users calendars from Server.
          * @param accessToken
          * @returns {Promise}
          */
-        CalendarService.prototype.getCalendars = function() {
+        CalendarService.prototype.requestCalendars = function() {
             var _calendarService = this;
             var defer = $q.defer();
             $http({
