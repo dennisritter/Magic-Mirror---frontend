@@ -22,14 +22,7 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                      * If false: show events view.
                      * @type {boolean}
                      */
-                    $scope.configMode = true;
-
-                    // $scope.module.calendarIds
-                    /**
-                     * @name: usedCalendarIds
-                     * @desc The Ids of the calendars used in this calendar module
-                     * @type {Array}
-                     */
+                    $scope.configMode = false;
 
                     /**
                      * @name events
@@ -55,14 +48,14 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                      * @param calendarId        The is of the calendar to Add/remove from the used calendars
                      */
                     $scope.updateUsedCalendars = function (calendarId) {
-                        console.log($scope.module.typeData.calendarIds);
-                        var index = $scope.module.typeData.calendarIds.indexOf(calendarId);
+                        console.log($scope.module.calendarIds);
+                        var index = $scope.module.calendarIds.indexOf(calendarId);
                         if (index > -1) {
-                            console.log("removing: ", $scope.module.typeData.calendarIds[index]);
-                            $scope.module.typeData.calendarIds.splice(index, 1);
+                            console.log("removing: ", $scope.module.calendarIds[index]);
+                            $scope.module.calendarIds.splice(index, 1);
                         } else {
-                            $scope.module.typeData.calendarIds.push(calendarId);
-                            console.log("added: ", $scope.module.typeData.calendarIds);
+                            $scope.module.calendarIds.push(calendarId);
+                            console.log("added: ", $scope.module.calendarIds);
                         }
                     };
 
@@ -77,7 +70,7 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         var errorCallback = function (response) {
                             console.error(response);
                         };
-                        CalendarService.getEvents($scope.module.typeData.calendarIds).then(successCallback, errorCallback);
+                        CalendarService.getEvents($scope.module.calendarIds).then(successCallback, errorCallback);
                     };
 
                     var persist = function(){
@@ -110,8 +103,14 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         };
                         LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
-                }]
+                }],
 
-            //link:
+            link: function(scope){
+                if(scope.module.calendarIds.length > 0){
+                    scope.getEvents();
+                }else {
+                    scope.configMode = true;
+                }
+            }
         };
     }]);

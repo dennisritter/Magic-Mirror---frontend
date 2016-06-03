@@ -1,12 +1,12 @@
 angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService', 'CalendarService',
     function ($scope, LiveviewService, CalendarService) {
-
+        
         /**
          * @desc: Load the Liveview after pageload is completed.
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                LiveviewService.unpackLiveviewData(angular.copy(response.data));
+                // LiveviewService.unpackLiveviewData(angular.copy(response.data));
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -51,7 +51,13 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
             CalendarService.getCalendars().then(successCallback, errorCallback);
         };
 
-        var defaultModule = {size: {w: 1, h: 1}, position: {x: 0, y: 0,}, type: 'naked', typeData: {}};
+        var defaultModule = {
+            "type": 'calendar',
+            "width": 1,
+            "height": 1,
+            "xPosition": 1,
+            "yPosition": 1,
+        };
         $scope.addDefaultModule = function () {
             addModule(defaultModule);
         };
@@ -63,6 +69,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', 'LiveviewService',
         //     type: 'calendar',
         //     typeData: {calendarIds: []}
         // };
+        var calendarModule = {
+            "type": 'calendar',
+            "width": 1,
+            "height": 3,
+            "xPosition": 0,
+            "yPosition": 0,
+            "calendarIds": []
+        }
         $scope.addCalendar = function () {
             getAvailableCalendars();
             addModule(angular.copy(calendarModule));

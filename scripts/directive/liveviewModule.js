@@ -14,22 +14,18 @@ angular.module('perna').directive('liveviewModule', ['routes',
             },
             controller: ['$scope', 'LiveviewService',
                 function ($scope, LiveviewService) {
-
-
+                    
                     // $scope.module = {
-                    //     size: {
-                    //         w: 1,
-                    //         h: 1
-                    //     },
-                    //     position: {
-                    //         x: 0,
-                    //         y: 0,
-                    //     },
-                    //     type: undefined,
-                    //     typeData: {}
+                    //     "id": 0,
+                    //     "type": 'calendar',
+                    //     "width": 1,
+                    //     "height": 3,
+                    //     "xPosition": 0,
+                    //     "yPosition": 0,
+                    //     "calendarIds": []
                     // };
 
-                    $scope.resize = function(w, h){
+                    $scope.resize = function (w, h) {
                         $scope.module.size.w = w;
                         $scope.module.size.h = h;
                     };
@@ -51,10 +47,10 @@ angular.module('perna').directive('liveviewModule', ['routes',
                     });
                 }],
             link: function (scope, element, attributes) {
-                element.attr('data-w', scope.module.size.w);
-                element.attr('data-h', scope.module.size.h);
-                element.attr('data-x', scope.module.position.x);
-                element.attr('data-y', scope.module.position.y);
+                element.attr('data-w', scope.module.width);
+                element.attr('data-h', scope.module.height);
+                element.attr('data-x', scope.module.xPosition);
+                element.attr('data-y', scope.module.yPosition);
             }
         };
     }])

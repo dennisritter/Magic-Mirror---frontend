@@ -32,53 +32,53 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             }]; */
         };
 
-        LiveviewService.prototype.prepareLiveviewData = function () {
-            var liveviewData = [];
-            var module = {};
-            var moduleType;
-            for (var i = 0; i < this.liveview.modules.length; i++) {
-                module = {
-                    "type": this.liveview.modules[i].type,
-                    "width": this.liveview.modules[i].size.w,
-                    "height": this.liveview.modules[i].size.h,
-                    "xPosition": this.liveview.modules[i].position.x,
-                    "yPosition": this.liveview.modules[i].position.y
-                };
-                //switch over possible moduleTypes and add necessary values for this type
-                moduleType = this.liveview.modules[i].type;
-                switch (moduleType) {
-                    case 'calendar':
-                        module.calendarIds = this.liveview.modules[i].typeData.calendarIds;
-                        break;
-                    default:
-                }
-                liveviewData.push(module);
-            }
-            return liveviewData;
-        };
+        // LiveviewService.prototype.prepareLiveviewData = function () {
+        //     var liveviewData = [];
+        //     var module = {};
+        //     var moduleType;
+        //     for (var i = 0; i < this.liveview.modules.length; i++) {
+        //         module = {
+        //             "type": this.liveview.modules[i].type,
+        //             "width": this.liveview.modules[i].size.w,
+        //             "height": this.liveview.modules[i].size.h,
+        //             "xPosition": this.liveview.modules[i].position.x,
+        //             "yPosition": this.liveview.modules[i].position.y
+        //         };
+        //         //switch over possible moduleTypes and add necessary values for this type
+        //         moduleType = this.liveview.modules[i].type;
+        //         switch (moduleType) {
+        //             case 'calendar':
+        //                 module.calendarIds = this.liveview.modules[i].typeData.calendarIds;
+        //                 break;
+        //             default:
+        //         }
+        //         liveviewData.push(module);
+        //     }
+        //     return liveviewData;
+        // };
 
-        LiveviewService.prototype.unpackLiveviewData = function (liveviewData) {
-            for (var i = 0; i < liveviewData.length; ++i) {
-                this.liveview.modules.push({
-                    id: liveviewData[i].id,
-                    type: liveviewData[i].type,
-                    size: {
-                        w: liveviewData[i].width,
-                        h: liveviewData[i].height
-                    },
-                    position: {
-                        x: liveviewData[i].xPosition,
-                        y: liveviewData[i].yPosition,
-                    },
-                    typeData: {
-                        calendarIds: liveviewData[i].calendarIds
-                    }
-                });
-                console.log("pushed: ", this.liveview.modules);
-            }
-            //Wieso löst der $watch task im LivevieCtrl nicht nach jedem push aus?
-            console.log("unpacked liveviewData: ", this.liveview.modules);
-        };
+        // LiveviewService.prototype.unpackLiveviewData = function (liveviewData) {
+        //     for (var i = 0; i < liveviewData.length; ++i) {
+        //         this.liveview.modules.push({
+        //             id: liveviewData[i].id,
+        //             type: liveviewData[i].type,
+        //             size: {
+        //                 w: liveviewData[i].width,
+        //                 h: liveviewData[i].height
+        //             },
+        //             position: {
+        //                 x: liveviewData[i].xPosition,
+        //                 y: liveviewData[i].yPosition,
+        //             },
+        //             typeData: {
+        //                 calendarIds: liveviewData[i].calendarIds
+        //             }
+        //         });
+        //         console.log("pushed: ", this.liveview.modules);
+        //     }
+        //     //Wieso löst der $watch task im LivevieCtrl nicht nach jedem push aus?
+        //     console.log("unpacked liveviewData: ", this.liveview.modules);
+        // };
 
         /**
          * @name persist
@@ -86,14 +86,15 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
          * @param typeData {}   necessary Data for a module type
          */
         LiveviewService.prototype.persist = function () {
-            var liveviewData = this.prepareLiveviewData();
+            var _liveviewService = this;
             var defer = $q.defer();
             $http({
                 url: 'http://api.perna.dev/v1/modules',
                 method: 'PUT',
-                data: liveviewData
+                data: _liveviewService.liveview.modules
             })
                 .success(function (response) {
+                    _liveviewService.liveview.modules = response.data;
                     defer.resolve(response);
                 })
                 .error(function (response) {
@@ -110,6 +111,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 method: 'GET',
             })
                 .success(function (response) {
+                    _liveviewService.liveview.modules = angular.copy(response.data);
                     defer.resolve(response);
                 })
                 .error(function (response) {
@@ -139,20 +141,20 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
         LiveviewService.prototype.deleteModule = function (module) {
             var defer = $q.defer();
             for (var i = 0; i < this.liveview.modules.length; ++i) {
-                if (this.liveview.modules[i].id === module.id) {
+                if (!('id' in module) && !('id' in this.liveview.modules[i])) {
+                    this.liveview.modules.splice(i);
+                    defer.resolve();
+                    return defer.promise;
+                }else if (this.liveview.modules[i].id === module.id) {
                     this.liveview.modules.splice(i);
                 }
-            }
-            if (module.id === 0) {
-                defer.resolve();
-                return defer.promise;
             }
             var _liveviewService = this;
             $http({
                 url: 'http://api.perna.dev/v1/modules/' + module.id,
                 method: 'DELETE',
             })
-                .success(function () {
+                .success(function (response) {
                     defer.resolve(response);
                 })
                 .error(function (response) {

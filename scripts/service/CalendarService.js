@@ -40,7 +40,7 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
          */
         CalendarService.prototype.getEvents = function(calendarIds){
             var defer = $q.defer();
-            console.log(calendarIds.join(","));
+            // console.log(calendarIds.join(","));
             $http({
                 url: api.events,
                 method: "GET",
