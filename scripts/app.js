@@ -25,5 +25,6 @@ angular.module('perna', [
     weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
     weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby',
     city_data: 'http://api.perna.dev/v1/weather/locations/',
-    weather_getWeather: 'http://api.perna.dev/v1/weather/'
+    weather_getWeather: 'http://api.perna.dev/v1/weather/',
+    city_search: 'http://api.perna.dev/v1/weather/locations/search'
 });
