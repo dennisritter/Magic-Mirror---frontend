@@ -1,27 +1,22 @@
-<div ng-controller="DashboardCtrl" ng-mousemove="mouseIsMoving()">
-
-  <!-- Testcontainer for the calendar module. Will be replaced by the liveView grid later-->
-  <div class="container">
-    <div class="row">
-      <div class="module col-sm-3 col-md-3 col-lg-3 js-module-01">
-        <module-calendar></module-calendar>
-      </div>
-      <div ng-controller="LiveviewCtrl" class="grid-container">
-        <button type="button" class="btn btn-success" ng-click="add()">Add a new Item </button>
-        <ul id="grid" class="grid">
-          <li class="position-highlight">
-            <div class="inner"></div>
-          </li>
-        </ul>
-
-      </div>
+<div ng-controller="DashboardCtrl">
+    <div class="container" ng-controller="LiveviewCtrl as liveview">
+        <div class="row">
+            <div class="button-bar" show-on-mouse-move>
+                <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
+                <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
+                <button type="button" class="btn btn-danger" ng-click="addCalendar()">New Calendar Module</button>
+                <button type="button" class="btn btn-success" ng-click="addDefaultModule()">Add a new Module</button>
+            </div>
+            <div class="grid-container" ng-mousemove="mouseIsMoving()">
+                <ul id="grid" class="grid">
+                    <li class="position-highlight">
+                        <div class="inner">
+                        </div>
+                    </li>
+                    <li liveview-module class="grid__module" module="module" ng-model="modules" ng-repeat="module in modules track by $index">
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="button-bar" show-on-mouse-move>
-      <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
-      <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
-      <button type="button" class="btn btn-danger" ng-click="addCalendar()">New Calendar Module</button>
-    </div>
-  </div>
-  <!-- Testcontainer for the calendar module. Will be replaced by the liveView grid later-->
-
 </div>

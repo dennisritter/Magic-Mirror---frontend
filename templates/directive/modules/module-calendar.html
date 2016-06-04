@@ -1,26 +1,30 @@
 <div class="calendar">
-  <div class="calendar-container--settings" ng-if="configMode">
-    <form name="calendarChooser">
-      <label class="calendar-checklist--availablecalendar" ng-repeat="calendar in availableCalendars">
-        <input
-          type="checkbox" class="calendar-checkbox--availablecalendar" ng-model="availableCalendars" ng-change="updateUsedCalendars(calendar.id)">
-        {{ calendar.summary }}
-      </label>
-    </form>
-    <button class="btn btn-info" ng-click="save()">Save</button>
-  </div>
-  <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit
-  </button>
-  <div class="calendar-container--events" ng-if="!configMode">
-    <ul>
-      <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events">
+    <div class="calendar-container--settings" ng-if="configMode">
+        <button class="button button__module--save" ng-click="save()">Save</button>
+        <button class="button button__module--save" ng-click="delete()">Del</button>
+        <form name="calendarChooser">
+            <label class="calendar-checklist--availablecalendar" ng-repeat="calendar in availableCalendars">
+                <input
+                        type="checkbox"
+                        class="calendar-checkbox--availablecalendar"
+                        ng-model="availableCalendars"
+                        ng-change="updateUsedCalendars(calendar.id)">
+                {{ calendar.summary }}
+            </label>
+        </form>
+    </div>
+    <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit
+    </button>
+    <div class="calendar-container--events" ng-if="!configMode">
         <ul>
-          <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
-          <li class="calendar-listitem--event--location">{{ event.location }}</li>
-          <li class="calendar-listitem--event--startTime">{{ event.startTime | date : 'shortTime' }}</li>
-          <li class="calendar-listitem--event--endTime">{{ event.endTime | date : 'shortTime' }}</li>
+            <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events">
+                <ul>
+                    <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
+                    <li class="calendar-listitem--event--location">{{ event.location }}</li>
+                    <li class="calendar-listitem--event--startTime">{{ event.startTime | date : 'shortTime' }}</li>
+                    <li class="calendar-listitem--event--endTime">{{ event.endTime | date : 'shortTime' }}</li>
+                </ul>
+            </li>
         </ul>
-      </li>
-    </ul>
-  </div>
+    </div>
 </div>
