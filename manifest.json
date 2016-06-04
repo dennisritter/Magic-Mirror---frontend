@@ -15,12 +15,14 @@
                 "bootstrap-sass",
                 "font-awesome",
                 "jquery",
-                "jquery-ui",
-                "weather-icons"
+                "jquery-ui"
             ]
         },
         "main.css": {
-            "files": ["./styles/sass/main.scss"]
+            "files": ["./styles/sass/main.scss"],
+            "bower": [
+                "weather-icons"
+            ]
         },
         "templates.js": {
             "files": ["./templates/**/*.html"]
