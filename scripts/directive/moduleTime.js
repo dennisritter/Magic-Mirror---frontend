@@ -24,63 +24,6 @@ angular.module('perna').directive('moduleTime', ['routes',
                      */
                     $scope.configMode = false;
 
-                    /**
-                     * @name events
-                     * @desc The events to show in the events view of this calendar module.
-                     * @type {Array}
-                     */
-                    $scope.events = [];
-
-                    /**
-                     * @desc Watches the calendars attribute of CalendarService and synchronizes the available calendars with it.
-                     * Allows to show a checklist of available calendars to the user when setting up the calendar module.
-                     */
-                    $scope.$watch(function () {
-                        return CalendarService.calendars;
-                    }, function () {
-                        $scope.availableCalendars = CalendarService.calendars;
-                    });
-
-                    /**
-                     * @name updateUsedCalendars
-                     * @desc Updates the usedCalendarsIds array. Adds or removes a calendar from the array.
-                     * Adds it if it´s not present. Removes it if it´s present.
-                     * @param calendarId        The is of the calendar to Add/remove from the used calendars
-                     */
-                    $scope.toggleUsedCalendars = function (calendarId) {
-                        console.log($scope.module.calendarIds);
-                        var index = $scope.module.calendarIds.indexOf(calendarId);
-                        if (index > -1) {
-                            console.log("removing: ", $scope.module.calendarIds[index]);
-                            $scope.module.calendarIds.splice(index, 1);
-                        } else {
-                            console.log("adding: ", $scope.module.calendarIds);
-                            $scope.module.calendarIds.push(calendarId);
-                        }
-                    };
-
-                    $scope.checkCalendarUsage = function(calendar){
-                        if($scope.module.calendarIds.indexOf(calendar.id) > -1){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    }
-
-                    /**
-                     * @name getEvents
-                     * @desc Loads the events for the used calendars in this module.
-                     */
-                    $scope.getEvents = function () {
-                        var successCallback = function (response) {
-                            $scope.events = response.data;
-                        };
-                        var errorCallback = function (response) {
-                            console.error(response);
-                        };
-                        CalendarService.getEvents($scope.module.calendarIds).then(successCallback, errorCallback);
-                    };
-
                     var persist = function(){
                         LiveviewService.persist();
                     };
@@ -92,7 +35,6 @@ angular.module('perna').directive('moduleTime', ['routes',
                     };
                     
                     $scope.edit = function () {
-                        CalendarService.getAvailableCalendars();
                         $scope.configMode = true;
                     };
 
@@ -107,12 +49,13 @@ angular.module('perna').directive('moduleTime', ['routes',
                     };
                 }],
 
-            link: function(scope){
-                if(scope.module.calendarIds.length > 0){
-                    scope.getEvents();
-                }else {
-                    scope.configMode = true;
+            link: function(scope, element){
+                var updateTime = function(){
+                    element.html = Date.now();
                 }
+                $timeout(function(){
+                    updateTime();
+                }, 1000)
             }
         };
     }]);
