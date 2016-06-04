@@ -8,7 +8,9 @@
                         type="checkbox"
                         class="calendar-checkbox--availablecalendar"
                         ng-model="availableCalendars"
-                        ng-change="updateUsedCalendars(calendar.id)">
+                        ng-click="toggleUsedCalendars(calendar.id)"
+                        ng-checked="checkCalendarUsage(calendar)"
+                >
                 {{ calendar.summary }}
             </label>
         </form>

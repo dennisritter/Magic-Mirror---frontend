@@ -47,7 +47,7 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                      * Adds it if it´s not present. Removes it if it´s present.
                      * @param calendarId        The is of the calendar to Add/remove from the used calendars
                      */
-                    $scope.updateUsedCalendars = function (calendarId) {
+                    $scope.toggleUsedCalendars = function (calendarId) {
                         console.log($scope.module.calendarIds);
                         var index = $scope.module.calendarIds.indexOf(calendarId);
                         if (index > -1) {
@@ -56,9 +56,16 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         } else {
                             console.log("adding: ", $scope.module.calendarIds);
                             $scope.module.calendarIds.push(calendarId);
-
                         }
                     };
+
+                    $scope.checkCalendarUsage = function(calendar){
+                        if($scope.module.calendarIds.indexOf(calendar.id) > -1){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
 
                     /**
                      * @name getEvents
