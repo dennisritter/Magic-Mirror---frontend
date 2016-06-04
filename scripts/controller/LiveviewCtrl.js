@@ -45,7 +45,6 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             LiveviewService.persist();
         });
 
-        //Wieso watcht der watch-task nicht "richtig" (nach LiveviewService.unpackLiveviewData)?
         $scope.$watch(function () {
                 return LiveviewService.liveview.modules;
             },
@@ -53,6 +52,24 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
                 $scope.modules = LiveviewService.liveview.modules;
                 refreshLiveview();
             });
+
+        // The default timeModule
+        var timeModule = {
+            "type": 'time',
+            "width": 1,
+            "height": 1,
+            "xPosition": 3,
+            "yPosition": 0,
+            //"timezone":
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
+        $scope.addTime = function () {
+            addModule(angular.copy(timeModule));
+        };
+
 
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
