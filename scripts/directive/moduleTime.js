@@ -39,16 +39,27 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     }, 1000);
 
                     var updateCountdown = function(){
-                        $scope.counter -= 1;
-                        if(!$scope.cdIsPaused && !$scope.cdIsStopped){
+                        $scope.counter -= 10;
+                        if($scope.countdown){
                             $timeout(function(){
                                 updateCountdown();
-                            }, 1);
+                            }, 10);
                         }
                     };
                     $scope.startCountdown = function() {
                         $scope.counter = 180 * 1000;
+                        $scope.countdown = true;
                         updateCountdown();
+                    };
+                    $scope.stopCountdown = function() {
+                        $scope.countdown = false;
+                    };
+                    $scope.toggleCountdown = function(){
+                        if($scope.countdown){
+                            $scope.stopCountdown();
+                        }else{
+                            $scope.startCountdown();
+                        }
                     };
 
 
@@ -59,7 +70,6 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
 
                     $scope.save = function () {
                         $scope.configMode = false;
-                        $scope.getEvents();
                         persist();
                     };
                     
