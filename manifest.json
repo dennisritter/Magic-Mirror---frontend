@@ -34,7 +34,7 @@
         "dist": {
             "scripts": "./public/dist/scripts",
             "styles": "./public/dist/styles",
-            "fonts": "./public/dist/fonts",
+            "fonts": "./public/dist/font",
             "images": "./public/dist/img"
         },
         "bowerJSON": "./bower.json",
