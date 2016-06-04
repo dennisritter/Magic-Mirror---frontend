@@ -79,6 +79,7 @@ gulp.task('css', function() {
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer())
+    .pipe(concat(css.name))
     .pipe(minifyCss())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.dist.styles))
