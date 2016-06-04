@@ -18,7 +18,7 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
          */
         CalendarService.prototype.getAvailableCalendars = function(){
             var successCallback = function (response) {
-                console.log("Loaded available Calendars");
+                // console.log("Loaded available Calendars");
             };
             var errorCallback = function (response) {
                 console.error(response.error);

@@ -54,8 +54,9 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                             console.log("removing: ", $scope.module.calendarIds[index]);
                             $scope.module.calendarIds.splice(index, 1);
                         } else {
+                            console.log("adding: ", $scope.module.calendarIds);
                             $scope.module.calendarIds.push(calendarId);
-                            console.log("added: ", $scope.module.calendarIds);
+
                         }
                     };
 
