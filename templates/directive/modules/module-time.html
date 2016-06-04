@@ -1,5 +1,16 @@
 <div class="time">
-    <div class="time-container">
-        <p>{{ time | date : 'mediumTime'}}</p>
+    <div ng-if="configMode">
+        <button class="button button__module--save" ng-click="save()">Save</button>
+        <button class="button button__module--save" ng-click="delete()">Del</button>
+        <div ng-if="!countdown" class="time-container">
+            <p>{{ time | date : 'mediumTime'}}</p>
+        </div>
+        <div ng-if="!countdown" class="countdown-container">
+            <p>{{ counter | date : 'mm:ss:sss'}}</p>
+        </div>
+    </div>
+    <div ng-if="!configMode">
+        <button class="button button__module--edit" ng-click="startCountdown()" show-on-mouse-move>Edit</button>
+
     </div>
 </div>

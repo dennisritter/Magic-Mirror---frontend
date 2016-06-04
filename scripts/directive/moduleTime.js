@@ -23,7 +23,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                      * @type {boolean}
                      */
                     $scope.configMode = false;
-
+                    $scope.countdown = false;
                     $scope.time = Date.now();
 
                     var updateTime = function(){
@@ -37,6 +37,20 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     $timeout(function(){
                         updateTime();
                     }, 1000);
+
+                    var updateCountdown = function(){
+                        $scope.counter -= 1;
+                        if(!$scope.cdIsPaused && !$scope.cdIsStopped){
+                            $timeout(function(){
+                                updateCountdown();
+                            }, 1);
+                        }
+                    };
+                    $scope.startCountdown = function() {
+                        $scope.counter = 180 * 1000;
+                        updateCountdown();
+                    };
+
 
 
                     var persist = function(){
