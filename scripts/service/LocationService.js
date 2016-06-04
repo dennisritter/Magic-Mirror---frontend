@@ -104,5 +104,27 @@ function ($http, $q, api) {
         this.userLocationID = id;
     };
 
+    /**
+     * Tests the new search-endpoint which uses the geonames.org-api
+     */
+    LocationService.prototype.searchGeonames = function(query){
+        var defer = $q.defer();
+        $http({
+            url : api.city_search,
+            method : 'GET',
+            params : { query : query }
+        })
+            .success(function(response){
+                console.log('locationservice successCallback.');
+                defer.resolve(response.data);
+            })
+            .error(function(response){
+                defer.reject(response);
+            });
+        return defer.promise;
+
+    };
+
+
     return new LocationService();
 }]);
