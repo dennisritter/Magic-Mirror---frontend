@@ -12,6 +12,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var ngTemplate = require('gulp-angular-templatecache');
 var imageMin = require('gulp-imagemin');
+var flatten = require('gulp-flatten');
 
 
 // default task which runs with every start of gulp
@@ -113,6 +114,12 @@ gulp.task( 'images', [], function () {
     .pipe(browserSync.stream());
 } );
 
+gulp.task( 'fonts', [], function () {
+    return gulp.src( globs.fonts )
+        .pipe( flatten() )
+        .pipe( gulp.dest( paths.dist.fonts ) );
+} );
+
 //Runs all tasks in sequence
 gulp.task( 'build', function () {
     return runSequence( [
@@ -120,6 +127,9 @@ gulp.task( 'build', function () {
         'js_libs',
         'css',
         'templates',
-        'images'
+        'images',
+        'fonts'
     ] );
 } );
+
+
