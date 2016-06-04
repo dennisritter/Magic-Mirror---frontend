@@ -4,8 +4,8 @@
  * @desc The directive to use when including a calendar module the dashboard.
  * Manages and describes the functioning and structure of a calendar module.
  */
-angular.module('perna').directive('moduleTime', ['routes',
-    function (routes) {
+angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
+    function ($timeout, routes) {
         return {
             restrict: 'E',
             templateUrl: routes.time,
@@ -23,6 +23,21 @@ angular.module('perna').directive('moduleTime', ['routes',
                      * @type {boolean}
                      */
                     $scope.configMode = false;
+
+                    $scope.time = Date.now();
+
+                    var updateTime = function(){
+                        $scope.time = Date.now();
+                        //loop the timer
+                        $timeout(function(){
+                            updateTime();
+                        }, 1000);
+                    };
+                    //start the timer
+                    $timeout(function(){
+                        updateTime();
+                    }, 1000);
+
 
                     var persist = function(){
                         LiveviewService.persist();
@@ -47,15 +62,6 @@ angular.module('perna').directive('moduleTime', ['routes',
                         };
                         LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
-                }],
-
-            link: function(scope, element){
-                var updateTime = function(){
-                    element.html = Date.now();
-                }
-                $timeout(function(){
-                    updateTime();
-                }, 1000)
-            }
+                }]
         };
     }]);

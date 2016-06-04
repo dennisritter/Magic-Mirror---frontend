@@ -65,7 +65,7 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         }else{
                             return false;
                         }
-                    }
+                    };
 
                     /**
                      * @name getEvents
