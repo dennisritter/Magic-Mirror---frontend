@@ -66,6 +66,20 @@ angular.module('perna').directive('moduleWeather', ['routes',
                       $scope.locationsFound = "";
                     };
 
+                    $scope.search = function (query){
+                        var successCallback = function (response){
+                            $scope.locationsFound = response.data;
+                            console.log('hallo', $scope.locationsFound);
+                            $scope.citySelected = true;
+                        };
+                        var errorCallback = function (response){
+                            console.error(response);
+                        };
+
+                        LocationService.searchGeonames(query).then(successCallback, errorCallback);
+
+                    };
+
                 }]
 
         };
