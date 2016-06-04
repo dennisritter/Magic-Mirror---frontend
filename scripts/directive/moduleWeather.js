@@ -10,10 +10,11 @@ angular.module('perna').directive('moduleWeather', ['routes',
         return {
             restrict: 'E',
             templateURL: routes.weather,
-            controller: ['$scope', 'WeatherService', 'LocationService',
-                function( $scope, WeatherService, LocationService ){
+            controller: ['$scope', '$element', 'WeatherService', 'LocationService',
+                function( $scope, $element, WeatherService, LocationService ){
                     $scope.citySelected = false;
-                    $scope.location = "your city here";
+                    $scope.locationsFound = "";
+                    $scope.query = "your city here";
 
                     $scope.getLocations = function(){
 
@@ -24,27 +25,33 @@ angular.module('perna').directive('moduleWeather', ['routes',
                             console.error(response);
                         };
                         $scope.citySelected = false;
-                        LocationService.provideAutocompleteResults($scope.location).then(successCallback, errorCallback);
+                        LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
                     };
 
                     $scope.locateUser = function(){
                         var successCallback = function (response){
                             $scope.locationsFound = response;
+                            $scope.query = "";
                         };
                         var errorCallback = function (response){
                             console.error(response);
                         };
 
+                        clearResults();
+                        $scope.query = "get location...";
+                        $scope.citySelected = false;
+
                         LocationService.determineUserLocation().then(successCallback, errorCallback);
-                    }
+
+                    };
 
                     $scope.getWeatherData = function(id, location) {
 
-                        $scope.location = location;
+                        $scope.query = location;
 
                         var successCallback = function (response){
                             $scope.weatherData = response.data;
-                            console.log("das hat geklappt. response: " + $scope.weatherData.daily[0].temperature.average.toString());
+                            console.log("das hat geklappt. response: ",  $scope.weatherData.current);
                             $scope.citySelected = true;
                         };
                         var errorCallback = function (response ){
@@ -54,6 +61,11 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
                     };
+                    
+                    var clearResults = function(){
+                      $scope.locationsFound = "";
+                    };
+
                 }]
 
         };
