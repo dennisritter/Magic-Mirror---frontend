@@ -1,29 +1,25 @@
 <module-weather class="weather">
     <form name="weatherSearch">
         <input type="text" ng-model="query"  ng-change="getLocations()" style="color:black" list="locations">
-        <p> hier ist das icon:
-            <br>
-            <i class="wi wi-day-sunny"></i>
-        </p>
+        <button type="button" class="btn btn-primary" ng-click="search(query)" list="locations">search</span></button>
         <button type="button" class="btn btn-primary" ng-click="locateUser()" list="locations">Standort</span></button>
         <ul id="locations" ng-if="!citySelected">
-            <!--listenelemente klickbar gestalten: css coursor pointer-->
-                <li class="citylist" ng-repeat="location in locationsFound" ng-click="getWeatherData(location.id, location.name)">
+                <li class="citylist" ng-repeat="location in locationsFound" ng-click="getWeatherData(location.data.id, location.data.name)">
                     {{ location.name + ', ' + location.countryCode }}
                 </li>
         </ul>
     </form>
 
     <div ng-if="citySelected" ng-model="query">
-        <ul>
-            <li ng-model="weatherData">
-                <ul>
-                    <li> {{ query }} </li>
-                    <li> Am {{ weatherData.current.dateTime | date: "d.MMM y 'um' hh:mm a" }}</li>
-                    <li> beträgt die Temperatur in {{ query }} {{ weatherData.current.temperature | celsius }}</li>
-                    <li> Die Wetter-ID lautet: {{ weatherData.current.weatherId }}</li>
-                </ul>
+        <ul ng-model="weatherData">
+            <li>{{ query }}</li>
+            <li>Today: <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
+                {{ weatherData.current.temperature | celsius }}
             </li>
+            <li>Next 6 days: <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
+                {{ weatherData.current.temperature | celsius }}
+            </li>
+
         </ul>
     </div>
 </module-weather>
