@@ -14,34 +14,28 @@ angular.module('perna').directive('moduleWeather', ['routes',
                 function( $scope, $element, WeatherService, LocationService ){
                     $scope.citySelected = false;
                     $scope.locationsFound = "";
+                    $scope.locationsDetected = false;
                     $scope.query = "your city here";
 
-                    $scope.getLocations = function(){
-
-                        var successCallback = function (response){
-                            $scope.locationsFound = response;
-                        };
-                        var errorCallback = function (response){
-                            console.error(response);
-                        };
-                        $scope.citySelected = false;
-                        LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
-                    };
-
                     $scope.locateUser = function(){
+                        $scope.citySelected = false;
+                        $scope.locationsDetected = false;
+
                         var successCallback = function (response){
                             $scope.locationsFound = response;
+                            $scope.locationsDetected = true;
                             $scope.query = "";
+                            $scope.getWeatherData($scope.locationsFound.id, $scope.locationsFound.name);
                         };
                         var errorCallback = function (response){
                             console.error(response);
                         };
 
                         clearResults();
-                        $scope.query = "get location...";
-                        $scope.citySelected = false;
+                        $scope.query = "getting location...";
 
                         LocationService.determineUserLocation().then(successCallback, errorCallback);
+
 
                     };
 
@@ -51,7 +45,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                         var successCallback = function (response){
                             $scope.weatherData = response.data;
-                            console.log("das hat geklappt. response: ",  $scope.weatherData.current);
                             $scope.citySelected = true;
                         };
                         var errorCallback = function (response ){
@@ -63,14 +56,15 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     };
                     
                     var clearResults = function(){
-                      $scope.locationsFound = "";
+                        $scope.locationsFound = "";
+                        $scope.locationsDetected = false;
                     };
 
-                    $scope.search = function (query){
+                    $scope.searchLocation = function (query){
                         var successCallback = function (response){
-                            $scope.locationsFound = response.data;
-                            console.log('hallo', $scope.locationsFound);
-                            $scope.citySelected = true;
+                            $scope.locationsFound = response;
+                            $scope.locationsDetected = true;
+                            $scope.citySelected = false;
                         };
                         var errorCallback = function (response){
                             console.error(response);
@@ -80,6 +74,23 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                     };
 
+
+                    /**
+                     * @deprecated
+                     * autocompletion not (yet) supported by search-endpoint.
+                     */
+                    $scope.getLocations = function(){
+
+                        var successCallback = function (response){
+                            $scope.locationsFound = response;
+                            $scope.locationsDetected = true;
+                        };
+                        var errorCallback = function (response){
+                            console.error(response);
+                        };
+                        $scope.citySelected = false;
+                        LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
+                    };
                 }]
 
         };
