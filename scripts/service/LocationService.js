@@ -53,6 +53,7 @@ function ($http, $q, api) {
     };
 
     /**
+     * * @deprecated The new geonames Endpoint does not support autocompletion search.
     * @param A string containing the query
     * @desc Uses the "autocomplete" endpoint to return up to 10 results for the provided query
     */
@@ -105,7 +106,8 @@ function ($http, $q, api) {
     };
 
     /**
-     * Tests the new search-endpoint which uses the geonames.org-api
+     * @param A string containing the user's query
+     * @desc Uses the new search-endpoint that searches for the user-query in geonames.org-api
      */
     LocationService.prototype.searchGeonames = function(query){
         var defer = $q.defer();
@@ -115,7 +117,6 @@ function ($http, $q, api) {
             params : { query : query }
         })
             .success(function(response){
-                console.log('locationservice successCallback.');
                 defer.resolve(response.data);
             })
             .error(function(response){
