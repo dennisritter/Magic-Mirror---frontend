@@ -1,9 +1,40 @@
 .button {
-  @extend .btn;
+    @extend .btn;
 
-  &.button__module--edit {
-    background-color: #c0c0c0; //grey
-    color: $black;
-    float: right;
-  }
+    &.button__module--edit {
+        background-color: #c0c0c0;
+        color: $black;
+        float: right;
+        clear: both;
+        border-radius: 0;
+        &:hover {
+            background-color: $white;
+        }
+    }
+    &.button__module--save {
+        background-color: #c0c0c0;
+        color: $black;
+        float: right;
+        clear: both;
+        border-radius: 0;
+        &:hover {
+            background-color: $white;
+        }
+    }
+    &.button-module--resize {
+        background-color: #c0c0c0;
+        color: $black;
+        float: left;
+        border-radius: 0;
+    }
+    &.button__module-time--toggleCountdown{
+        background-color: #c0c0c0;
+        color: $black;
+        float: right;
+        clear: both;
+        border-radius: 0;
+        &:hover {
+            background-color: $white;
+        }
+    }
 }

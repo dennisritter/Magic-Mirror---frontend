@@ -12,7 +12,9 @@ angular.module('perna', [
     usersettings : 'layout/usersettings.html',
     formcontrol : 'directive/form-control-messages.html',
     calendar : 'directive/modules/module-calendar.html',
-    weather : 'directive/modules/module-weather.html'
+    weather : 'directive/modules/module-weather.html',
+    time : 'directive/modules/module-time.html',
+    module : 'directive/modules/liveview-module.html'
 }).constant('api', {
     source : 'http://api.perna.dev',
     login : 'http://api.perna.dev/v1/login',

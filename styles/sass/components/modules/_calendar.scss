@@ -6,6 +6,8 @@
     //calendar-settings
     .calendar-checklist--availablecalendar {
         font-weight: normal;
+        font-size: .8em;
+        color: #FFF;
         .calendar-checkbox--availablecalendar {
             margin: 0 5px 0 0;
         }
@@ -13,7 +15,9 @@
 
     //calendar-event-view
     .calendar-container--events {
+        height: 100%;
         .calendar-listitem--event {
+            position: static;
             border-bottom: solid $white 2px;
             margin-bottom: 10px;
             padding-bottom: 10px;

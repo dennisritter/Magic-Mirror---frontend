@@ -1,39 +1,96 @@
-angular.module('perna').controller('LiveviewCtrl', [ '$scope', 'GridService',
-    function ( $scope, GridService ) {
-
-
-        //Hier kommt vielleicht irgendwann die liste mit gespeicherten items an?
-        // $scope.items = [ {w: 1, h: 1, x: 0, y: 0},
-        //     {w: 1, h: 2, x: 0, y: 1}];
-        //
-        // $scope.test= "hallo";
-
-        //Lade das Grid sofort
-        GridService.buildGrid();
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService',
+    function ($scope, $window, LiveviewService, CalendarService) {
         
-        $scope.add = function(){
-            
-            //erstelle ein neues Item mit default-Werten und refreshe das Grid
-            GridService.add(GridService.newItem(1,1,0,0));
-            GridService.refreshGrid();
+        /**
+         * @name: requestLiveview
+         * @desc: Request the Liveview after pageload is completed and build it immediatly.
+         */
+        var requestLiveview = function () {
+            var successCallback = function (response) {
+                // console.log(response.data);
+            };
+            var errorCallback = function (response) {
+                console.error(response.error);
+            };
+            angular.element(document).ready(function () {
+                LiveviewService.requestLiveview().then(successCallback, errorCallback);
+                refreshLiveview();
+            });
+        };
+        requestLiveview();
+
+        /**
+         * @name: refreshLiveview
+         * @desc: Rebuilds the Liveview after the document is loaded completely
+         */
+        var refreshLiveview = function () {
+            angular.element(document).ready(function () {
+                LiveviewService.buildLiveview();
+            });
         };
 
-        /*
-        * jQuery Methode, aus der Bibliothek kopiert, sie stellt die Resize-Funktion
-        * für jedes Item zur Verfügung.
-        * */
-        $('#grid li .resize').click(function(e) {
-            e.preventDefault();
-            var itemElement = $(e.currentTarget).closest('li'),
-                itemWidth = $(e.currentTarget).data('w'),
-                itemHeight = $(e.currentTarget).data('h');
+        /**
+         * @name: addModule
+         * @desc: adds a module to the Liveview
+         * @param: module    The module to add.
+         */
+        var addModule = function (module) {
+            LiveviewService.addModule(module);
+            refreshLiveview();
+        };
 
-            $('#grid').gridList('resizeItem', itemElement, {
-                w: itemWidth,
-                h: itemHeight
-            });
-            
+        $scope.modules = [];
+
+        $window.addEventListener("moduleDragged", function(){
+            LiveviewService.persist();
         });
 
-        
+        $scope.$watch(function () {
+                return LiveviewService.liveview.modules;
+            },
+            function () {
+                $scope.modules = LiveviewService.liveview.modules;
+                refreshLiveview();
+            });
+
+        // The default timeModule
+        var timeModule = {
+            "type": 'time',
+            "width": 1,
+            "height": 1,
+            "xPosition": 3,
+            "yPosition": 0,
+            //"timezone":
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
+        $scope.addTime = function () {
+            addModule(angular.copy(timeModule));
+        };
+
+
+        $scope.getAvailableCalendars = function () {
+            CalendarService.getAvailableCalendars();
+        };
+
+        // The default calendarModule.
+        var calendarModule = {
+            "type": 'calendar',
+            "width": 1,
+            "height": 3,
+            "xPosition": 0,
+            "yPosition": 0,
+            "calendarIds": []
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
+        $scope.addCalendar = function () {
+            $scope.getAvailableCalendars();
+            addModule(angular.copy(calendarModule));
+        };
+
     }]);
