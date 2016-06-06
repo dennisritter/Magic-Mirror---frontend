@@ -9,7 +9,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
     function( routes  ) {
         return {
             restrict: 'E',
-            templateURL: routes.weather,
+            templateUrl: routes.weather,
             scope: {
                 'module': '='
             },
