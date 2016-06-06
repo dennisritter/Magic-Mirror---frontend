@@ -13,8 +13,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
             scope: {
                 'module': '='
             },
-            controller: ['$scope', '$element', 'WeatherService', 'LocationService', 'LiveviewService',
-                function( $scope, $element, WeatherService, LocationService, LiveviewService ){
+            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService',
+                function( $scope, WeatherService, LocationService, LiveviewService ){
                     //init with false when it´s possible to persist the location
                     $scope.configMode = true;
                     $scope.citySelected = false;
@@ -120,9 +120,5 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
                 }]
-
         };
-
-
-    }
-]);
+    }]);

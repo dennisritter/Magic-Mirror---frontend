@@ -12,8 +12,8 @@ angular.module('perna').directive('moduleCalendar', ['routes',
             scope: {
               'module': '='
             },
-            controller: ['$scope', 'AuthService', 'CalendarService', 'LiveviewService',
-                function ($scope, AuthService, CalendarService, LiveviewService) {
+            controller: ['$scope', 'CalendarService', 'LiveviewService',
+                function ($scope, CalendarService, LiveviewService) {
 
                     /**
                      * @name configMode
