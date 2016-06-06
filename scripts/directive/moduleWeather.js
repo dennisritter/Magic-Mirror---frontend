@@ -5,7 +5,7 @@
  * Manages and describes the functioning and structure of a weather module.
  */
 
-angular.module('perna').directive('moduleWeather', ['routes', 
+angular.module('perna').directive('moduleWeather', ['routes',
     function( routes  ) {
         return {
             restrict: 'E',
@@ -15,7 +15,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.citySelected = false;
                     $scope.locationsFound = "";
                     $scope.locationsDetected = false;
-                    $scope.query = "your city here";
 
                     $scope.locateUser = function(){
                         $scope.citySelected = false;
@@ -54,7 +53,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
                     };
-                    
+
                     var clearResults = function(){
                         $scope.locationsFound = "";
                         $scope.locationsDetected = false;
