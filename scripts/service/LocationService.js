@@ -102,7 +102,5 @@ function ($http, $q, api) {
         return defer.promise;
 
     };
-
-
     return new LocationService();
 }]);

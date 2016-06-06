@@ -1,6 +1,6 @@
 <module-weather class="weather">
-    <form name="weatherSearch">
-        <input type="text" ng-model="query"  ng-change="getLocations()" style="color:black" list="locations" placeholder="Your city here">
+    <form name="weatherSearch"  ng-init="locateUser()">
+        <input type="text" ng-model="query" style="color:black" list="locations" placeholder="Your city here">
         <button type="button" class="btn btn-primary" ng-click="searchLocation(query)" list="locations">search</span></button>
         <button type="button" class="btn btn-primary" ng-click="locateUser()" list="locations">Standort</span></button>
         <ul id="locations" ng-if="!citySelected && locationsDetected">
@@ -12,7 +12,7 @@
 
     <div ng-if="citySelected" ng-model="query">
         <ul ng-model="weatherData">
-            <li>{{ query }} <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
+            <li>{{::query}} <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
                 {{ weatherData.current.temperature | celsius }}</li>
             <li>Today min.: {{ weatherData.daily[0].temperature.min | celsius }} </li>
             <li>Today max.: {{ weatherData.daily[0].temperature.max | celsius }} </li>
@@ -21,8 +21,6 @@
                 <div class="forecast--element"><i class="wi wi-owm-{{ weather.weatherId }} "></i></div>
                 <div class="forecast--element">{{ weather.temperature.average | celsius }}</div>
             </div>
-
-
         </ul>
     </div>
 </module-weather>
