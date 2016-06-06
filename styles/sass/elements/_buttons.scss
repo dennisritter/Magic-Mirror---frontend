@@ -21,6 +21,16 @@
             background-color: $white;
         }
     }
+    &.button__module--delete {
+        background-color: #c0c0c0;
+        color: $black;
+        float: right;
+        clear: both;
+        border-radius: 0;
+        &:hover {
+            background-color: $white;
+        }
+    }
     &.button-module--resize {
         background-color: #c0c0c0;
         color: $black;
