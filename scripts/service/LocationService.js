@@ -53,29 +53,6 @@ function ($http, $q, api) {
     };
 
     /**
-     * * @deprecated The new geonames Endpoint does not support autocompletion search.
-    * @param A string containing the query
-    * @desc Uses the "autocomplete" endpoint to return up to 10 results for the provided query
-    */
-    LocationService.prototype.provideAutocompleteResults = function(query) {
-        var defer = $q.defer();
-        $http({
-            url : api.weather_autocomplete,
-            method : 'GET',
-            params : {
-                query : query
-            }
-        })
-        .success(function(response){
-            defer.resolve(response.data);
-        })
-        .error(function(response){
-            defer.reject(response);
-        });
-        return defer.promise;
-    };
-
-    /**
     * @param A CityID
     * @desc Retrieves the data for a specified ID
     */
