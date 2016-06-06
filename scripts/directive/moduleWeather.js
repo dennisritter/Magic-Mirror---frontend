@@ -10,6 +10,9 @@ angular.module('perna').directive('moduleWeather', ['routes',
         return {
             restrict: 'E',
             templateURL: routes.weather,
+            scope: {
+                'module': '='
+            },
             controller: ['$scope', '$element', 'WeatherService', 'LocationService', 'LiveviewService',
                 function( $scope, $element, WeatherService, LocationService, LiveviewService ){
                     //init with false when it´s possible to persist the location

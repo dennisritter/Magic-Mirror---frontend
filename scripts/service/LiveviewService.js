@@ -96,6 +96,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
          */
         LiveviewService.prototype.addModule = function (module) {
             this.liveview.modules.push(module);
+            console.log("Added module: ", module);
         };
 
         /**
