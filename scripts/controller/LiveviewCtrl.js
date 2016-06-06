@@ -93,4 +93,20 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             addModule(angular.copy(calendarModule));
         };
 
+        // The default weatherModule.
+        var weatherModule = {
+            "type": 'weather',
+            "width": 3,
+            "height": 1,
+            "xPosition": 1,
+            "yPosition": 0,
+        };
+        /**
+         * @name: addWeather()
+         * @desc: Calls addModule(module) with the default weatherModule as parameter
+         */
+        $scope.addWeather = function () {
+            addModule(angular.copy(weatherModule));
+        };
+
     }]);
