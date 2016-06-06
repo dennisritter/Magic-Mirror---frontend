@@ -10,8 +10,10 @@ angular.module('perna').directive('moduleWeather', ['routes',
         return {
             restrict: 'E',
             templateURL: routes.weather,
-            controller: ['$scope', '$element', 'WeatherService', 'LocationService',
-                function( $scope, $element, WeatherService, LocationService ){
+            controller: ['$scope', '$element', 'WeatherService', 'LocationService', 'LiveviewService',
+                function( $scope, $element, WeatherService, LocationService, LiveviewService ){
+                    //init with false when it´s possible to persist the location
+                    $scope.configMode = true;
                     $scope.citySelected = false;
                     $scope.locationsFound = "";
                     $scope.locationsDetected = false;
@@ -90,6 +92,29 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         };
                         $scope.citySelected = false;
                         LocationService.provideAutocompleteResults($scope.query).then(successCallback, errorCallback);
+                    };
+
+                    var persist = function(){
+                        LiveviewService.persist();
+                    };
+
+                    $scope.save = function () {
+                        $scope.configMode = false;
+                        persist();
+                    };
+
+                    $scope.edit = function () {
+                        $scope.configMode = true;
+                    };
+
+                    $scope.delete = function(){
+                        var successCallback = function(){
+                            console.log("Deleted module: ", $scope.module);
+                        };
+                        var errorCallback = function(response){
+                            console.error("deleteModuleError: ", response);
+                        };
+                        LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
                 }]
 
