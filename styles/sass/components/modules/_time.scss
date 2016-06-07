@@ -1,3 +1,22 @@
 .time{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .time-container{
+        text-align: center;
+        font-size: 28px;
+    }
+    .countdown-container{
+        font-size: 48px;
+        text-align: center;
+    }
+    .module-buttonbar , .module-settingsbar{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .lastSeconds{
+        color: red;
+    }
 }

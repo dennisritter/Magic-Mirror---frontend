@@ -25,7 +25,6 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     $scope.configMode = false;
                     $scope.countdown = false;
                     $scope.time = Date.now();
-
                     var updateTime = function(){
                         $scope.time = Date.now();
                         //loop the timer
@@ -40,6 +39,9 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
 
                     var updateCountdown = function(){
                         $scope.counter -= 10;
+                        if($scope.counter < 10000){
+                            $('.countdownDisplay').addClass('lastSeconds');
+                        }
                         if($scope.countdown){
                             $timeout(function(){
                                 updateCountdown();
@@ -56,14 +58,15 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     };
                     $scope.toggleCountdown = function(){
                         if($scope.countdown){
+                            $(".stopCountdown").addClass('hidden');
+                            $(".startCountdown").removeClass('hidden');
                             $scope.stopCountdown();
                         }else{
+                            $(".stopCountdown").removeClass('hidden');
+                            $(".startCountdown").addClass('hidden');
                             $scope.startCountdown();
                         }
                     };
-
-
-
                     var persist = function(){
                         LiveviewService.persist();
                     };
@@ -72,7 +75,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                         $scope.configMode = false;
                         persist();
                     };
-                    
+
                     $scope.edit = function () {
                         $scope.configMode = true;
                     };

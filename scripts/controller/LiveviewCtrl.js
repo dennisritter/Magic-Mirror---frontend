@@ -1,6 +1,6 @@
 angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService',
     function ($scope, $window, LiveviewService, CalendarService) {
-        
+
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
