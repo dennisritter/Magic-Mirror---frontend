@@ -7,7 +7,7 @@
             <button type="button" class="btn btn-primary" ng-click="searchLocation(query)" list="locations">
                 search</span></button>
             <button type="button" class="btn btn-primary" ng-click="locateUser()" list="locations">
-                Standort</span></button>
+                my location</span></button>
             <ul id="locations" ng-if="!citySelected && locationsDetected">
                 <li class="citylist" ng-repeat="location in locationsFound"
                     ng-click="getWeatherData(location.id, location.name)">
