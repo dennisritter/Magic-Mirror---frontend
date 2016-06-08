@@ -21,6 +21,7 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
                 // console.log("Loaded available Calendars");
             };
             var errorCallback = function (response) {
+                console.error("Hallo Nathalie, mach mal hier 1 Aufruf vom Modal für 1 GoogleSignIn.");
                 console.error(response.error);
             };
             this.requestCalendars().then(successCallback, errorCallback);
