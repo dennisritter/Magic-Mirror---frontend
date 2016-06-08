@@ -2,21 +2,35 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
     .time-container{
-        text-align: center;
-        font-size: 28px;
+        margin:0;
+        padding: 0;
+        font-size: 2em;
+        font-weight: bold;
+    }
+    .date-container{
+        margin:0;
+        padding:0;
+        font-size: 1.5em;
     }
     .countdown-container{
-        font-size: 48px;
+        font-size: 4em;
+        font-weight: bold;
         text-align: center;
     }
     .module-buttonbar , .module-settingsbar{
         display: flex;
         flex-direction: row;
+        justify-content: center;
         align-items: center;
     }
     .lastSeconds{
         color: red;
+    }
+    #clockCanvas{
+        width:80%;
+        height:80%;
+        display: block;
+        margin: auto;
     }
 }
