@@ -122,11 +122,10 @@ function ($timeout, routes) {
             };
 
             function drawFace(ctx, radius) {
-                var white = 'white';
                 ctx.beginPath();
                 ctx.arc(0, 0, radius, 0, 2*Math.PI);
                 ctx.lineWidth = 5;
-                ctx.strokeStyle = white;
+                ctx.strokeStyle = 'white';
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
