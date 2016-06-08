@@ -29,12 +29,10 @@ function ($timeout, routes) {
 
             var updateTime = function(){
                 $scope.time = Date.now();
-                //loop the timer
                 $timeout(function(){
                     updateTime();
                 }, 1000);
             };
-            //start the timer
             $timeout(function(){
                 updateTime();
             }, 1000);
@@ -69,6 +67,7 @@ function ($timeout, routes) {
                     $scope.startCountdown();
                 }
             };
+
             var persist = function(){
                 LiveviewService.persist();
             };
@@ -92,31 +91,41 @@ function ($timeout, routes) {
                 LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
             };
 
-            $scope.switch = function(){
+            $scope.switchClockMode = function(){
                 if($scope.analog){
                     $scope.analog = false;
                 }else{
                     $scope.analog = true;
                 }
-            }
+            };
 
-            setInterval(function drawClock() {
-                var canvas = document.getElementById("clockCanvas");
-                canvas.width = 300;
-                canvas.height = 300;
-                var ctx = canvas.getContext("2d");
-                var radius = (canvas.height / 2);
-                ctx.translate(radius, radius);
-                radius = radius * 0.9;
-                drawFace(ctx, radius);
-                drawNumbers(ctx, radius);
-                drawTime(ctx, radius);
-            }, 1000);
+            /**
+            * The following functions draw a analog clock using the HTML5 canvas
+            **/
+            $scope.drawAnalogClock = function(){
+                    drawClock();
+            };
+
+            var drawClock = function () {
+                setInterval(function(){
+                    var canvas = document.getElementById("clockCanvas");
+                    canvas.width = 500;
+                    canvas.height = 500;
+                    var ctx = canvas.getContext("2d");
+                    var radius = (canvas.height / 2);
+                    ctx.translate(radius, radius);
+                    radius = radius * 0.9;
+                    drawFace(ctx, radius);
+                    drawNumbers(ctx, radius);
+                    drawTime(ctx, radius);
+                },1000);
+            };
 
             function drawFace(ctx, radius) {
                 var white = 'white';
                 ctx.beginPath();
                 ctx.arc(0, 0, radius, 0, 2*Math.PI);
+                ctx.lineWidth = 5;
                 ctx.strokeStyle = white;
                 ctx.stroke();
                 ctx.beginPath();
