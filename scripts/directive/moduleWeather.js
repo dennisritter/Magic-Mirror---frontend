@@ -20,7 +20,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.citySelected = false;
                     $scope.locationsFound = "";
                     $scope.locationsDetected = false;
-                    $scope.query = "your city here";
+                    $scope.query = "";
 
                     $scope.locateUser = function(){
                         $scope.citySelected = false;
