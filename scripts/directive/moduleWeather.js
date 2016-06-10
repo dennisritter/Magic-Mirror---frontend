@@ -78,25 +78,40 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
 
                     };
-                    
+
+
+                    /**
+                     * Pushes the Name of a specific location Id in the $scope.locationName variable
+                     * and calls the getWeatherData method.
+                     * @param id
+                     */
                     $scope.getLocationName = function (id){
 
                         var successCallback = function (response){
                             $scope.locationName = response.data.name;
                             console.log($scope.locationName);
-                            $scope.citySelected = true;
+                            $scope.getWeatherData(id, $scope.locationName);
                         };
                         var errorCallback = function (response ){
                             console.error(response);
                         };
                         WeatherService.getLocationName(id).then(successCallback, errorCallback);
+
                     };
-                    
+
+                    /**
+                     * Clears the inputfield
+                     */
                     var clearResults = function(){
                         $scope.locationFound = "";
                         $scope.locationsDetected = false;
                     };
 
+                    /**
+                     * Searches for a location which fits the query and stores the found location in the
+                     * locationFound-variable.
+                     * @param query  The query.
+                     */
                     $scope.searchLocation = function (query){
                         var successCallback = function (response){
                             $scope.locationFound = response;
@@ -154,11 +169,9 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
                 }],
-
             link: function(scope){
                 if(scope.module.locationId !== 0){
                     scope.getLocationName(scope.module.locationId);
-                    scope.getWeatherData(scope.module.locationId, "Berlin");
                     scope.configMode = false;
                 }else {
                     scope.configMode = true;
