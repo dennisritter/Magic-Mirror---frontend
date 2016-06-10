@@ -18,19 +18,23 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     //init with false when it´s possible to persist the location
                     $scope.configMode = true;
                     $scope.citySelected = false;
-                    $scope.locationsFound = "";
+                    $scope.locationFound = "";
                     $scope.locationsDetected = false;
                     $scope.query = "";
+                    $scope.locationId = 0;
+                    console.log($scope.locationId);
+                    $scope.locationName = "";
 
                     $scope.locateUser = function(){
                         $scope.citySelected = false;
                         $scope.locationsDetected = false;
 
                         var successCallback = function (response){
-                            $scope.locationsFound = response;
+                            $scope.locationFound = response;
+                            $scope.locationId = $scope.locationFound.id;
                             $scope.locationsDetected = true;
                             $scope.query = "";
-                            $scope.getWeatherData($scope.locationsFound.id, $scope.locationsFound.name);
+                            $scope.getWeatherData($scope.locationId, $scope.locationFound.name);
                         };
                         var errorCallback = function (response){
                             console.error(response);
@@ -41,13 +45,14 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                         LocationService.determineUserLocation().then(successCallback, errorCallback);
 
-
                     };
 
                     $scope.getWeatherData = function(id, location) {
 
-                        $scope.query = location;
-
+                        $scope.getLocationName(id);
+                        $scope.query = $scope.locationName ;
+                        $scope.locationId = id;
+                        console.log($scope.locationId);
                         var successCallback = function (response){
                             $scope.weatherData = response.data;
                             $scope.citySelected = true;
@@ -58,16 +63,30 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
+
+                    };
+                    
+                    $scope.getLocationName = function (id){
+
+                        var successCallback = function (response){
+                            $scope.locationName = response.data.name;
+                            console.log($scope.locationName);
+                            $scope.citySelected = true;
+                        };
+                        var errorCallback = function (response ){
+                            console.error(response);
+                        };
+                        WeatherService.getLocationName(id).then(successCallback, errorCallback);
                     };
                     
                     var clearResults = function(){
-                        $scope.locationsFound = "";
+                        $scope.locationFound = "";
                         $scope.locationsDetected = false;
                     };
 
                     $scope.searchLocation = function (query){
                         var successCallback = function (response){
-                            $scope.locationsFound = response;
+                            $scope.locationFound = response;
                             $scope.locationsDetected = true;
                             $scope.citySelected = false;
                         };
@@ -87,7 +106,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.getLocations = function(){
 
                         var successCallback = function (response){
-                            $scope.locationsFound = response;
+                            $scope.locationFound = response;
                             $scope.locationsDetected = true;
                         };
                         var errorCallback = function (response){
@@ -102,6 +121,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     };
 
                     $scope.save = function () {
+                        $scope.module.locationId = $scope.locationId;
+                        console.log($scope.module);
                         $scope.configMode = false;
                         persist();
                     };
@@ -119,6 +140,16 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         };
                         LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
                     };
-                }]
+                }],
+
+            link: function(scope){
+                if(scope.module.locationId !== 0){
+                    scope.getLocationName(scope.module.locationId);
+                    scope.getWeatherData(scope.module.locationId, "Berlin");
+                    scope.configMode = false;
+                }else {
+                    scope.configMode = true;
+                }
+            }
         };
     }]);

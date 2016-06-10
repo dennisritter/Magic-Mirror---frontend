@@ -1,5 +1,5 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService',
-    function ($scope, $window, LiveviewService, CalendarService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService', 'WeatherService',
+    function ($scope, $window, LiveviewService, CalendarService, WeatherService) {
         
         /**
          * @name: requestLiveview
@@ -100,12 +100,19 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             "height": 1,
             "xPosition": 1,
             "yPosition": 0,
+            "locationId" : 0
         };
+
+        $scope.requestLocation = function () {
+            WeatherService.requestLocation();
+        };
+        
         /**
          * @name: addWeather()
          * @desc: Calls addModule(module) with the default weatherModule as parameter
          */
         $scope.addWeather = function () {
+            $scope.requestLocation();
             addModule(angular.copy(weatherModule));
         };
 
