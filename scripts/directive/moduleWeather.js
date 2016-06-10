@@ -15,6 +15,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
             },
             controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService',
                 function( $scope, WeatherService, LocationService, LiveviewService ){
+
+                    //TODO: which of this variables is REALLY necessary?
                     //init with false when it´s possible to persist the location
                     $scope.configMode = true;
                     $scope.citySelected = false;
@@ -25,6 +27,11 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     console.log($scope.locationId);
                     $scope.locationName = "";
 
+
+                    /**
+                     * Locate the user's current location via the browser coordinates and get the
+                     * weather data for this location.
+                     */
                     $scope.locateUser = function(){
                         $scope.citySelected = false;
                         $scope.locationsDetected = false;
@@ -47,15 +54,21 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                     };
 
+                    /**
+                     * Stores all Weather data for the specified ID in the weatherData array.
+                     * @param id
+                     * @param location
+                     */
                     $scope.getWeatherData = function(id, location) {
 
-                        $scope.getLocationName(id);
-                        $scope.query = $scope.locationName ;
+                        $scope.query = location;
+
                         $scope.locationId = id;
                         console.log($scope.locationId);
                         var successCallback = function (response){
                             $scope.weatherData = response.data;
                             $scope.citySelected = true;
+                            $scope.save();
                         };
                         var errorCallback = function (response ){
                             console.error(response);
