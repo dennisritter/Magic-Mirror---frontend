@@ -111,4 +111,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             addModule(angular.copy(weatherModule));
         };
 
+        /**
+         * Voice Commands
+         */
+        var commands = {
+            "Wetter": $scope.addWeather,
+            "Kalender": $scope.addCalendar,
+            "Zeit": $scope.addTime
+        };
+        annyang.addCommands(commands)
+
     }]);
