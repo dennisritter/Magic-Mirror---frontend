@@ -24,7 +24,8 @@
     "angular-ui-router": "^0.2.18",
     "js-sha256": "^0.3.0",
     "jquery-ui": "^1.11.4",
-    "weather-icons": "^2.0.10"
+    "weather-icons": "^2.0.10",
+    "annyang": "^2.4.0"
   },
   "overrides": {
     "weather-icons": {
