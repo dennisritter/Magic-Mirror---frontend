@@ -5,7 +5,7 @@ angular.module('perna', [
     'ngMessages',
     'ui.router',
     'ngPassword',
-    'ngCookies',
+    'ngCookies'
 ]).constant('routes', {
     home : 'layout/start.html',
     dashboard : 'layout/dashboard.html',

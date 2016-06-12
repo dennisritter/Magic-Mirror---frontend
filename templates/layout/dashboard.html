@@ -1,6 +1,6 @@
 <div ng-controller="DashboardCtrl">
     <div class="container" ng-controller="LiveviewCtrl as liveview">
-        <div class="row">
+        <div class="row" ng-controller="VoiceCtrl">
             <div class="button-bar" show-on-mouse-move>
                 <button type="button" class="btn btn-success" ng-click="logout()">Logout</button>
                 <a href="/usersettings" type="button" class="btn btn-info">Usersettings</a>
@@ -14,10 +14,10 @@
                         <div class="inner">
                         </div>
                     </li>
-                    <li liveview-module class="grid__module" module="module" ng-model="modules" ng-repeat="module in modules track by $index">
+                    <li liveview-module class="grid__module" module="module" ng-model="modules"
+                        ng-repeat="module in modules track by $index">
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-</div>

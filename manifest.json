@@ -15,7 +15,8 @@
                 "bootstrap-sass",
                 "font-awesome",
                 "jquery",
-                "jquery-ui"
+                "jquery-ui",
+                "annyang"
             ]
         },
         "main.css": {
