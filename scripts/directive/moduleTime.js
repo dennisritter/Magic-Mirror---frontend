@@ -92,22 +92,18 @@ function ($timeout, routes) {
             };
 
             $scope.switchClockMode = function(){
-                if($scope.analog){
-                    $scope.analog = false;
-                }else{
-                    $scope.analog = true;
-                }
+                $scope.analog = !$scope.analog;
+                setInterval(function(){
+                    drawClock()
+                },1000);
             };
 
             /**
             * The following functions draw a analog clock using the HTML5 canvas
             **/
-            $scope.drawAnalogClock = function(){
-                    drawClock();
-            };
 
-            var drawClock = function () {
-                setInterval(function(){
+            function drawClock () {
+                if ($scope.analog){
                     var canvas = document.getElementById("clockCanvas");
                     canvas.width = 500;
                     canvas.height = 500;
@@ -118,7 +114,9 @@ function ($timeout, routes) {
                     drawFace(ctx, radius);
                     drawNumbers(ctx, radius);
                     drawTime(ctx, radius);
-                },1000);
+                }else{
+                    return;
+                }
             };
 
             function drawFace(ctx, radius) {
