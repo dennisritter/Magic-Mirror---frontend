@@ -1,4 +1,4 @@
-angular.module('perna').service('MouseService', ['$timeout', function ($timeout) {
+angular.module('perna').service('MouseService', ['$timeout', 'ReloadService', function ($timeout, ReloadService) {
 
     this.mouseData = {
         isMoving: false
@@ -6,6 +6,9 @@ angular.module('perna').service('MouseService', ['$timeout', function ($timeout)
 
     var mouseIsMoving = function () {
         this.mouseData.isMoving = true;
+        if(ReloadService.running){
+            ReloadService.stop();
+        }
         stopTimer();
         startTimer();
     };
@@ -17,6 +20,7 @@ angular.module('perna').service('MouseService', ['$timeout', function ($timeout)
     var isMovingTimer;
     var startTimer = function () {
         isMovingTimer = $timeout(function () {
+            ReloadService.start();
             _service.mouseData.isMoving = false;
         }, 5000);
     };
