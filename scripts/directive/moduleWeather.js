@@ -73,7 +73,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         var errorCallback = function (response ){
                             console.error(response);
                         };
-
+                        console.log("LocationID: ", id);
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
 
