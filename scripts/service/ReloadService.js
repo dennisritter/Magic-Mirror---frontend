@@ -1,8 +1,23 @@
 angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService',
     function ($interval, LiveviewService) {
 
+        /**
+         * A Service to Reload the Liveview in a defines time.
+         * @constructor
+         */
         var ReloadService = function () {
-            this.interval = 1000 * 5;
+            /**
+             * @name interval
+             * @desc The timeinterval the liveview will be reloaded from the api in milliseconds
+             * @type {number}
+             */
+            this.interval = 1000 * 300;
+            /**
+             * @name running
+             * @desc A flag to check whether the ReloadService is started or not.
+             * @type {boolean}
+             */
+            this.running = false;
         };
 
         /**
@@ -33,18 +48,34 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
             });
         };
 
+        /**
+         * @name start()
+         * @desc Starts the reloader interval.
+         */
         ReloadService.prototype.start = function () {
             this.reloader = $interval(requestLiveview, this.interval);
-            console.log("started Auto Reload");
+            this.running = true;
+            // console.log("started Auto Reload");
         };
 
+        /**
+         * @name stop()
+         * @desc Stops the reloader interval.
+         */
         ReloadService.prototype.stop = function () {
             $interval.cancel(this.reloader);
+            this.running = false;
+            // console.log("stopped Auto Reload");
         };
+
+        /**
+         * @name restart()
+         * @desc Restarts the reloader interval.
+         */
         ReloadService.prototype.restart = function () {
             this.stop();
             this.start();
-            console.log("timer restarted");
+            // console.log("Restarted Auto Reload");
         };
 
         return new ReloadService();
