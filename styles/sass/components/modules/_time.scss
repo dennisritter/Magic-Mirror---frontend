@@ -1,3 +1,36 @@
 .time{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .time-container{
+        margin:0;
+        padding: 0;
+        font-size: 2em;
+        font-weight: bold;
+    }
+    .date-container{
+        margin:0;
+        padding:0;
+        font-size: 1.5em;
+    }
+    .countdown-container{
+        font-size: 3em;
+        font-weight: bold;
+        text-align: center;
+    }
+    .module-buttonbar , .module-settingsbar{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .lastSeconds{
+        color: red;
+    }
+    #clockCanvas{
+        width:80%;
+        height:80%;
+        display: block;
+        margin: auto;
+    }
 }
