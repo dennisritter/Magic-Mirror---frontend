@@ -1,12 +1,12 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService', 'WeatherService',
-    function ($scope, $window, LiveviewService, CalendarService, WeatherService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService',
+    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService) {
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                // console.log(response.data);
+                console.log(response.data);
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -14,9 +14,9 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             angular.element(document).ready(function () {
                 LiveviewService.requestLiveview().then(successCallback, errorCallback);
                 refreshLiveview();
+                console.log("Refreshed");
             });
         };
-        requestLiveview();
 
         /**
          * @name: refreshLiveview
@@ -27,6 +27,11 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
                 LiveviewService.buildLiveview();
             });
         };
+
+        // Start the AutoReloader after initialisation
+        requestLiveview();
+        console.log(ReloadService);
+        ReloadService.start();
 
         /**
          * @name: addModule
