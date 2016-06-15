@@ -1,12 +1,12 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService', 'WeatherService',
-    function ($scope, $window, LiveviewService, CalendarService, WeatherService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'WeatherService',
+    function ($scope, $window,  $interval, LiveviewService, CalendarService) {
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                // console.log(response.data);
+                console.log(response.data);
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -14,9 +14,9 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
             angular.element(document).ready(function () {
                 LiveviewService.requestLiveview().then(successCallback, errorCallback);
                 refreshLiveview();
+                console.log("Refreshed");
             });
         };
-        requestLiveview();
 
         /**
          * @name: refreshLiveview
@@ -27,6 +27,32 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'Livevi
                 LiveviewService.buildLiveview();
             });
         };
+
+        /** Timer functionality for automatic reloads of the Liveview. */
+        // AutoReload every 5 minutes
+
+        var reloadInterval = 1000*3;
+        var autoReloader;
+        var startAutoReload = function(){
+            autoReloader = $interval(requestLiveview, reloadInterval);
+            console.log("started Auto Reload");
+        };
+
+        var stopAutoReload = function(){
+            $interval.cancel(autoReloader);
+        };
+
+        /**
+         * Restart the timer when
+         */
+        var restartAutoReload = function(){
+            stopAutoReload();
+            startAutoReload();
+            console.log("timer restarted");
+        };
+
+        // Start the AutoReloader after initialisation
+        startAutoReload();
 
         /**
          * @name: addModule
