@@ -1,5 +1,5 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'WeatherService',
-    function ($scope, $window,  $interval, LiveviewService, CalendarService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService',
+    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService) {
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
@@ -28,31 +28,10 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             });
         };
 
-        /** Timer functionality for automatic reloads of the Liveview. */
-        // AutoReload every 5 minutes
-
-        var reloadInterval = 1000*3;
-        var autoReloader;
-        var startAutoReload = function(){
-            autoReloader = $interval(requestLiveview, reloadInterval);
-            console.log("started Auto Reload");
-        };
-
-        var stopAutoReload = function(){
-            $interval.cancel(autoReloader);
-        };
-
-        /**
-         * Restart the timer when
-         */
-        var restartAutoReload = function(){
-            stopAutoReload();
-            startAutoReload();
-            console.log("timer restarted");
-        };
-
         // Start the AutoReloader after initialisation
-        startAutoReload();
+        requestLiveview();
+        console.log(ReloadService);
+        ReloadService.start();
 
         /**
          * @name: addModule
