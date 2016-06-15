@@ -3,6 +3,7 @@ angular.module('perna').controller('VoiceCtrl', ['$scope',
 
         $scope.showText = function (text) {
             $scope.said = text;
+            console.log("You said: ", $scope.said);
         };
 
         $scope.mostBeautiful = function (derDie) {
@@ -11,6 +12,7 @@ angular.module('perna').controller('VoiceCtrl', ['$scope',
             } else {
                 $scope.said = 'Deine Mudder.';
             }
+            window.alert($scope.said);
         };
 
         var commands = {
@@ -22,5 +24,4 @@ angular.module('perna').controller('VoiceCtrl', ['$scope',
         annyang.setLanguage('de-DE');
         annyang.addCommands(commands);
         annyang.start(false, false);
-
     }]);

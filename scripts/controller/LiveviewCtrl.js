@@ -1,123 +1,136 @@
 angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', 'LiveviewService', 'CalendarService', 'WeatherService',
-function ($scope, $window, LiveviewService, CalendarService, WeatherService) {
-    /**
-    * @name: requestLiveview
-    * @desc: Request the Liveview after pageload is completed and build it immediatly.
-    */
-    var requestLiveview = function () {
-        var successCallback = function (response) {
-            // console.log(response.data);
+    function ($scope, $window, LiveviewService, CalendarService, WeatherService) {
+        /**
+         * @name: requestLiveview
+         * @desc: Request the Liveview after pageload is completed and build it immediatly.
+         */
+        var requestLiveview = function () {
+            var successCallback = function (response) {
+                // console.log(response.data);
+            };
+            var errorCallback = function (response) {
+                console.error(response.error);
+            };
+            angular.element(document).ready(function () {
+                LiveviewService.requestLiveview().then(successCallback, errorCallback);
+                refreshLiveview();
+            });
         };
-        var errorCallback = function (response) {
-            console.error(response.error);
+        requestLiveview();
+
+        /**
+         * @name: refreshLiveview
+         * @desc: Rebuilds the Liveview after the document is loaded completely
+         */
+        var refreshLiveview = function () {
+            angular.element(document).ready(function () {
+                LiveviewService.buildLiveview();
+            });
         };
-        angular.element(document).ready(function () {
-            LiveviewService.requestLiveview().then(successCallback, errorCallback);
+
+        /**
+         * @name: addModule
+         * @desc: adds a module to the Liveview
+         * @param: module    The module to add.
+         */
+        var addModule = function (module) {
+            LiveviewService.addModule(module);
             refreshLiveview();
+        };
+
+        $scope.modules = [];
+
+        $window.addEventListener("moduleDragged", function () {
+            LiveviewService.persist();
         });
-    };
-    requestLiveview();
 
-    /**
-    * @name: refreshLiveview
-    * @desc: Rebuilds the Liveview after the document is loaded completely
-    */
-    var refreshLiveview = function () {
-        angular.element(document).ready(function () {
-            LiveviewService.buildLiveview();
-        });
-    };
+        $scope.$watch(function () {
+                return LiveviewService.liveview.modules;
+            },
+            function () {
+                $scope.modules = LiveviewService.liveview.modules;
+                refreshLiveview();
+            });
 
-    /**
-    * @name: addModule
-    * @desc: adds a module to the Liveview
-    * @param: module    The module to add.
-    */
-    var addModule = function (module) {
-        LiveviewService.addModule(module);
-        refreshLiveview();
-    };
+        // The default timeModule
+        var timeModule = {
+            "type": 'time',
+            "width": 1,
+            "height": 1,
+            "xPosition": 3,
+            "yPosition": 0,
+            //"timezone":
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
+        $scope.addTime = function () {
+            addModule(angular.copy(timeModule));
+        };
 
-    $scope.modules = [];
+        $scope.getAvailableCalendars = function () {
+            CalendarService.getAvailableCalendars();
+        };
 
-    $window.addEventListener("moduleDragged", function(){
-        LiveviewService.persist();
-    });
+        // The default calendarModule.
+        var calendarModule = {
+            "type": 'calendar',
+            "width": 1,
+            "height": 3,
+            "xPosition": 0,
+            "yPosition": 0,
+            "calendarIds": []
+        };
+        /**
+         * @name: addCalendar()
+         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         */
+        $scope.addCalendar = function () {
+            $scope.getAvailableCalendars();
+            addModule(angular.copy(calendarModule));
+        };
 
-    $scope.$watch(function () {
-        return LiveviewService.liveview.modules;
-    },
-    function () {
-        $scope.modules = LiveviewService.liveview.modules;
-        refreshLiveview();
-    });
+        // The default weatherModule.
+        var weatherModule = {
+            "type": 'weather',
+            "width": 3,
+            "height": 1,
+            "xPosition": 1,
+            "yPosition": 0,
+            "locationId": 0
+        };
 
-    // The default timeModule
-    var timeModule = {
-        "type": 'time',
-        "width": 1,
-        "height": 1,
-        "xPosition": 3,
-        "yPosition": 0,
-        //"timezone":
-    };
-    /**
-    * @name: addCalendar()
-    * @desc: Calls addModule(module) with the default calendarModule as parameter
-    */
-    $scope.addTime = function () {
-        addModule(angular.copy(timeModule));
-    };
+        /**
+         * @name: addWeather()
+         * @desc: Calls addModule(module) with the default weatherModule as parameter
+         */
+        $scope.addWeather = function () {
+            addModule(angular.copy(weatherModule));
+        };
 
+        /** VOICE CALLBACKS */
+        var voiceAddWeather = function () {
+            $scope.addWeather();
+            $scope.$apply();
+        };
+        var voiceAddCalendar = function () {
+            $scope.addCalendar();
+            $scope.$apply();
+        };
+        var voiceAddTime = function () {
+            $scope.addTime();
+            $scope.$apply();
+        };
 
-    $scope.getAvailableCalendars = function () {
-        CalendarService.getAvailableCalendars();
-    };
+        /**
+         * Voice Commands
+         */
+        var commands = {
+            "Wetter": voiceAddWeather,
+            "Kalender": voiceAddCalendar,
+            "Zeit": voiceAddTime
+        };
+        annyang.addCommands(commands);
 
-    // The default calendarModule.
-    var calendarModule = {
-        "type": 'calendar',
-        "width": 1,
-        "height": 3,
-        "xPosition": 0,
-        "yPosition": 0,
-        "calendarIds": []
-    };
-    /**
-    * @name: addCalendar()
-    * @desc: Calls addModule(module) with the default calendarModule as parameter
-    */
-    $scope.addCalendar = function () {
-        $scope.getAvailableCalendars();
-        addModule(angular.copy(calendarModule));
-    };
-
-    // The default weatherModule.
-    var weatherModule = {
-        "type": 'weather',
-        "width": 3,
-        "height": 1,
-        "xPosition": 1,
-        "yPosition": 0,
-        "locationId" : 0
-    };
-
-    /**
-    * @name: addWeather()
-    * @desc: Calls addModule(module) with the default weatherModule as parameter
-    */
-    $scope.addWeather = function () {
-        addModule(angular.copy(weatherModule));
-    };
-
-    /**
-    * Voice Commands
-    */
-    var commands = {
-        "Wetter": $scope.addWeather,
-        "Kalender": $scope.addCalendar,
-        "Zeit": $scope.addTime
-    };
-    annyang.addCommands(commands)
-
-}]);
+    }]);

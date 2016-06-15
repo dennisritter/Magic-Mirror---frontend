@@ -62,7 +62,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 // console.log("Persisted the current liveview",response);
             };
             var errorCallback = function (response) {
-                console.error("Persisting the current liveview failed: ", response.error);
+                console.error("Persisting the current liveview failed: ", response);
             };
             this.persistLiveview().then(successCallback, errorCallback);
         };
