@@ -94,7 +94,7 @@ function ($timeout, routes) {
             $scope.switchClockMode = function(){
                 $scope.analog = !$scope.analog;
                 setInterval(function(){
-                    drawClock()
+                    drawClock();
                 },1000);
             };
 
@@ -117,7 +117,7 @@ function ($timeout, routes) {
                 }else{
                     return;
                 }
-            };
+            }
 
             function drawFace(ctx, radius) {
                 ctx.beginPath();
