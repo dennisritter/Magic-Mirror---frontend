@@ -1,20 +1,20 @@
 /**
- * @author Nathalie Junker
- * @name moduleWeather
- * @desc The directive to use when including a weather module into the dashboard.
- * Manages and describes the functioning and structure of a weather module.
+ * @author Dennis Ritter
+ * @name modulePublicTransport
+ * @desc The directive to use when including a public transport module into the dashboard.
+ * Manages and describes the functioning and structure of a public transport module.
  */
 
-angular.module('perna').directive('moduleWeather', ['routes', 
+angular.module('perna').directive('modulePublicTransport', ['routes',
     function( routes  ) {
         return {
             restrict: 'E',
-            templateUrl: routes.weather,
+            templateUrl: routes.publicTransport,
             scope: {
                 'module': '='
             },
-            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService',
-                function( $scope, WeatherService, LocationService, LiveviewService ){
+            controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
+                function( $scope, PublicTransportLocationService, LiveviewService ){
 
                     //TODO: which of this variables is REALLY necessary?
                     //init with false when it´s possible to persist the location
@@ -24,7 +24,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.locationsDetected = false;
                     $scope.query = "";
                     $scope.locationId = 0;
-                    console.log($scope.locationId);
                     $scope.locationName = "";
 
 
@@ -53,32 +52,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         LocationService.determineUserLocation().then(successCallback, errorCallback);
 
                     };
-
-                    /**
-                     * Stores all Weather data for the specified ID in the weatherData array.
-                     * @param id
-                     * @param location
-                     */
-                    $scope.getWeatherData = function(id, location) {
-
-                        $scope.query = location;
-
-                        $scope.locationId = id;
-                        console.log($scope.locationId);
-                        var successCallback = function (response){
-                            $scope.weatherData = response.data;
-                            $scope.citySelected = true;
-                            $scope.save();
-                        };
-                        var errorCallback = function (response ){
-                            console.error(response);
-                        };
-                        console.log("LocationID: ", id);
-                        WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
-
-
-                    };
-
 
                     /**
                      * Pushes the Name of a specific location Id in the $scope.locationName variable
