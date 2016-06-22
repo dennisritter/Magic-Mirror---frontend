@@ -8,6 +8,9 @@
 angular.module('perna').service('PublicTransportLocationService', ['$http', '$q', 'api',
 function ($http, $q, api) {
 
+    var PublicTransportLocationService = function () {
+    };
+
     /**
     * @desc Uses the HTML5 geolocation api to get the users coordinates and uses them to return up to 10 examples of nearby cities
     */
