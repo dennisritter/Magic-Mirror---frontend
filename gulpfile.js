@@ -28,12 +28,18 @@ var paths = manifest.paths;
 
 //Import the browsersync plugin
 var browserSync = require('browser-sync').create();
-
+var historyApiFallback = require('connect-history-api-fallback');
+var middleware = historyApiFallback({
+    verbose: true,
+});
 //Initialize the browser-sync server @ perna.dev
 gulp.task('serve', function() {
     browserSync.init({
-        server: paths.distribution,
-        browser: "google chrome"
+        server: {
+            baseDir: paths.distribution,
+            middleware: [ middleware ]
+        },
+        browser: "google chrome",
     });
     //BrowserSync specific watch tasks
     gulp.watch(paths.source + 'styles/sass/**/*scss', ['css']);
@@ -132,5 +138,3 @@ gulp.task( 'build', function () {
         'fonts'
     ] );
 } );
-
-
