@@ -165,7 +165,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             "Wetter": voiceAddWeather,
             "Kalender": voiceAddCalendar,
             "Zeit": voiceAddTime,
-            "b v g": voiceAddPublicTransport
+            "BVG": voiceAddPublicTransport
         };
         annyang.addCommands(commands);
 
