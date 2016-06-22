@@ -9,7 +9,7 @@ angular.module('perna').service('WeatherLocationService', ['$http', '$q', 'api',
 function ($http, $q, api) {
 
     var WeatherLocationService = function () {
-        
+        this.userLocationID = undefined;
     };
 
     /**
@@ -42,6 +42,7 @@ function ($http, $q, api) {
                 defer.reject(response);
             });
         }
+
         function error(err) {
             console.warn('ERROR(' + err.code + '): ' + err.message);
             defer.reject(response);
@@ -51,5 +52,55 @@ function ($http, $q, api) {
         return defer.promise;
     };
 
+    /**
+    * @param A CityID
+    * @desc Retrieves the data for a specified ID
+    */
+    WeatherLocationService.prototype.getCityData = function(id){
+        var defer = $q.defer();
+        $http({
+            url : api.city_data,
+            method : 'GET',
+            params : {
+                id : id
+            }
+        })
+        .success(function(response){
+            defer.resolve(response.data);
+        })
+        .error(function(response){
+            defer.reject(response);
+        });
+        return defer.promise;
+    };
+
+    /**
+    * @param A CityID
+    * @desc Sets the userLocationID for later use
+    */
+    WeatherLocationService.prototype.setUserLocationID = function(id){
+        this.userLocationID = id;
+    };
+
+    /**
+     * @param A string containing the user's query
+     * @desc Uses the new search-endpoint that searches for the user-query in geonames.org-api
+     */
+    WeatherLocationService.prototype.searchGeonames = function(query){
+        var defer = $q.defer();
+        $http({
+            url : api.city_search,
+            method : 'GET',
+            params : { query : query }
+        })
+            .success(function(response){
+                defer.resolve(response.data);
+            })
+            .error(function(response){
+                defer.reject(response);
+            });
+        return defer.promise;
+
+    };
     return new WeatherLocationService();
 }]);
