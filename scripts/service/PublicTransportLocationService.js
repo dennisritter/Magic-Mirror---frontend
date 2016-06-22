@@ -20,33 +20,17 @@ function ($http, $q, api) {
             maximumAge: 0
         };
 
-        function success(pos) {
-            var crd = pos.coords;
-
-            $http({
-                url : api.weather_nearby,
-                method : 'GET',
-                params : {
-                    latitude : crd.latitude,
-                    longitude : crd.longitude
-                }
-            })
-            .success(function(response){
-                defer.resolve(response.data);
-            })
-            .error(function(response){
-                defer.reject(response);
-            });
+        function successCallback(response) {
+            defer.resolve();
         }
 
-        function error(err) {
-            console.warn('ERROR(' + err.code + '): ' + err.message);
-            defer.reject(response);
+        function errorCallback(response) {
+            defer.reject();
         }
-        navigator.geolocation.getCurrentPosition(success, error, options);
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
 
         return defer.promise;
     };
-    
+
     return new PublicTransportLocationService();
 }]);
