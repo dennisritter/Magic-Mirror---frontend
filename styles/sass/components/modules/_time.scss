@@ -27,17 +27,10 @@
     .lastSeconds{
         color: red;
     }
-    .clockCanvasDefault{
+    #clockCanvas{
         width:80%;
         height:80%;
         display: block;
         margin: auto;
-    }
-    .clockCanvasHorizontal{
-        height: 1%;
-        width: auto;
-    }
-    .clockCanvasVertical{
-
     }
 }
