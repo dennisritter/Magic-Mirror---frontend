@@ -13,8 +13,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
             scope: {
                 'module': '='
             },
-            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService',
-                function( $scope, WeatherService, LocationService, LiveviewService ){
+            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService', 'ModalService',
+                function( $scope, WeatherService, LocationService, LiveviewService, ModalService ){
 
                     //TODO: which of this variables is REALLY necessary?
                     //init with false when it´s possible to persist the location
@@ -24,8 +24,23 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.locationsDetected = false;
                     $scope.query = "";
                     $scope.locationId = 0;
-                    console.log($scope.locationId);
                     $scope.locationName = "";
+
+                    $scope.showYesNo = function() {
+
+                        ModalService.showModal({
+                            templateUrl: routes.modulesettings,
+                            controller: "ModuleSettingsCtrl",
+                            controllerAs: $scope.module,
+                        }).then(function(modal) {
+                            // var element = jQuery(modal.element);
+                            modal.element.modal();
+                            // modal.close.then(function(result) {
+                            //     $scope.yesNoResult = result ? "You said Yes" : "You said No";
+                            // });
+                        });
+
+                    };
 
 
                     /**
