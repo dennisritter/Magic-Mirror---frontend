@@ -29,6 +29,12 @@
     "angular-modal-service": "^0.10.1"
   },
   "overrides": {
+    "angular-modal-service": {
+      "dependencies": {
+        "angular": "~1.5.x",
+        "bootstrap-sass": "bootstrap-sass-official#^3.3.6"
+      }
+    },
     "weather-icons": {
       "main": [
         "./css/weather-icons.css",
