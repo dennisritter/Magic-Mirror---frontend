@@ -11,6 +11,7 @@ angular.module('perna', [
     home : 'layout/start.html',
     dashboard : 'layout/dashboard.html',
     usersettings : 'layout/usersettings.html',
+    modulesettings: 'layout/components/module-settings.html',
     formcontrol : 'directive/form-control-messages.html',
     calendar : 'directive/modules/module-calendar.html',
     weather : 'directive/modules/module-weather.html',
