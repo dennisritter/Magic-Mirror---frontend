@@ -16,7 +16,8 @@
                 "font-awesome",
                 "jquery",
                 "jquery-ui",
-                "annyang"
+                "annyang",
+                "angular-modal-service"
             ]
         },
         "main.css": {
