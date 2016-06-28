@@ -19,12 +19,38 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
                     $scope.configMode = true;
 
                     var persist = function(){
+                        console.log(LiveviewService.liveview.modules);
                         LiveviewService.persist();
                     };
 
+                    $scope.getStation = function(query){
+                        var successCallback = function(response){
+                            console.log("getStation result: ", response);
+                            $scope.module.stationId = response.data[0].id;
+                            $scope.module.stationName = response.data[0].name;
+                            console.log($scope.module);
+                        };
+
+                        var errorCallback = function(response){
+                            console.error(response.error);
+                        };
+                        PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
+                    };
+
+
+                    $scope.getUserLocation = function(){
+                        console.log("Get Userlocation");
+                        var successCallback = function(response){
+                            // console.log("getUserLocation() success-response: ", response)
+                        };
+
+                        var errorCallback = function(response){
+                            console.error("getUserLocation() error-response: ", response)
+                        };
+                        PublicTransportLocationService.determineUserLocation().then(successCallback, errorCallback);
+                    };
+
                     $scope.save = function () {
-                        $scope.module.locationId = $scope.locationId;
-                        console.log($scope.module);
                         $scope.configMode = false;
                         persist();
                     };
