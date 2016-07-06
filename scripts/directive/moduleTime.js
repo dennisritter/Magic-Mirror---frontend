@@ -94,7 +94,7 @@ function ($timeout, routes) {
             $scope.switchClockMode = function(){
                 $scope.analog = !$scope.analog;
                 setInterval(function(){
-                    drawClock()
+                    drawClock();
                 },1000);
             };
 
@@ -105,8 +105,8 @@ function ($timeout, routes) {
             function drawClock () {
                 if ($scope.analog){
                     var canvas = document.getElementById("clockCanvas");
-                    canvas.width = 500;
-                    canvas.height = 500;
+                    canvas.width = 450;
+                    canvas.height = 450;
                     var ctx = canvas.getContext("2d");
                     var radius = (canvas.height / 2);
                     ctx.translate(radius, radius);
@@ -117,7 +117,7 @@ function ($timeout, routes) {
                 }else{
                     return;
                 }
-            };
+            }
 
             function drawFace(ctx, radius) {
                 ctx.beginPath();
