@@ -59,11 +59,9 @@ function ($http, $q, api) {
     LocationService.prototype.getCityData = function(id){
         var defer = $q.defer();
         $http({
-            url : api.city_data,
-            method : 'GET',
-            params : {
-                id : id
-            }
+            url : api.city_data + id,
+            method : 'GET'
+
         })
         .success(function(response){
             defer.resolve(response.data);

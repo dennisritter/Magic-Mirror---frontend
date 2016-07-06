@@ -5,7 +5,7 @@
  * Manages and describes the functioning and structure of a weather module.
  */
 
-angular.module('perna').directive('moduleWeather', ['routes', 
+angular.module('perna').directive('moduleWeather2', ['routes',
     function( routes ) {
         return {
             restrict: 'E',
