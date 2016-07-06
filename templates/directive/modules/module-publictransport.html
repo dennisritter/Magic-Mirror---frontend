@@ -4,8 +4,12 @@
         <button class="button button__module--delete" ng-click="delete()">Del</button>
         <form name="publictransportSearch" >
             <input type="text" ng-model="query" style="color:black" placeholder="Departure Location">
-            <button type="button" class="btn btn-primary" ng-click="getStation(query)"> search </span></button>
-            <!--<button type="button" class="btn btn-primary" ng-click="getUserLocation()"> my location </span></button>-->
+            <button type="button" class="btn btn-primary" ng-click="getStations(query)"> search </span></button>
+            <ul id="locations" ng-if="!locationSelected && locationsDetected">
+                <li class="stationList" ng-repeat="location in locations" ng-click="getStationInfo(location.id, location.name)">
+                    {{ location.name }}
+                </li>
+            </ul>
         </form>
     </div>
     <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>

@@ -29,7 +29,7 @@ angular.module('perna').service('PublicTransportLocationService', ['$http', '$q'
                     defer.reject(response);
                 });
             return defer.promise;
-        }
+        };
 
         /**
          *  note: Need improved nearby search if using it for publicTransport
@@ -47,11 +47,11 @@ angular.module('perna').service('PublicTransportLocationService', ['$http', '$q'
             var successCallback = function(response) {
                 _PublicTransportLocationService.getNearbyLocation(response.coords.latitude, response.coords.longitude);
                 defer.resolve(response);
-            }
+            };
 
             var errorCallback = function(response) {
                 defer.reject(response);
-            }
+            };
 
             navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
             return defer.promise;
@@ -60,14 +60,14 @@ angular.module('perna').service('PublicTransportLocationService', ['$http', '$q'
         PublicTransportLocationService.prototype.getNearbyLocation = function (lat, lng) {
             var successCallback = function (response) {
 
-            }
+            };
 
             var errorCallback = function (response) {
                 console.error("getNearbyLocation() error: ", response);
-            }
+            };
 
             this.requestNearbyLocation(lat, lng).then(successCallback, errorCallback);
-        }
+        };
 
         PublicTransportLocationService.prototype.requestNearbyLocation = function (lat, lng) {
             var defer = $q.defer();
@@ -87,7 +87,7 @@ angular.module('perna').service('PublicTransportLocationService', ['$http', '$q'
                     defer.reject(response);
                 });
             return defer.promise;
-        }
+        };
 
         return new PublicTransportLocationService();
     }]);

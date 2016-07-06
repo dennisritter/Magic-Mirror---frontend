@@ -18,23 +18,32 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
 
                     $scope.configMode = true;
 
+                    $scope.locations = [];
+                    $scope.locationsDetected = false;
+                    $scope.locationSelected = false;
+
                     var persist = function(){
                         console.log(LiveviewService.liveview.modules);
                         LiveviewService.persist();
                     };
 
-                    $scope.getStation = function(query){
+                    $scope.getStations = function(query){
                         var successCallback = function(response){
-                            console.log("getStation result: ", response);
-                            $scope.module.stationId = response.data[0].id;
-                            $scope.module.stationName = response.data[0].name;
-                            console.log($scope.module);
+                            $scope.locations = response.data;
+                            $scope.locationsDetected = true;
                         };
 
                         var errorCallback = function(response){
                             console.error(response.error);
                         };
                         PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
+                    };
+
+                    $scope.getStationInfo = function(locationId, locationName){
+                        $scope.module.stationId = locationId;
+                        $scope.module.stationName = locationName;
+                        $scope.locationSelected = true;
+                        console.log($scope.module);
                     };
 
 
@@ -45,7 +54,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
                         };
 
                         var errorCallback = function(response){
-                            console.error("getUserLocation() error-response: ", response)
+                            console.error("getUserLocation() error-response: ", response);
                         };
                         PublicTransportLocationService.determineUserLocation().then(successCallback, errorCallback);
                     };
