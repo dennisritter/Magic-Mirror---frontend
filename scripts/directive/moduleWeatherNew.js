@@ -21,13 +21,10 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
          * May be a controller constructor or a registered controller name,
          * if you want to separate the controllers into multiple files.
          *
-         * templateUrl must be assigned to $scope.templateUrl
-         * close is a function for closing the modal
-         * both must be required via dependency injection
+         * close is a function for closing the modal, must be required in dependencies
          */
-        var editController = ['LocationService', '$scope', 'templateUrl', 'close',
-          function (LocationService, $scope, templateUrl, close) {
-            $scope.templateUrl = templateUrl;
+        var editController = ['LocationService', '$scope', 'close',
+          function (LocationService, $scope, close) {
             $scope.query = '';
             $scope.selected = null;
             $scope.results = [];
@@ -90,7 +87,8 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
            */
           PernaModalService.showModal({
             controller: editController,
-            templateUrl: 'directive/modules/module-weather-edit.html'
+            templateUrl: 'directive/modules/module-weather-edit.html',
+            title: 'Select a location'
           })
             .then(function (location) {
               $scope.location = location;

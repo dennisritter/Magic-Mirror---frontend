@@ -12,10 +12,13 @@ angular.module('perna').service('PernaModalService', ['ModalService', '$q', func
       options.inputs = {};
     }
 
-    options.inputs.templateUrl = innerTemplateUrl;
-
     ModalService.showModal( options )
       .then(function (modal) {
+        modal.scope.templateUrl = innerTemplateUrl;
+        if ( options.title ) {
+          modal.scope.title = options.title;
+        }
+
         var element = jQuery(modal.element);
         element.modal();
 
