@@ -17,7 +17,7 @@
                         <label><input type="checkbox"
                                       class="module-publictransport-checkbox--product"
                                       name="product"
-                                      value="{{ product }}">{{ product }}</label>
+                                      ng-click="selectedProducts[product] = !selectedProducts[product]">{{ product }}</label>
                     </li>
                 </ul>
             </form>

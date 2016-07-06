@@ -20,7 +20,14 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
 
                     $scope.stations = [];
                     $scope.stationsDetected = false;
-                    $scope.stationsSelected = false;
+                    $scope.selectedProducts = {
+                        "S-Bahn": false,
+                        "Tram": false,
+                        "U-Bahn": false,
+                        "Bus": false,
+                        "Regionalbahn": false,
+                        "Fähre": false
+                    };
 
                     var persist = function(){
                         console.log(LiveviewService.liveview.modules);
@@ -78,13 +85,21 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
                         return stationProductLabels;
                     };
 
+                    var getSelectedProductsString = function(){
+                        var products = [];
+                        if($scope.selectedProducts["S-Bahn"]) products.push("S");
+                        if($scope.selectedProducts["Tram"]) products.push("T");
+                        if($scope.selectedProducts["U-Bahn"]) products.push("U");
+                        if($scope.selectedProducts["Bus"]) products.push("B");
+                        if($scope.selectedProducts["Regionalbahn"]) products.push("RE");
+                        if($scope.selectedProducts["Fähre"]) products.push("F");
+                        return products.join();
+                    }
                     $scope.getDepartures = function(stationId, selectedStationProducts){
                         var query = {
-                            stationId: "",
-                            products: ""
+                            stationId: $scope.module.stationId,
+                            products: getSelectedProductsString()
                         };
-                        query.stationId = stationId;
-                        query.products = selectedStationProducts.join(",", stationProducts);
                     };
 
                     $scope.getUserLocation = function(){
@@ -100,6 +115,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
                     };
 
                     $scope.save = function () {
+                        $scope.getDepartures()
                         $scope.configMode = false;
                         persist();
                     };
