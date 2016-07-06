@@ -82,7 +82,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         var calendarModule = {
             "type": 'calendar',
             "width": 1,
-            "height": 3,
+            "height": 2,
             "xPosition": 0,
             "yPosition": 0,
             "calendarIds": []
@@ -99,7 +99,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         // The default weatherModule.
         var weatherModule = {
             "type": 'weather',
-            "width": 3,
+            "width": 2,
             "height": 1,
             "xPosition": 1,
             "yPosition": 0,

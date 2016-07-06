@@ -14,7 +14,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
              * example for a module in the modules array below
              */
             this.liveview = {
-                size: 3,
+                size: 6,
                 dom: $('#grid'),
                 modules: []
             };
@@ -26,6 +26,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
          */
         LiveviewService.prototype.buildLiveview = function () {
             this.liveview.dom.gridList({
+                direction : 'vertical',
                 lanes: this.liveview.size
             });
         };
