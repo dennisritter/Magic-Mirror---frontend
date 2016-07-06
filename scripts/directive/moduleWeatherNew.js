@@ -114,6 +114,10 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
             });
         };
 
+        $scope.delete = function () {
+          LiveviewService.deleteModule($scope.module);
+        };
+
         var initLocation = function () {
           if ( $scope.module.locationId !== 0 ) {
             LocationService.getCityData( $scope.module.locationId )
@@ -121,6 +125,8 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
                 $scope.location = location;
                 $scope.getWeatherData();
               });
+          } else {
+            $scope.edit();
           }
         };
 
