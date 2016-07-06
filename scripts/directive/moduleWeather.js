@@ -13,8 +13,8 @@ angular.module('perna').directive('moduleWeather', ['routes',
             scope: {
                 'module': '='
             },
-            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService', 'ModalService',
-                function( $scope, WeatherService, LocationService, LiveviewService, ModalService ){
+            controller: ['$scope', '$rootScope', 'WeatherService', 'LocationService', 'LiveviewService', 'ModalService',
+                function( $scope, $rootScope, WeatherService, LocationService, LiveviewService, ModalService ){
 
                     //TODO: which of these variables are REALLY necessary?
                     //init with false when it´s possible to persist the location
@@ -28,6 +28,7 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                     $scope.showYesNo = function() {
 
+                        $rootScope.module = $scope.module;
                         ModalService.showModal({
                             templateUrl: routes.modulesettings,
                             controller: "ModuleSettingsCtrl",
@@ -173,15 +174,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         $scope.configMode = true;
                     };
 
-                    $scope.delete = function(){
-                        var successCallback = function(){
-                            console.log("Deleted module: ", $scope.module);
-                        };
-                        var errorCallback = function(response){
-                            console.error("deleteModuleError: ", response);
-                        };
-                        LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
-                    };
                 }],
             link: function(scope){
                 if(scope.module.locationId !== 0){
