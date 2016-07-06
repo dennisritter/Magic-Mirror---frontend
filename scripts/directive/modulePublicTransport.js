@@ -18,9 +18,9 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
 
                     $scope.configMode = true;
 
-                    $scope.locations = [];
-                    $scope.locationsDetected = false;
-                    $scope.locationSelected = false;
+                    $scope.stations = [];
+                    $scope.stationsDetected = false;
+                    $scope.stationsSelected = false;
 
                     var persist = function(){
                         console.log(LiveviewService.liveview.modules);
@@ -29,8 +29,9 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
 
                     $scope.getStations = function(query){
                         var successCallback = function(response){
-                            $scope.locations = response.data;
-                            $scope.locationsDetected = true;
+                            $scope.stations = response.data;
+                            $scope.stationsDetected = true;
+                            console.log("Stations found: ", response.data);
                         };
 
                         var errorCallback = function(response){
@@ -39,13 +40,52 @@ angular.module('perna').directive('modulePublicTransport', ['routes',
                         PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
                     };
 
-                    $scope.getStationInfo = function(locationId, locationName){
-                        $scope.module.stationId = locationId;
-                        $scope.module.stationName = locationName;
-                        $scope.locationSelected = true;
-                        console.log($scope.module);
+                    $scope.getStationInfo = function(stationId, stationName, stationProducts){
+                        $scope.module.stationId = stationId;
+                        $scope.module.stationName = stationName;
+                        $scope.stationProducts = stationProducts;
+                        $scope.stationProductsLabels = $scope.getStationProductsLabels();
+                        $scope.stationSelected = true;
                     };
 
+                    $scope.getStationProductsLabels = function(){
+                        var stationProductLabels = [];
+                        for(var i = 0; i < $scope.stationProducts.length; i++){
+                            switch($scope.stationProducts[i]){
+                                case("S"):
+                                    stationProductLabels.push("S-Bahn");
+                                    break;
+                                case("T"):
+                                    stationProductLabels.push("Tram");
+                                    break;
+                                case("U"):
+                                    stationProductLabels.push("U-Bahn");
+                                    break;
+                                case("B"):
+                                    stationProductLabels.push("Bus");
+                                    break;
+                                case("RE"):
+                                    stationProductLabels.push("Regionalbahn");
+                                    break;
+                                case("F"):
+                                    stationProductLabels.push("Fähre");
+                                    break;
+                                default:
+                                    stationProductLabels.push("Unbekannt");
+                                    break;
+                            }
+                        }
+                        return stationProductLabels;
+                    };
+
+                    $scope.getDepartures = function(stationId, selectedStationProducts){
+                        var query = {
+                            stationId: "",
+                            products: ""
+                        };
+                        query.stationId = stationId;
+                        query.products = selectedStationProducts.join(",", stationProducts);
+                    };
 
                     $scope.getUserLocation = function(){
                         console.log("Get Userlocation");

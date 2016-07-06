@@ -82,6 +82,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             })
                 .success(function (response) {
                     _liveviewService.liveview.modules = response.data;
+                    console.log(response.data);
                     defer.resolve(response);
                 })
                 .error(function (response) {
