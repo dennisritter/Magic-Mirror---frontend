@@ -3,11 +3,11 @@
     <div ng-if="!analog" class="time-container">
         <div class="timeDisplay">{{ time | date : 'hh:mm'}}</div>
     </div>
-    <div ng-if="!analog" class="date-container">
-        <div class="dateDisplay">{{ time | date : 'mediumDate'}}</div>
-    </div>
     <div ng-if="countdown" class="countdown-container">
         <div class="countdownDisplay">{{ counter | date : 'mm:ss:sss'}}</div>
+    </div>
+    <div ng-if="!analog" class="date-container">
+        <div class="dateDisplay">{{ time | date : 'mediumDate'}}</div>
     </div>
     <div ng-if="configMode" class="module-settingsbar">
         <button class="button button__module--save" ng-click="save()">Save</button>
