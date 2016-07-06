@@ -6,15 +6,15 @@
  */
 
 angular.module('perna').directive('moduleWeather', ['routes', 
-    function( routes  ) {
+    function( routes ) {
         return {
             restrict: 'E',
             templateUrl: routes.weather,
             scope: {
                 'module': '='
             },
-            controller: ['$scope', '$rootScope', 'WeatherService', 'LocationService', 'LiveviewService', 'ModalService',
-                function( $scope, $rootScope, WeatherService, LocationService, LiveviewService, ModalService ){
+            controller: ['$scope', 'WeatherService', 'LocationService', 'LiveviewService', 'PernaModalService',
+                function( $scope, WeatherService, LocationService, LiveviewService, PernaModalService ){
 
                     //TODO: which of these variables are REALLY necessary?
                     //init with false when it´s possible to persist the location
@@ -26,20 +26,72 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.locationId = 0;
                     $scope.locationName = "";
 
+                    var editController = ['LocationService', 'module', '$scope', 'templateUrl', 'close', function ( LocationService, module, $scope, templateUrl, close ) {
+                        $scope.moduleData = module;
+                        $scope.templateUrl = templateUrl;
+
+                        /**
+                         * Locate the user's current location via the browser coordinates and get the
+                         * weather data for this location.
+                         */
+                        $scope.locateUser = function(){
+                            $scope.citySelected = false;
+                            $scope.locationsDetected = false;
+
+                            var successCallback = function (response){
+                                $scope.locationFound = response;
+                                $scope.locationId = $scope.locationFound.id;
+                                $scope.locationsDetected = true;
+                                $scope.query = "";
+                                $scope.getWeatherData($scope.locationId, $scope.locationFound.name);
+                            };
+                            var errorCallback = function (response){
+                                console.error(response);
+                            };
+
+                            clearResults();
+                            $scope.query = "getting location...";
+
+                            LocationService.determineUserLocation().then(successCallback, errorCallback);
+                        };
+
+                        /**
+                         * Searches for a location which fits the query and stores the found location in the
+                         * locationFound-variable.
+                         * @param query  The query.
+                         */
+                        $scope.searchLocation = function (query){
+                            var successCallback = function (response){
+                                $scope.locationFound = response;
+                                $scope.locationsDetected = true;
+                                $scope.citySelected = false;
+                            };
+                            var errorCallback = function (response){
+                                console.error(response);
+                            };
+
+                            LocationService.searchGeonames(query).then(successCallback, errorCallback);
+
+                        };
+
+                        $scope.submit = function () {
+                            close('success!', 500);
+                        };
+
+                        $scope.cancel = function () {
+                            close('cancelled :(', 500);
+                        };
+                    }];
+
                     $scope.showYesNo = function() {
-
-                        $rootScope.module = $scope.module;
-                        ModalService.showModal({
-                            templateUrl: routes.modulesettings,
-                            controller: "ModuleSettingsCtrl",
-                        }).then(function(modal) {
-                            var element = jQuery(modal.element);
-                            element.modal();
-                            modal.close.then(function(result) {
-                                $scope.yesNoResult = result ? "You said Yes" : "You said No";
-                            });
-                        });
-
+                        PernaModalService.showModal({
+                            templateUrl: 'directive/modules/module-weather-edit.html',
+                            controller: editController,
+                            inputs: {
+                                module: $scope.module
+                            }
+                        })
+                          .then(function (modal) {console.log('modal', modal);});
                     };
 
 

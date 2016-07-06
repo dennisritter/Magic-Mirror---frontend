@@ -1,0 +1,16 @@
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-if="title">
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <ng-include src="templateUrl"></ng-include>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" ng-if="cancel" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success" ng-if="submit" ng-click="submit()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
