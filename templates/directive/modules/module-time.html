@@ -1,7 +1,7 @@
 <div class="time">
-    <canvas ng-if="analog" class="clockCanvasHorizontal" width="100" height="100" style="background-color:#000"></canvas>
+    <canvas ng-if="analog" id="clockCanvas" class="clockCanvas" width="100" height="100" style="background-color:#000"></canvas>
     <div ng-if="!analog" class="time-container">
-        <div class="timeDisplay">{{ time | date : 'mediumTime'}}</div>
+        <div class="timeDisplay">{{ time | date : 'hh:mm'}}</div>
     </div>
     <div ng-if="!analog" class="date-container">
         <div class="dateDisplay">{{ time | date : 'mediumDate'}}</div>
