@@ -130,7 +130,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             "xPosition": 1,
             "yPosition": 2,
             "stationId": "",
-            "stationName": ""
+            "stationName": "",
+            "products": []
         };
 
         /**
