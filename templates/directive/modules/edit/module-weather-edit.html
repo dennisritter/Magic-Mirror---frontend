@@ -1,5 +1,5 @@
 <form name="weatherSearch" >
-  <input type="text" ng-model="query" style="color:black" placeholder="Your city here">
+  <input type="text" ng-model="query" style="color:black" placeholder="{{selected.name || 'Your city here'}}">
   <button type="button" class="btn btn-primary" ng-click="searchLocation(query)"> search </span></button>
   <button type="button" class="btn btn-primary" ng-click="locateUser()"> my location </span></button>
   <ul id="locations" ng-if="results.length > 0">
