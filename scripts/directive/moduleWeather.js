@@ -24,7 +24,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                     $scope.locationsDetected = false;
                     $scope.query = "";
                     $scope.locationId = 0;
-                    console.log($scope.locationId);
                     $scope.locationName = "";
 
 
@@ -73,7 +72,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
                         var errorCallback = function (response ){
                             console.error(response);
                         };
-                        console.log("LocationID: ", id);
                         WeatherService.getWeatherFor(id).then(successCallback, errorCallback);
 
 
@@ -89,7 +87,6 @@ angular.module('perna').directive('moduleWeather', ['routes',
 
                         var successCallback = function (response){
                             $scope.locationName = response.data.name;
-                            console.log($scope.locationName);
                             $scope.getWeatherData(id, $scope.locationName);
                         };
                         var errorCallback = function (response ){
