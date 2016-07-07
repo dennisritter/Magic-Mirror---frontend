@@ -57,6 +57,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                 refreshLiveview();
             });
 
+        //********** TIME
+
         // The default timeModule
         var timeModule = {
             "type": 'time',
@@ -67,12 +69,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             //"timezone":
         };
         /**
-         * @name: addCalendar()
-         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         * @name: addTime()
+         * @desc: Calls addModule(module) with the default TimeModule as parameter
          */
         $scope.addTime = function () {
             addModule(angular.copy(timeModule));
         };
+
+        //********** CALENDAR
 
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
@@ -96,6 +100,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             addModule(angular.copy(calendarModule));
         };
 
+        //********** WEATHER
+
         // The default weatherModule.
         var weatherModule = {
             "type": 'weather',
@@ -114,6 +120,28 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             addModule(angular.copy(weatherModule));
         };
 
+        //********** PUBLIC TRANSPORT
+
+        // The default PublicTransportModule.
+        var publicTransportModule = {
+            "type": 'publicTransport',
+            "width": 3,
+            "height": 1,
+            "xPosition": 1,
+            "yPosition": 2,
+            "stationId": "",
+            "stationName": "",
+            "products": []
+        };
+
+        /**
+         * @name: addPublicTransport()
+         * @desc: Calls addPublicTransport(module) with the default PublicTransportModule as parameter
+         */
+        $scope.addPublicTransport = function () {
+            addModule(angular.copy(publicTransportModule));
+        };
+
         /** VOICE CALLBACKS */
         var voiceAddWeather = function () {
             $scope.addWeather();
@@ -127,6 +155,10 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             $scope.addTime();
             $scope.$apply();
         };
+        var voiceAddPublicTransport = function () {
+            $scope.addPublicTransport();
+            $scope.$apply();
+        };
 
         /**
          * Voice Commands
@@ -134,7 +166,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         var commands = {
             "Wetter": voiceAddWeather,
             "Kalender": voiceAddCalendar,
-            "Zeit": voiceAddTime
+            "Zeit": voiceAddTime,
+            "BVG": voiceAddPublicTransport
         };
         annyang.addCommands(commands);
 

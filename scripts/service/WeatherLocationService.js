@@ -1,21 +1,21 @@
 /**
 * @author Johannes Ebeling
-* @name LocationService
+* @name WeatherLocationService
 * @desc A Service which includes functions for getting the users location
-* @return An Instance of LocationService
+* @return An Instance of WeatherLocationService
 */
 
-angular.module('perna').service('LocationService', ['$http', '$q', 'api',
+angular.module('perna').service('WeatherLocationService', ['$http', '$q', 'api',
 function ($http, $q, api) {
 
-    var LocationService = function () {
+    var WeatherLocationService = function () {
         this.userLocationID = undefined;
     };
 
     /**
     * @desc Uses the HTML5 geolocation api to get the users coordinates and uses them to return up to 10 examples of nearby cities
     */
-    LocationService.prototype.determineUserLocation = function() {
+    WeatherLocationService.prototype.determineUserLocation = function() {
         var defer = $q.defer();
 
         var options = {
@@ -56,7 +56,7 @@ function ($http, $q, api) {
     * @param A CityID
     * @desc Retrieves the data for a specified ID
     */
-    LocationService.prototype.getCityData = function(id){
+    WeatherLocationService.prototype.getCityData = function(id){
         var defer = $q.defer();
         $http({
             url : api.city_data,
@@ -78,7 +78,7 @@ function ($http, $q, api) {
     * @param A CityID
     * @desc Sets the userLocationID for later use
     */
-    LocationService.prototype.setUserLocationID = function(id){
+    WeatherLocationService.prototype.setUserLocationID = function(id){
         this.userLocationID = id;
     };
 
@@ -86,7 +86,7 @@ function ($http, $q, api) {
      * @param A string containing the user's query
      * @desc Uses the new search-endpoint that searches for the user-query in geonames.org-api
      */
-    LocationService.prototype.searchGeonames = function(query){
+    WeatherLocationService.prototype.searchGeonames = function(query){
         var defer = $q.defer();
         $http({
             url : api.city_search,
@@ -102,5 +102,5 @@ function ($http, $q, api) {
         return defer.promise;
 
     };
-    return new LocationService();
+    return new WeatherLocationService();
 }]);
