@@ -31,6 +31,7 @@ angular.module('perna', [
     weather_getWeather: 'http://api.perna.dev/v1/weather/',
     city_search: 'http://api.perna.dev/v1/weather/locations/search',
     stations_search: 'http://api.perna.dev/v1/publicTransport/stations/search',
+    departures: 'http://api.perna.dev/v1/publicTransport/departures/',
     module: 'http://api.perna.dev/v1/modules/',
     modules: 'http://api.perna.dev/v1/modules'
 });
