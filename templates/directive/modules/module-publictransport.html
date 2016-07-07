@@ -23,7 +23,13 @@
             </form>
         </form>
     </div>
-    <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>
-        Edit
-    </button>
+    <div ng-if="!configMode">
+        <button class="button button__module--edit" ng-click="edit()" show-on-mouse-move>
+            Edit
+        </button>
+        <ul>
+            <li ng-repeat="departure in departures">{{ departure.name + " nach " + departure.direction }}<br>
+            Abfahrt: {{ departure.scheduledTime | date : 'shortTime'}}</li><br>
+        </ul>
+    </div>
 </div>
