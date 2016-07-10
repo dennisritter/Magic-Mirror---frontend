@@ -25,7 +25,8 @@
     "js-sha256": "^0.3.0",
     "jquery-ui": "^1.11.4",
     "weather-icons": "^2.0.10",
-    "annyang": "^2.4.0"
+    "annyang": "^2.4.0",
+    "angular-modal-service": "^0.10.1"
   },
   "overrides": {
     "weather-icons": {
