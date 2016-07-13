@@ -1,4 +1,5 @@
-angular.module('perna').service('ModuleModalService', ['PernaModalService', function (PernaModalService) {
+angular.module('perna').service('ModuleModalService', ['PernaModalService', 'GoogleAuthService', '$q',
+  function (PernaModalService, GoogleAuthService, $q) {
   
   var ModuleModalService = function () {};
   
@@ -26,6 +27,40 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', func
       },
       title: 'Choose a view type'
     });
+  };
+
+
+  ModuleModalService.prototype.openPublicTransportModal = function (station, products) {
+
+    return PernaModalService.showModal({
+      controller: 'ModulePublicTransportEditController',
+      templateUrl: 'directive/modules/edit/module-publictransport-edit.html',
+      inputs: {
+        station: station,
+        products: products
+      },
+      title: 'Select a departure location and products'
+    });
+  };
+
+  ModuleModalService.prototype.openCalendarModal = function (calendarIds) {
+    calendarIds = calendarIds || [];
+    var defer = $q.defer();
+
+    GoogleAuthService.assureIsAuthenticated()
+      .then(function () {
+        PernaModalService.showModal({
+          controller: 'ModuleCalendarEditController',
+          templateUrl: 'directive/modules/edit/module-calendar-edit.html',
+          inputs: {
+            calendarIds: calendarIds
+          },
+          title: 'Wähle die Kalender, die du anzeigen möchtest.'
+        }).then(defer.resolve, defer.reject);
+      })
+      .catch(defer.reject);
+
+    return defer.promise;
   };
   
   return new ModuleModalService();

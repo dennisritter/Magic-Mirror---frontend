@@ -1,0 +1,12 @@
+<form name="calendarChooser">
+  <label class="calendar-checklist--availablecalendar" ng-repeat="calendar in availableCalendars">
+    <input
+        type="checkbox"
+        class="calendar-checkbox--availablecalendar"
+        ng-model="availableCalendars"
+        ng-click="toggleCalendar(calendar)"
+        ng-checked="isSelected(calendar)"
+    >
+    <span style="color:black;">{{ calendar.summary }}</span>
+  </label>
+</form>

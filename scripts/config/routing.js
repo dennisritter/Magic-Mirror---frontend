@@ -21,23 +21,13 @@ angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvid
         $stateProvider
             .state('start', {
                 url: '/',
-                templateUrl: routes.home,
+                templateUrl: routes.home
             })
             .state('dashboard', {
                 url: '/dashboard',
                 templateUrl: routes.dashboard,
                 onEnter: authRedirect
-            })
-            .state('usersettings', {
-                url: '/usersettings',
-                templateUrl: routes.usersettings,
-                onEnter: authRedirect
             });
-            // .state('weathersearch', {
-            //     url: '/weathersearch',
-            //     templateUrl: routes.weather,
-            //     onEnter: authRedirect
-        // });
 
         $urlRouterProvider.otherwise('/');
 

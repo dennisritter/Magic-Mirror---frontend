@@ -88,23 +88,25 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
         };
-
-        // The default calendarModule.
-        var calendarModule = {
-            "type": 'calendar',
-            "width": 1,
-            "height": 3,
-            "xPosition": 0,
-            "yPosition": 0,
-            "calendarIds": []
-        };
+        
         /**
          * @name: addCalendar()
          * @desc: Calls addModule(module) with the default calendarModule as parameter
          */
         $scope.addCalendar = function () {
-            $scope.getAvailableCalendars();
-            addModule(angular.copy(calendarModule));
+            ModuleModalService.openCalendarModal()
+              .then(function (calendarIds) {
+                  addModule({
+                      type: 'calendar',
+                      width: 2,
+                      height: 2,
+                      xPosition: 0,
+                      yPosition: 0,
+                      calendarIds: calendarIds
+                  });
+
+                  LiveviewService.persist();
+              });
         };
 
         /**
@@ -133,24 +135,30 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
 
         //********** PUBLIC TRANSPORT
 
-        // The default PublicTransportModule.
-        var publicTransportModule = {
-            "type": 'publicTransport',
-            "width": 3,
-            "height": 1,
-            "xPosition": 1,
-            "yPosition": 2,
-            "stationId": "",
-            "stationName": "",
-            "products": []
-        };
-
         /**
          * @name: addPublicTransport()
          * @desc: Calls addPublicTransport(module) with the default PublicTransportModule as parameter
          */
         $scope.addPublicTransport = function () {
-            addModule(angular.copy(publicTransportModule));
+            ModuleModalService.openPublicTransportModal()
+                .then(function(results) {
+                    if (!results.station || results.products <= 0) {
+                        return;
+                    }
+
+                    addModule({
+                        "type": 'publicTransport',
+                        "width": 3,
+                        "height": 1,
+                        "xPosition": 1,
+                        "yPosition": 2,
+                        "stationId": results.station.id,
+                        "stationName": results.station.name,
+                        "products": results.products
+                    });
+
+                    LiveviewService.persist();
+                });
         };
 
         /** VOICE CALLBACKS */
