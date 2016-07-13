@@ -53,7 +53,7 @@ function ($http, $q, api) {
     };
 
     /**
-    * @param A CityID
+    * @param id A CityID
     * @desc Retrieves the data for a specified ID
     */
     WeatherLocationService.prototype.getCityData = function(id){

@@ -99,22 +99,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             $scope.getAvailableCalendars();
             addModule(angular.copy(calendarModule));
         };
-//
-// <<<<<<< HEAD
-//         //********** WEATHER
-//
-//         // The default weatherModule.
-//         var weatherModule = {
-//             "type": 'weather',
-//             "width": 3,
-//             "height": 1,
-//             "xPosition": 1,
-//             "yPosition": 0,
-//             "locationId": 0
-//         };
-//
-// =======
-// >>>>>>> feature/modalJannik
+
         /**
          * @name: addWeather()
          * @desc: Calls addModule(module) with the default weatherModule as parameter
@@ -124,7 +109,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
               .then(function(location) {
                   if ( !location ) {
                       return;
-                  }
+                  } console.log('added location', location);
 
                   addModule({
                       type: 'weather',
@@ -134,6 +119,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                       yPosition: 0,
                       locationId: location.id
                   });
+
+                  LiveviewService.persist();
               });
         };
 
