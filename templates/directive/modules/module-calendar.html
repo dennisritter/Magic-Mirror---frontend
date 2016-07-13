@@ -18,7 +18,7 @@
     </div>
     <div class="calendar-container--events" ng-if="!configMode">
         <ul>
-            <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events">
+            <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events|limitTo:4">
                 <ul>
                     <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
                     <li class="calendar-listitem--event--location">{{ event.location }}</li>
