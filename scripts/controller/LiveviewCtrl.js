@@ -133,24 +133,30 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
 
         //********** PUBLIC TRANSPORT
 
-        // The default PublicTransportModule.
-        var publicTransportModule = {
-            "type": 'publicTransport',
-            "width": 3,
-            "height": 1,
-            "xPosition": 1,
-            "yPosition": 2,
-            "stationId": "",
-            "stationName": "",
-            "products": []
-        };
-
         /**
          * @name: addPublicTransport()
          * @desc: Calls addPublicTransport(module) with the default PublicTransportModule as parameter
          */
         $scope.addPublicTransport = function () {
-            addModule(angular.copy(publicTransportModule));
+            ModuleModalService.openPublicTransportModal()
+            //check for output parameters
+                // .then(function() {
+                //     if ( ) {
+                //         return;
+                //     }
+
+                    addModule({
+                        "type": 'publicTransport',
+                        "width": 3,
+                        "height": 1,
+                        "xPosition": 1,
+                        "yPosition": 2,
+                        "stationId": "",
+                        "stationName": "",
+                        "products": []
+                    });
+
+                    LiveviewService.persist();
         };
 
         /** VOICE CALLBACKS */
