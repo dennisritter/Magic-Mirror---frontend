@@ -8,8 +8,8 @@
         <ng-include src="templateUrl"></ng-include>
       </div>
       <div class="modal-footer">
-        <button class="button button-white-ghost" ng-if="cancel" ng-click="cancel()">Cancel</button>
-        <button class="button button-white" ng-if="submit" ng-click="submit()">Submit</button>
+        <button class="button button-white-ghost" ng-if="cancel" ng-click="cancel()">Abbrechen</button>
+        <button class="button button-white" ng-if="submit" ng-click="isDiabled == undefined ? submit() : !isDisabled() && submit()" ng-class="{disabled: isDisabled && isDisabled()}">Speichern</button>
       </div>
     </div>
   </div>

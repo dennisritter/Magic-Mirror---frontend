@@ -1,0 +1,20 @@
+.modal {
+  .form-inline {
+    .form-group {
+      margin-right: 7px;
+    }
+  }
+
+  .form-control {
+    background: black;
+    color: white;
+    box-shadow: 0;
+    border: 2px solid darken(white, 20%);
+    font-weight: normal;
+
+    &:focus {
+      box-shadow: 0;
+      border-color: white;
+    }
+  }
+}
