@@ -77,4 +77,18 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
             console.log($scope.products);
         };
 
+        $scope.submit = function () {
+            // Cancel if no station or product has been selected
+            if ( $scope.station === null || $scope.products.length <= 0) {
+                $scope.cancel();
+                return;
+            }
+
+            // Resolve with station and products
+            close( {
+                station: $scope.station,
+                products: $scope.products
+            } );
+        };
+
     }]);
