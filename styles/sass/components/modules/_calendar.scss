@@ -1,8 +1,5 @@
 .calendar {
-    width: 100%;
-    height: 100%;
     background-color: $black;
-
     //calendar-settings
     .calendar-checklist--availablecalendar {
         font-weight: normal;
@@ -15,23 +12,22 @@
 
     //calendar-event-view
     .calendar-container--events {
-        height:80%;
-        padding: 2%;
-        height: 100%;
         .calendar-listitem--event {
-            position: static;
             border-bottom: solid $white 2px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            &:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-
+            margin-top: 5px;
             &--summary {
+                font-size: 1.1em;
                 font-weight: bold;
             }
+            &:last-child {
+                border-bottom: none;
+            }
         }
+    }
+    .calendar-button{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
