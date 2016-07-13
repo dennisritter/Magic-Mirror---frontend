@@ -150,9 +150,9 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                         "height": 1,
                         "xPosition": 1,
                         "yPosition": 2,
-                        "stationId": "",
-                        "stationName": "",
-                        "products": []
+                        "stationId": results.station.id,
+                        "stationName": results.station.name,
+                        "products": results.products
                     });
 
                     LiveviewService.persist();

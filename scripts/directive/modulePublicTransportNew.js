@@ -5,8 +5,8 @@
  * Manages and describes the functioning and structure of a public transport module.
  */
 
-angular.module('perna').directive('modulePublicTransportNew', ['routes', 'PublicTransportService',
-    function( routes, PublicTransportService  ) {
+angular.module('perna').directive('modulePublicTransportNew', ['routes', 'PublicTransportService', 'ModuleModalService',
+    function( routes, PublicTransportService, ModuleModalService ) {
         return {
             restrict: 'E',
             templateUrl: routes.publicTransport,
@@ -16,13 +16,40 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
                 function( $scope, PublicTransportLocationService, LiveviewService ) {
 
+                    // $scope.module.stationName = "";
+                    // $scope.module.stationId = "";
+                    // $scope.module.products = [];
+                    $scope.departures = [];
+
+                    $scope.getDepartures = function () {
+                        var query = {
+                            products: $scope.module.products.join()
+                        };
+
+                        var successCallback = function (response) {
+                            $scope.departures = response.data;
+                        };
+
+                        var errorCallback = function (response) {
+                            console.error(response.error);
+                        };
+
+                        PublicTransportService.requestDepartures($scope.module.stationId, query).then(successCallback, errorCallback);
+                    };
 
                     $scope.edit = function () {
-                        ModuleModalService.openPublicTransportModal( $scope.station, $scope.products )
+                        var station = {
+                            id: $scope.module.stationId,
+                            name: $scope.module.stationName
+                        };
+                        var products = $scope.module.products;
+                        ModuleModalService.openPublicTransportModal( station, products )
                             .then(function (results) {
-                                $scope.station = results.station;
-                                $scope.products = results.products;
-                                //get departures
+                                console.log("results: ", results);
+                                $scope.module.stationId = results.station.id;
+                                $scope.module.stationName = results.station.name;
+                                $scope.module.products = results.products;
+                                $scope.getDepartures();
                                 LiveviewService.persist();
                             })
                     };
@@ -30,11 +57,16 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
                     $scope.delete = function () {
                         LiveviewService.deleteModule($scope.module);
                     };
-                }
-            ],
-            link: function(scope){
 
-            }
+                    var initDepartures = function () {
+                        if ( $scope.module.stationId !== "" && $scope.module.products.length > 0) {
+                            $scope.getDepartures();
+                        }
+                    };
+
+                    initDepartures();
+                }
+            ]
         };
     }]);
 
@@ -65,16 +97,12 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
         };
 
         $scope.toggleProduct = function (product) {
-            console.log("product: ", product);
             var index = $scope.products.indexOf(product);
             if (index > -1) {
-                console.log("removing: ", $scope.products[index]);
                 $scope.products.splice(index, 1);
             } else {
-                console.log("adding: ", product);
                 $scope.products.push(product);
             }
-            console.log($scope.products);
         };
 
         $scope.submit = function () {
@@ -95,4 +123,5 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
             // Close with -1 to trigger rejection
             close(-1);
         };
+
     }]);

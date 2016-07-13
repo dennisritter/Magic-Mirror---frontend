@@ -1,11 +1,12 @@
 <div class="publictransport">
-    <div ng-if="!configMode">
-        <button class="button button__module--edit" ng-click="edit()" show-on-mouse-move>
-            Edit
-        </button>
-        <ul>
-            <li ng-repeat="departure in departures">{{ departure.name + " nach " + departure.direction }}<br>
-            Abfahrt: {{ departure.scheduledTime | date : 'shortTime'}}</li><br>
-        </ul>
-    </div>
+    <button class="button button__module--edit" ng-click="edit()" show-on-mouse-move>
+        Edit
+    </button>
+    <button class="button button__module--delete" ng-click="delete()">delete</button>
+    <ul>
+        <li ng-repeat="departure in departures">{{ departure.name + " nach " + departure.direction }}<br>
+            Abfahrt: {{ departure.scheduledTime | date : 'shortTime'}}
+        </li>
+        <br>
+    </ul>
 </div>

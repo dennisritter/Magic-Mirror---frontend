@@ -11,6 +11,7 @@
             <label style="color:black;"><input type="checkbox"
                                                class="module-publictransport-checkbox--product"
                                                name="product"
+                                               ng-checked="products.indexOf(product) !== -1"
                                                ng-click="toggleProduct(product)">{{ product }}</label>
         </li>
     </ul>
