@@ -12,17 +12,8 @@ angular.module('perna').directive('moduleCalendar', ['routes',
             scope: {
               'module': '='
             },
-            controller: ['$scope', 'CalendarService', 'LiveviewService',
-                function ($scope, CalendarService, LiveviewService) {
-
-                    /**
-                     * @name configMode
-                     * @desc Switch for the view to show either the Events or Settings for this calendar module.
-                     * If true: show settings view.
-                     * If false: show events view.
-                     * @type {boolean}
-                     */
-                    $scope.configMode = false;
+            controller: ['$scope', 'CalendarService', 'LiveviewService', 'ModuleModalService',
+                function ($scope, CalendarService, LiveviewService, ModuleModalService) {
 
                     /**
                      * @name events
@@ -32,87 +23,82 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                     $scope.events = [];
 
                     /**
-                     * @desc Watches the calendars attribute of CalendarService and synchronizes the available calendars with it.
-                     * Allows to show a checklist of available calendars to the user when setting up the calendar module.
-                     */
-                    $scope.$watch(function () {
-                        return CalendarService.calendars;
-                    }, function () {
-                        $scope.availableCalendars = CalendarService.calendars;
-                    });
-
-                    /**
-                     * @name updateUsedCalendars
-                     * @desc Updates the usedCalendarsIds array. Adds or removes a calendar from the array.
-                     * Adds it if it´s not present. Removes it if it´s present.
-                     * @param calendarId        The is of the calendar to Add/remove from the used calendars
-                     */
-                    $scope.toggleUsedCalendars = function (calendarId) {
-                        console.log($scope.module.calendarIds);
-                        var index = $scope.module.calendarIds.indexOf(calendarId);
-                        if (index > -1) {
-                            console.log("removing: ", $scope.module.calendarIds[index]);
-                            $scope.module.calendarIds.splice(index, 1);
-                        } else {
-                            console.log("adding: ", $scope.module.calendarIds);
-                            $scope.module.calendarIds.push(calendarId);
-                        }
-                    };
-
-                    $scope.checkCalendarUsage = function(calendar){
-                        if($scope.module.calendarIds.indexOf(calendar.id) > -1){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    };
-
-                    /**
                      * @name getEvents
                      * @desc Loads the events for the used calendars in this module.
                      */
                     $scope.getEvents = function () {
-                        var successCallback = function (response) {
-                            $scope.events = response.data;
-                        };
-                        var errorCallback = function (response) {
-                            console.error(response);
-                        };
-                        CalendarService.getEvents($scope.module.calendarIds).then(successCallback, errorCallback);
-                    };
-
-                    var persist = function(){
-                        LiveviewService.persist();
-                    };
-
-                    $scope.save = function () {
-                        $scope.configMode = false;
-                        $scope.getEvents();
-                        persist();
+                        CalendarService.getEvents($scope.module.calendarIds)
+                          .then(function (events) {
+                              $scope.events = events;
+                          });
                     };
                     
                     $scope.edit = function () {
-                        CalendarService.getAvailableCalendars();
-                        $scope.configMode = true;
+                        ModuleModalService.openCalendarModal($scope.module.calendarIds)
+                          .then(function (calendarIds) {
+                              $scope.module.calendarIds = calendarIds;
+                              $scope.getEvents();
+                              LiveviewService.persist();
+                          });
                     };
 
-                    $scope.delete = function(){
-                        var successCallback = function(){
-                            console.log("Deleted module: ", $scope.module);
-                        };
-                        var errorCallback = function(response){
-                            console.error("deleteModuleError: ", response);
-                        };
-                        LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
+                    $scope.delete = function () {
+                        LiveviewService.deleteModule($scope.module);
                     };
                 }],
 
             link: function(scope){
-                if(scope.module.calendarIds.length > 0){
+                if (scope.module.calendarIds.length > 0){
                     scope.getEvents();
-                }else {
-                    scope.configMode = true;
                 }
             }
         };
     }]);
+
+angular.module('perna').controller('ModuleCalendarEditController', ['$scope', 'close', 'calendarIds', 'CalendarService', 'GoogleAuthService',
+    function ($scope, close, calendarIds, CalendarService, GoogleAuthService) {
+    $scope.availableCalendars = [];
+    calendarIds = angular.copy(calendarIds);
+
+    CalendarService.getAvailableCalendars()
+      .then(function (calendars) {
+          $scope.availableCalendars = calendars;
+      })
+      .catch(function () {
+          var popupGoogleAuth = window.open('', '_blank', "googleAuth", "width=500,height=400");
+          popupGoogleAuth.document.write('Bitte warten...');
+          GoogleAuthService.googleAuth(popupGoogleAuth)
+            .then(function () {
+                CalendarService.getAvailableCalendars()
+                  .then(function (calendars) {
+                      $scope.availableCalendars = calendars;
+                  })
+                  .catch(function () {
+                      close(-1);
+                  });
+            })
+            .catch(function () {
+                close(-1);
+            });
+      });
+
+    $scope.isSelected = function (calendar) {
+        return calendarIds.indexOf(calendar.id) > -1;
+    };
+
+    $scope.toggleCalendar = function (calendar) {
+        if ($scope.isSelected(calendar)) {
+            calendarIds.splice(calendarIds.indexOf(calendar.id), 1);
+        } else {
+            calendarIds.push(calendar.id);
+        }
+    };
+
+    $scope.submit = function () {
+        close(calendarIds);
+    };
+
+    $scope.cancel = function () {
+        close(-1);
+    };
+}]);
