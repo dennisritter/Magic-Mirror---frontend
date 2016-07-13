@@ -65,7 +65,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             "width": 1,
             "height": 1,
             "xPosition": 3,
-            "yPosition": 0,
+            "yPosition": 0
             //"timezone":
         };
         /**
@@ -73,7 +73,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          * @desc: Calls addModule(module) with the default TimeModule as parameter
          */
         $scope.addTime = function () {
-            addModule(angular.copy(timeModule));
+            ModuleModalService.openTimeModal()
+              .then(function (viewType) { console.log('lv', viewType);
+                  var module = angular.copy(timeModule);
+                  module.viewType = viewType;
+                  addModule(module);
+
+                  LiveviewService.persist();
+              });
         };
 
         //********** CALENDAR
@@ -109,7 +116,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
               .then(function(location) {
                   if ( !location ) {
                       return;
-                  } console.log('added location', location);
+                  }
 
                   addModule({
                       type: 'weather',

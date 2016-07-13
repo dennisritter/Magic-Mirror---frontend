@@ -14,6 +14,19 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', func
       title: 'Select a Weather Location'
     });
   };
+
+  ModuleModalService.prototype.openTimeModal = function (viewType) {
+    viewType = viewType || 'digital';
+
+    return PernaModalService.showModal({
+      controller: 'ModuleTimeEditController',
+      templateUrl: 'directive/modules/edit/module-time-edit.html',
+      inputs: {
+        viewType: viewType
+      },
+      title: 'Choose a view type'
+    });
+  };
   
   return new ModuleModalService();
   

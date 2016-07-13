@@ -1,25 +1,18 @@
 <div class="time">
-    <canvas ng-if="analog" id="clockCanvas" class="clockCanvas" width="100" height="100" style="background-color:#000"></canvas>
-    <div ng-if="!analog" class="time-container">
+    <canvas ng-if="viewType == 'analog'" id="clockCanvas" class="clockCanvas" width="100" height="100" style="background-color:#000"></canvas>
+    <div ng-if="viewType == 'digital'" class="time-container">
         <div class="timeDisplay">{{ time | date : 'hh:mm'}}</div>
     </div>
     <div ng-if="countdown" class="countdown-container">
         <div class="countdownDisplay">{{ counter | date : 'mm:ss:sss'}}</div>
     </div>
-    <div ng-if="!analog" class="date-container">
+    <div ng-if="viewType == 'digital'" class="date-container">
         <div class="dateDisplay">{{ time | date : 'mediumDate'}}</div>
     </div>
-    <div ng-if="configMode" class="module-settingsbar">
-        <button class="button button__module--save" ng-click="save()">Save</button>
+    <div class="module-buttonbar">
+        <button class="button button__module--delete" ng-click="edit()">Edit</button>
         <button class="button button__module--delete" ng-click="delete()">Del</button>
-    </div>
-    <div ng-if="!configMode">
-        <div class="module-buttonbar">
-            <button ng-if="!countdown" class="button button__module--edit" ng-click="edit();" show-on-mouse-move>Edit</button>
-            <button ng-if="!analog && !countdown" class="button button__module--save" ng-click="switchClockMode()" show-on-mouse-move>Analog</button>
-            <button ng-if="analog  && !countdown"class="button button__module--save" ng-click="switchClockMode()" show-on-mouse-move>Digital</button>
-            <button ng-if="!countdown" class="button button__module-time--toggleCountdown startCountdown" ng-click="toggleCountdown()" show-on-mouse-move >Timer</button>
-            <button class="button button__module-time--toggleCountdown stopCountdown hidden" ng-click="toggleCountdown()">Stop</button>
-        </div>
+        <button ng-if="!countdown" class="button button__module-time--toggleCountdown startCountdown" ng-click="toggleCountdown()" show-on-mouse-move >Timer</button>
+        <button class="button button__module-time--toggleCountdown stopCountdown hidden" ng-click="toggleCountdown()">Stop</button>
     </div>
 </div>
