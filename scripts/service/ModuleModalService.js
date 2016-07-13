@@ -27,6 +27,18 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', func
       title: 'Choose a view type'
     });
   };
+
+  ModuleModalService.prototype.openPublicTransportModal = function () {
+
+    return PernaModalService.showModal({
+      controller: 'ModulePublicTransportEditController',
+      templateUrl: 'directive/modules/edit/module-publictransport-edit.html',
+      inputs: {
+        
+      },
+      title: 'Select a departure location and products'
+    });
+  };
   
   return new ModuleModalService();
   
