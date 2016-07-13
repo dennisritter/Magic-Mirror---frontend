@@ -16,6 +16,10 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
                 function( $scope, PublicTransportLocationService, LiveviewService ) {
 
+
+                    $scope.delete = function () {
+                        LiveviewService.deleteModule($scope.module);
+                    };
                 }
             ],
             link: function(scope){
