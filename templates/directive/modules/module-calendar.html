@@ -1,13 +1,11 @@
 <div class="calendar">
-    <div class="calendar-container--settings" ng-if="configMode">
-        <button class="button button__module--save" ng-click="save()">Save</button>
+    <div show-on-mouse-move>
+        <button class="button button__module--edit" ng-click="edit()">Edit</button>
         <button class="button button__module--delete" ng-click="delete()">Del</button>
     </div>
-    <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit
-    </button>
-    <div class="calendar-container--events" ng-if="!configMode">
+    <div class="calendar-container--events">
         <ul>
-            <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events">
+            <li class="calendar-listitem--event" ng-repeat="event in events">
                 <ul>
                     <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
                     <li class="calendar-listitem--event--location">{{ event.location }}</li>

@@ -52,18 +52,23 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
         /**
          * @name getEvents
          * @desc Requests the Events of the given calendars from the Server
-         * @param calendars     an array of calendarIds
+         * @param calendarIds     an array of calendarIds
          */
-        CalendarService.prototype.getEvents = function(calendarIds){
+        CalendarService.prototype.getEvents = function (calendarIds) {
             var defer = $q.defer();
-            // console.log(calendarIds.join(","));
+
+            if (calendarIds.length < 1) {
+                defer.resolve([]);
+                return defer.promise;
+            }
+
             $http({
                 url: api.events,
                 method: "GET",
                 params: {calendarIds: calendarIds.join(",")}
             })
                 .success(function(response){
-                    defer.resolve(response);
+                    defer.resolve(response.data);
                 })
                 .error(function(response){
                     defer.reject(response);
@@ -72,5 +77,4 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
         };
 
         return new CalendarService();
-
     }]);

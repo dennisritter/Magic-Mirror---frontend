@@ -88,23 +88,25 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
         };
-
-        // The default calendarModule.
-        var calendarModule = {
-            "type": 'calendar',
-            "width": 1,
-            "height": 3,
-            "xPosition": 0,
-            "yPosition": 0,
-            "calendarIds": []
-        };
+        
         /**
          * @name: addCalendar()
          * @desc: Calls addModule(module) with the default calendarModule as parameter
          */
         $scope.addCalendar = function () {
-            $scope.getAvailableCalendars();
-            addModule(angular.copy(calendarModule));
+            ModuleModalService.openCalendarModal()
+              .then(function (calendarIds) {
+                  addModule({
+                      type: 'calendar',
+                      width: 2,
+                      height: 2,
+                      xPosition: 0,
+                      yPosition: 0,
+                      calendarIds: calendarIds
+                  });
+
+                  LiveviewService.persist();
+              });
         };
 
         /**

@@ -36,7 +36,8 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', func
       templateUrl: 'directive/modules/edit/module-calendar-edit.html',
       inputs: {
         calendarIds: calendarIds
-      }
+      },
+      title: 'Wähle die Kalender, die du anzeigen möchtest.'
     });
   };
   

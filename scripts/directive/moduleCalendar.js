@@ -23,40 +23,26 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                     $scope.events = [];
 
                     /**
-                     * @desc Watches the calendars attribute of CalendarService and synchronizes the available calendars with it.
-                     * Allows to show a checklist of available calendars to the user when setting up the calendar module.
-                     */
-                    // $scope.$watch(function () {
-                    //     return CalendarService.calendars;
-                    // }, function () {
-                    //     $scope.availableCalendars = CalendarService.calendars;
-                    // });
-                    
-
-                    /**
                      * @name getEvents
                      * @desc Loads the events for the used calendars in this module.
                      */
                     $scope.getEvents = function () {
-                        var successCallback = function (response) {
-                            $scope.events = response.data;
-                        };
-                        var errorCallback = function (response) {
-                            console.error(response);
-                        };
-                        CalendarService.getEvents($scope.module.calendarIds).then(successCallback, errorCallback);
+                        CalendarService.getEvents($scope.module.calendarIds)
+                          .then(function (events) {
+                              $scope.events = events;
+                          });
                     };
                     
                     $scope.edit = function () {
                         ModuleModalService.openCalendarModal($scope.module.calendarIds)
-                          .then(function (calendarIds) { console.log(calendarIds);
+                          .then(function (calendarIds) {
                               $scope.module.calendarIds = calendarIds;
                               $scope.getEvents();
                               LiveviewService.persist();
                           });
                     };
 
-                    $scope.delete = function(){
+                    $scope.delete = function () {
                         LiveviewService.deleteModule($scope.module);
                     };
                 }],
@@ -69,14 +55,14 @@ angular.module('perna').directive('moduleCalendar', ['routes',
         };
     }]);
 
-angular.module('perna').controller('ModuleCalendarEditController', ['$scope', 'close', 'calendarIds', 'CalendarService', function ($scope, close, calendarIds, CalendarService) {
+angular.module('perna').controller('ModuleCalendarEditController', ['$scope', 'close', 'calendarIds', 'CalendarService',
+    function ($scope, close, calendarIds, CalendarService) {
     $scope.availableCalendars = [];
     calendarIds = angular.copy(calendarIds);
 
     CalendarService.getAvailableCalendars()
       .then(function (calendars) {
           $scope.availableCalendars = calendars;
-          console.log('available', $scope.availableCalendars);
       });
 
     $scope.isSelected = function (calendar) {
