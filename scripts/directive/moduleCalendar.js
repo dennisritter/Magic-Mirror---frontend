@@ -55,14 +55,31 @@ angular.module('perna').directive('moduleCalendar', ['routes',
         };
     }]);
 
-angular.module('perna').controller('ModuleCalendarEditController', ['$scope', 'close', 'calendarIds', 'CalendarService',
-    function ($scope, close, calendarIds, CalendarService) {
+angular.module('perna').controller('ModuleCalendarEditController', ['$scope', 'close', 'calendarIds', 'CalendarService', 'GoogleAuthService',
+    function ($scope, close, calendarIds, CalendarService, GoogleAuthService) {
     $scope.availableCalendars = [];
     calendarIds = angular.copy(calendarIds);
 
     CalendarService.getAvailableCalendars()
       .then(function (calendars) {
           $scope.availableCalendars = calendars;
+      })
+      .catch(function () {
+          var popupGoogleAuth = window.open('', '_blank', "googleAuth", "width=500,height=400");
+          popupGoogleAuth.document.write('Bitte warten...');
+          GoogleAuthService.googleAuth(popupGoogleAuth)
+            .then(function () {
+                CalendarService.getAvailableCalendars()
+                  .then(function (calendars) {
+                      $scope.availableCalendars = calendars;
+                  })
+                  .catch(function () {
+                      close(-1);
+                  });
+            })
+            .catch(function () {
+                close(-1);
+            });
       });
 
     $scope.isSelected = function (calendar) {
