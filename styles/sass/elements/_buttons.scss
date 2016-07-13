@@ -47,4 +47,10 @@
             background-color: $white;
         }
     }
+    &.button-module--module{
+        background-color: $black;
+        color: $white;
+        float: left;
+        border-radius: 0;
+    }
 }
