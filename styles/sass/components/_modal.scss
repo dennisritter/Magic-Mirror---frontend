@@ -1,0 +1,18 @@
+.modal-content {
+  background: black;
+  color: white;
+  border: 5px solid rgba(white, .75);
+
+  .modal-header {
+    border-bottom: 0;
+
+    h3 {
+      font-weight: normal;
+      letter-spacing: normal;
+    }
+  }
+
+  .modal-footer {
+    border-top: 0;
+  }
+}
