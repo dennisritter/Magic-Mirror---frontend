@@ -29,6 +29,20 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', 'Goo
     });
   };
 
+
+  ModuleModalService.prototype.openPublicTransportModal = function (station, products) {
+
+    return PernaModalService.showModal({
+      controller: 'ModulePublicTransportEditController',
+      templateUrl: 'directive/modules/edit/module-publictransport-edit.html',
+      inputs: {
+        station: station,
+        products: products
+      },
+      title: 'Select a departure location and products'
+    });
+  };
+
   ModuleModalService.prototype.openCalendarModal = function (calendarIds) {
     calendarIds = calendarIds || [];
     var defer = $q.defer();

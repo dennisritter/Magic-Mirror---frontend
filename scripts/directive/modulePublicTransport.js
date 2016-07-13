@@ -5,8 +5,8 @@
  * Manages and describes the functioning and structure of a public transport module.
  */
 
-angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTransportService',
-    function( routes, PublicTransportService  ) {
+angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTransportService', 'ModuleModalService',
+    function( routes, PublicTransportService, ModuleModalService ) {
         return {
             restrict: 'E',
             templateUrl: routes.publicTransport,
@@ -16,90 +16,12 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
                 function( $scope, PublicTransportLocationService, LiveviewService ) {
 
-                    $scope.configMode = false;
-
-                    $scope.stations = [];
-                    $scope.stationsDetected = false;
-                    $scope.selectedProducts = {
-                        "S-Bahn": false,
-                        "Tram": false,
-                        "U-Bahn": false,
-                        "Bus": false,
-                        "Regionalbahn": false,
-                        "Fähre": false
-                    };
-
-                    var persist = function () {
-                        console.log(LiveviewService.liveview.modules);
-                        LiveviewService.persist();
-                    };
-
-                    $scope.getStations = function (query) {
-                        var successCallback = function (response) {
-                            $scope.stations = response.data;
-                            $scope.stationsDetected = true;
-                        };
-
-                        var errorCallback = function (response) {
-                            console.error(response.error);
-                        };
-                        PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
-                    };
-
-                    $scope.getStationInfo = function (stationId, stationName, stationProducts) {
-                        $scope.module.stationId = stationId;
-                        $scope.module.stationName = stationName;
-                        $scope.stationProducts = stationProducts;
-                        $scope.stationProductsLabels = $scope.getStationProductsLabels();
-                        $scope.stationSelected = true;
-                    };
-
-                    $scope.getStationProductsLabels = function () {
-                        var stationProductLabels = [];
-                        for (var i = 0; i < $scope.stationProducts.length; i++) {
-                            switch ($scope.stationProducts[i]) {
-                                case("S"):
-                                    stationProductLabels.push("S-Bahn");
-                                    break;
-                                case("T"):
-                                    stationProductLabels.push("Tram");
-                                    break;
-                                case("U"):
-                                    stationProductLabels.push("U-Bahn");
-                                    break;
-                                case("B"):
-                                    stationProductLabels.push("Bus");
-                                    break;
-                                case("RE"):
-                                    stationProductLabels.push("Regionalbahn");
-                                    break;
-                                case("F"):
-                                    stationProductLabels.push("Fähre");
-                                    break;
-                                default:
-                                    stationProductLabels.push("Unbekannt");
-                                    break;
-                            }
-                        }
-                        return stationProductLabels;
-                    };
-
-                    var getSelectedProductsString = function () {
-                        var products = [];
-                        if ($scope.selectedProducts["S-Bahn"]) products.push("S");
-                        if ($scope.selectedProducts["Tram"]) products.push("T");
-                        if ($scope.selectedProducts["U-Bahn"]) products.push("U");
-                        if ($scope.selectedProducts["Bus"]) products.push("B");
-                        if ($scope.selectedProducts["Regionalbahn"]) products.push("RE");
-                        if ($scope.selectedProducts["Fähre"]) products.push("F");
-                        $scope.module.products = products;
-                        console.log("selected products: ", $scope.module.products);
-                    };
+                    // $scope.module.stationName = "";
+                    // $scope.module.stationId = "";
+                    // $scope.module.products = [];
+                    $scope.departures = [];
 
                     $scope.getDepartures = function () {
-                        if($scope.configMode){
-                            getSelectedProductsString();
-                        }
                         var query = {
                             products: $scope.module.products.join()
                         };
@@ -115,46 +37,91 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                         PublicTransportService.requestDepartures($scope.module.stationId, query).then(successCallback, errorCallback);
                     };
 
-                    $scope.getUserLocation = function () {
-                        console.log("Get Userlocation");
-                        var successCallback = function (response) {
-                            // console.log("getUserLocation() success-response: ", response)
-                        };
-
-                        var errorCallback = function (response) {
-                            console.error("getUserLocation() error-response: ", response);
-                        };
-                        PublicTransportLocationService.determineUserLocation().then(successCallback, errorCallback);
-                    };
-
-                    $scope.save = function () {
-                        $scope.getDepartures();
-                        $scope.configMode = false;
-                        persist();
-                    };
-
                     $scope.edit = function () {
-                        $scope.configMode = true;
+                        var station = {
+                            id: $scope.module.stationId,
+                            name: $scope.module.stationName
+                        };
+                        var products = $scope.module.products;
+                        ModuleModalService.openPublicTransportModal( station, products )
+                            .then(function (results) {
+                                console.log("results: ", results);
+                                $scope.module.stationId = results.station.id;
+                                $scope.module.stationName = results.station.name;
+                                $scope.module.products = results.products;
+                                $scope.getDepartures();
+                                LiveviewService.persist();
+                            })
                     };
 
                     $scope.delete = function () {
-                        var successCallback = function () {
-                            console.log("Deleted module: ", $scope.module);
-                        };
-                        var errorCallback = function (response) {
-                            console.error("deleteModuleError: ", response);
-                        };
-                        LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
+                        LiveviewService.deleteModule($scope.module);
                     };
+
+                    var initDepartures = function () {
+                        if ( $scope.module.stationId !== "" && $scope.module.products.length > 0) {
+                            $scope.getDepartures();
+                        }
+                    };
+
+                    initDepartures();
                 }
-            ],
-            link: function(scope){
-                console.log("The damn module: ", scope.module);
-                if(scope.module.products.length > 0){
-                    scope.getDepartures();
-                }else {
-                    scope.configMode = true;
-                }
+            ]
+        };
+    }]);
+
+angular.module('perna').controller('ModulePublicTransportEditController', ['PublicTransportLocationService', '$scope', 'close', 'station', 'products',
+    function (PublicTransportLocationService, $scope, close, station, products) {
+        $scope.query = '';
+        $scope.station = station;
+        $scope.products = products || [];
+        $scope.results = {};
+
+        // Found stations to choose from
+        $scope.stations = []
+
+        $scope.searchStation = function(query){
+            var successCallback = function (response) {
+                $scope.stations = response.data;
+            };
+
+            var errorCallback = function (response) {
+                console.error(response.error);
+            };
+            PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
+        };
+
+        $scope.setStation = function(station){
+            $scope.station = station;
+            $scope.availableProducts = station.products;
+        };
+
+        $scope.toggleProduct = function (product) {
+            var index = $scope.products.indexOf(product);
+            if (index > -1) {
+                $scope.products.splice(index, 1);
+            } else {
+                $scope.products.push(product);
             }
         };
+
+        $scope.submit = function () {
+            // Cancel if no station or product has been selected
+            if ( $scope.station === null || $scope.products.length <= 0) {
+                $scope.cancel();
+                return;
+            }
+
+            // Resolve with station and products
+            close( {
+                station: $scope.station,
+                products: $scope.products
+            } );
+        };
+
+        $scope.cancel = function () {
+            // Close with -1 to trigger rejection
+            close(-1);
+        };
+
     }]);
