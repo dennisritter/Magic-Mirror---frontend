@@ -39,8 +39,11 @@ function ($timeout, routes) {
 
             var updateCountdown = function(){
                 $scope.counter -= 10;
-                if($scope.counter < 10000){
+                if($scope.counter < 30000){
                     $('.countdownDisplay').addClass('lastSeconds');
+                }
+                if ($scope.count === 0) {
+                    stopCountdown();
                 }
                 if($scope.countdown){
                     $timeout(function(){
