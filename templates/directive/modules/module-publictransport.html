@@ -1,28 +1,4 @@
 <div class="publictransport">
-    <div class="pubictransport-container--settings" ng-if="configMode">
-        <button class="button button__module--save" ng-click="save()">Save</button>
-        <button class="button button__module--delete" ng-click="delete()">Del</button>
-        <form name="publictransportSearch">
-            <input type="text" ng-model="query" style="color:black" placeholder="Departure Location">
-            <button type="button" class="btn btn-primary" ng-click="getStations(query)"> search </span></button>
-            <ul id="locations" ng-if="!stationSelected && stationsDetected">
-                <li class="stationList" ng-repeat="station in stations"
-                    ng-click="getStationInfo(station.id, station.name, station.products)">
-                    {{ station.name }}
-                </li>
-            </ul>
-            <form id="departures" ng-if="stationSelected">
-                <ul>
-                    <li ng-repeat="product in stationProductsLabels">
-                        <label><input type="checkbox"
-                                      class="module-publictransport-checkbox--product"
-                                      name="product"
-                                      ng-click="selectedProducts[product] = !selectedProducts[product]">{{ product }}</label>
-                    </li>
-                </ul>
-            </form>
-        </form>
-    </div>
     <div ng-if="!configMode">
         <button class="button button__module--edit" ng-click="edit()" show-on-mouse-move>
             Edit
