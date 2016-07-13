@@ -39,7 +39,7 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', 'Goo
         station: station,
         products: products
       },
-      title: 'Select a departure location and products'
+      title: 'Wähle deine Haltestelle'
     });
   };
 

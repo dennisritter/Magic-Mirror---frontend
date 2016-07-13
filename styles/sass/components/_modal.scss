@@ -1,0 +1,42 @@
+.modal-content {
+  background: black;
+  color: white;
+  border: 5px solid rgba(white, .75);
+
+  .modal-header {
+    border-bottom: 0;
+
+    h3 {
+      font-weight: normal;
+      letter-spacing: normal;
+    }
+  }
+
+  .modal-footer {
+    border-top: 0;
+  }
+}
+
+.search-results {
+  margin: $grid-gutter-width -15px;
+
+  li {
+    font-weight: normal;
+    display: block;
+    padding: 5px ($grid-gutter-width/2);
+    cursor: pointer;
+    letter-spacing: normal;
+
+    &:hover, &.active {
+      background: $gray-darker;
+    }
+
+    .search-result-addon {
+      font-size: $font-size-small;
+      color: $gray-lighter;
+      display: inline-block;
+      margin-left: 5px;
+      margin-top: 3px;
+    }
+  }
+}

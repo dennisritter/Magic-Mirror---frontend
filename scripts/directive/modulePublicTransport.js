@@ -5,7 +5,7 @@
  * Manages and describes the functioning and structure of a public transport module.
  */
 
-angular.module('perna').directive('modulePublicTransportNew', ['routes', 'PublicTransportService', 'ModuleModalService',
+angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTransportService', 'ModuleModalService',
     function( routes, PublicTransportService, ModuleModalService ) {
         return {
             restrict: 'E',
@@ -73,12 +73,12 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
 angular.module('perna').controller('ModulePublicTransportEditController', ['PublicTransportLocationService', '$scope', 'close', 'station', 'products',
     function (PublicTransportLocationService, $scope, close, station, products) {
         $scope.query = '';
-        $scope.station = station;
+        $scope.station = station || null;
         $scope.products = products || [];
         $scope.results = {};
 
         // Found stations to choose from
-        $scope.stations = []
+        $scope.stations = [];
 
         $scope.searchStation = function(query){
             var successCallback = function (response) {
@@ -107,8 +107,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
 
         $scope.submit = function () {
             // Cancel if no station or product has been selected
-            if ( $scope.station === null || $scope.products.length <= 0) {
-                $scope.cancel();
+            if ($scope.isDisabled()) {
                 return;
             }
 
@@ -124,4 +123,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
             close(-1);
         };
 
+        $scope.isDisabled = function () {
+            return $scope.station == null || $scope.products.length < 1;
+        }
     }]);
