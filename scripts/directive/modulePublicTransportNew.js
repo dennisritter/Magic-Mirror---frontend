@@ -91,4 +91,8 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
             } );
         };
 
+        $scope.cancel = function () {
+            // Close with -1 to trigger rejection
+            close(-1);
+        };
     }]);
