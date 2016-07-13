@@ -5,7 +5,7 @@
  * Manages and describes the functioning and structure of a public transport module.
  */
 
-angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTransportService',
+angular.module('perna').directive('modulePublicTransportOld', ['routes', 'PublicTransportService',
     function( routes, PublicTransportService  ) {
         return {
             restrict: 'E',
