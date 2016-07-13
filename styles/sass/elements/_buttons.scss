@@ -72,3 +72,22 @@
         }
     }
 }
+
+.btn-group {
+    .button-white {
+        background: black;
+        color: white;
+        border-color: white;
+        transition: background-color, color 500ms;
+
+        &:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+
+        &.selected {
+            background: white;
+            color: black;
+        }
+    }
+}
