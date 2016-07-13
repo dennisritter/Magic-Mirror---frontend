@@ -1,6 +1,5 @@
 <div class="calendar">
-    <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit
-    </button>
+    <h3>Mein Tag</h3>
     <div class="calendar-container--settings" ng-if="configMode">
         <button class="button button__module--save" ng-click="save()">Save</button>
         <button class="button button__module--delete" ng-click="delete()">Del</button>
@@ -23,10 +22,13 @@
                 <ul>
                     <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
                     <li class="calendar-listitem--event--location">{{ event.location }}</li>
-                    <li class="calendar-listitem--event--startTime">{{ event.startTime | date : 'shortTime' }}</li>
-                    <li class="calendar-listitem--event--endTime">{{ event.endTime | date : 'shortTime' }}</li>
+                    <li class="calendar-listitem--event--time">{{ event.startTime | date : 'HH:mm' }} bis {{ event.endTime | date : 'HH:mm' }} Uhr</li>
                 </ul>
+                <br>
             </li>
         </ul>
+    </div>
+    <div class="calendar-button">
+        <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit</button>
     </div>
 </div>
