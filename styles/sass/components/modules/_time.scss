@@ -3,23 +3,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 0;
     .time-container{
-        margin:0;
-        padding: 0;
-        font-size: 2.5em;
+        font-size: 4em;
         font-weight: bold;
     }
     .date-container{
-        margin:0;
-        padding:0;
         font-size: 1.5em;
+        padding-bottom: 3px;
+        border-bottom: solid white 1px;
     }
     .countdown-container{
-        font-size: 2.5em;
+        font-size: 4em;
         font-weight: bold;
         text-align: center;
     }
-    .module-buttonbar , .module-settingsbar{
+    .module-buttonbar, .module-settingsbar{
         display: flex;
         flex-direction: row;
         justify-content: center;
