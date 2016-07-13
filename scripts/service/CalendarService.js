@@ -16,21 +16,20 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
          * @desc: Calls requestCalendars.
          * @note: Frontend Service-Api function call from Controllers.
          */
-        CalendarService.prototype.getAvailableCalendars = function(){
-            var successCallback = function (response) {
-                // console.log("Loaded available Calendars");
-            };
-            var errorCallback = function (response) {
-                console.error("Hallo Nathalie, mach mal hier 1 Aufruf vom Modal für 1 GoogleSignIn.");
-                console.error(response.error);
-            };
-            this.requestCalendars().then(successCallback, errorCallback);
+        CalendarService.prototype.getAvailableCalendars = function () {
+            var defer = $q.defer();
+            if (this.calendars.length > 0) {
+                defer.resolve(this.calendars);
+                return defer.promise;
+            }
+
+            this.requestCalendars().then(defer.resolve, defer.reject);
+            return defer.promise;
         };
 
         /**
          * @name getCalendars
          * @desc Requests the users calendars from Server.
-         * @param accessToken
          * @returns {Promise}
          */
         CalendarService.prototype.requestCalendars = function() {
@@ -38,11 +37,11 @@ angular.module('perna').service('CalendarService', ['$http', '$q', 'api',
             var defer = $q.defer();
             $http({
                 url: api.calendars,
-                method: "GET",
+                method: "GET"
             })
                 .success(function(response){
                     _calendarService.calendars = response.data;
-                    defer.resolve(response);
+                    defer.resolve(response.data);
                 })
                 .error(function(response){
                     defer.reject(response);

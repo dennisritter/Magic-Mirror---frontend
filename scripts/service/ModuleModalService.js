@@ -27,6 +27,18 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', func
       title: 'Choose a view type'
     });
   };
+
+  ModuleModalService.prototype.openCalendarModal = function (calendarIds) {
+    calendarIds = calendarIds || [];
+
+    return PernaModalService.showModal({
+      controller: 'ModuleCalendarEditController',
+      templateUrl: 'directive/modules/edit/module-calendar-edit.html',
+      inputs: {
+        calendarIds: calendarIds
+      }
+    });
+  };
   
   return new ModuleModalService();
   

@@ -74,6 +74,7 @@ function ($timeout, routes) {
                 ModuleModalService.openTimeModal($scope.viewType)
                   .then(function (viewType) {
                       $scope.viewType = viewType;
+                      $scope.module.viewType = viewType;
                       LiveviewService.persist();
                   });
             };
