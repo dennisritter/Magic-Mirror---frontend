@@ -7,11 +7,11 @@
         </li>
     </ul>
     <ul id="departures">
-        <li ng-repeat="product in products">
+        <li ng-repeat="product in availableProducts">
             <label style="color:black;"><input type="checkbox"
                                                class="module-publictransport-checkbox--product"
                                                name="product"
-                                               ng-click="">{{ product }}</label>
+                                               ng-click="toggleProduct(product)">{{ product }}</label>
         </li>
     </ul>
 </form>

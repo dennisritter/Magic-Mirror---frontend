@@ -42,7 +42,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
     function (PublicTransportLocationService, $scope, close, station, products) {
         $scope.query = '';
         $scope.station = station;
-        $scope.products = products;
+        $scope.products = products || [];
         $scope.results = {};
 
         // Found stations to choose from
@@ -61,7 +61,20 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
 
         $scope.setStation = function(station){
             $scope.station = station;
-            $scope.products = station.products;
-        }
+            $scope.availableProducts = station.products;
+        };
+
+        $scope.toggleProduct = function (product) {
+            console.log("product: ", product);
+            var index = $scope.products.indexOf(product);
+            if (index > -1) {
+                console.log("removing: ", $scope.products[index]);
+                $scope.products.splice(index, 1);
+            } else {
+                console.log("adding: ", product);
+                $scope.products.push(product);
+            }
+            console.log($scope.products);
+        };
 
     }]);
