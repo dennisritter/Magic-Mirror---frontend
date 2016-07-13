@@ -1,0 +1,10 @@
+<form name="weatherSearch" >
+  <input type="text" ng-model="query" style="color:black" placeholder="{{selected.name || 'Your city here'}}">
+  <button type="button" class="btn btn-primary" ng-click="searchLocation(query)"> search </span></button>
+  <button type="button" class="btn btn-primary" ng-click="locateUser()"> my location </span></button>
+  <ul id="locations" ng-if="results.length > 0">
+    <li class="citylist" style="color:black;" ng-repeat="location in results" ng-click="selectLocation( location )">
+      {{ location.name + ', ' + location.countryCode }}
+    </li>
+  </ul>
+</form>

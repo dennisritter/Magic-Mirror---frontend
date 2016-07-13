@@ -1,5 +1,5 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService',
-    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService', 'ModuleModalService',
+    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService, ModuleModalService) {
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
@@ -65,7 +65,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             "width": 1,
             "height": 1,
             "xPosition": 3,
-            "yPosition": 0,
+            "yPosition": 0
             //"timezone":
         };
         /**
@@ -73,7 +73,14 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          * @desc: Calls addModule(module) with the default TimeModule as parameter
          */
         $scope.addTime = function () {
-            addModule(angular.copy(timeModule));
+            ModuleModalService.openTimeModal()
+              .then(function (viewType) { console.log('lv', viewType);
+                  var module = angular.copy(timeModule);
+                  module.viewType = viewType;
+                  addModule(module);
+
+                  LiveviewService.persist();
+              });
         };
 
         //********** CALENDAR
@@ -100,24 +107,28 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             addModule(angular.copy(calendarModule));
         };
 
-        //********** WEATHER
-
-        // The default weatherModule.
-        var weatherModule = {
-            "type": 'weather',
-            "width": 3,
-            "height": 1,
-            "xPosition": 1,
-            "yPosition": 0,
-            "locationId": 0
-        };
-
         /**
          * @name: addWeather()
          * @desc: Calls addModule(module) with the default weatherModule as parameter
          */
         $scope.addWeather = function () {
-            addModule(angular.copy(weatherModule));
+            ModuleModalService.openWeatherModal()
+              .then(function(location) {
+                  if ( !location ) {
+                      return;
+                  }
+
+                  addModule({
+                      type: 'weather',
+                      width: 3,
+                      height: 1,
+                      xPosition: 0,
+                      yPosition: 0,
+                      locationId: location.id
+                  });
+
+                  LiveviewService.persist();
+              });
         };
 
         //********** PUBLIC TRANSPORT
