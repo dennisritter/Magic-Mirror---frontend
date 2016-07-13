@@ -17,6 +17,16 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
                 function( $scope, PublicTransportLocationService, LiveviewService ) {
 
 
+                    $scope.edit = function () {
+                        ModuleModalService.openPublicTransportModal( $scope.station, $scope.products )
+                            .then(function (results) {
+                                $scope.station = results.station;
+                                $scope.products = results.products;
+                                //get departures
+                                LiveviewService.persist();
+                            })
+                    };
+
                     $scope.delete = function () {
                         LiveviewService.deleteModule($scope.module);
                     };
@@ -33,5 +43,20 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
         $scope.query = '';
         $scope.station = station;
         $scope.products = products;
-        $scope.results = [];
+        $scope.results = {};
+
+        // Found stations to choose from
+        $scope.stations = []
+
+        $scope.searchStation = function(query){
+            var successCallback = function (response) {
+                $scope.stations = response.data;
+            };
+
+            var errorCallback = function (response) {
+                console.error(response.error);
+            };
+            PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
+        };
+
     }]);

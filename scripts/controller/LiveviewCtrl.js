@@ -139,11 +139,10 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          */
         $scope.addPublicTransport = function () {
             ModuleModalService.openPublicTransportModal()
-            //check for output parameters
-                // .then(function() {
-                //     if ( ) {
-                //         return;
-                //     }
+                .then(function(results) {
+                    if (!results.station || results.products <= 0) {
+                        return;
+                    }
 
                     addModule({
                         "type": 'publicTransport',
@@ -157,6 +156,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                     });
 
                     LiveviewService.persist();
+                });
         };
 
         /** VOICE CALLBACKS */
