@@ -24,7 +24,9 @@ angular.module('perna').directive('modulePublicTransportNew', ['routes', 'Public
         };
     }]);
 
-angular.module('perna').controller('ModulePublicTransportEditController', ['PublicTransportLocationService', '$scope', 'close',
-    function (LocationService, $scope, close) {
+angular.module('perna').controller('ModulePublicTransportEditController', ['PublicTransportLocationService', '$scope', 'close', 'station', 'products',
+    function (LocationService, $scope, close, station, products) {
+
+
 
     }]);
