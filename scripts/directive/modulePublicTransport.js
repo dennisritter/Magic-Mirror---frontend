@@ -102,6 +102,8 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
         $scope.setStation = function (station) {
             $scope.station = station;
             $scope.availableProducts = station.products;
+            //reset products array if station changes
+            $scope.products = [];
         };
 
         $scope.toggleProduct = function (product) {
@@ -111,6 +113,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             } else {
                 $scope.products.push(product);
             }
+            console.log($scope.products);
         };
 
         $scope.submit = function () {
