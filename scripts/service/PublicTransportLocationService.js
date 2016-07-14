@@ -31,6 +31,22 @@ angular.module('perna').service('PublicTransportLocationService', ['$http', '$q'
             return defer.promise;
         };
 
+        PublicTransportLocationService.prototype.requestSpecificStation = function (stationId) {
+            var defer = $q.defer();
+
+            $http({
+                url: api.station_specific_search  + stationId,
+                method: 'GET',
+            })
+                .success(function (response) {
+                    defer.resolve(response);
+                })
+                .error(function (response) {
+                    defer.reject(response);
+                });
+            return defer.promise;
+        };
+
         /**
          *  note: Need improved nearby search if using it for publicTransport
          **/

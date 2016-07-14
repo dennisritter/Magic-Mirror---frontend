@@ -6,7 +6,7 @@
  */
 
 angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTransportService', 'ModuleModalService',
-    function( routes, PublicTransportService, ModuleModalService ) {
+    function (routes, PublicTransportService, ModuleModalService) {
         return {
             restrict: 'E',
             templateUrl: routes.publicTransport,
@@ -14,7 +14,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                 'module': '='
             },
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
-                function( $scope, PublicTransportLocationService, LiveviewService ) {
+                function ($scope, PublicTransportLocationService, LiveviewService) {
 
                     // $scope.module.stationName = "";
                     // $scope.module.stationId = "";
@@ -43,7 +43,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                             name: $scope.module.stationName
                         };
                         var products = $scope.module.products;
-                        ModuleModalService.openPublicTransportModal( station, products )
+                        ModuleModalService.openPublicTransportModal(station, products)
                             .then(function (results) {
                                 console.log("results: ", results);
                                 $scope.module.stationId = results.station.id;
@@ -59,7 +59,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                     };
 
                     var initDepartures = function () {
-                        if ( $scope.module.stationId !== "" && $scope.module.products.length > 0) {
+                        if ($scope.module.stationId !== "" && $scope.module.products.length > 0) {
                             $scope.getDepartures();
                         }
                     };
@@ -80,23 +80,26 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
         // Found stations to choose from
         $scope.stations = [];
 
-        $scope.searchStation = function(query){
-            var defer = $q.defer();
-
+        $scope.searchStation = function (query) {
             var successCallback = function (response) {
                 $scope.stations = response.data;
-                defer.resolve();
             };
 
             var errorCallback = function (response) {
                 console.error(response.error);
-                defer.reject();
             };
             PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
-            return defer.promise;
         };
 
-        $scope.setStation = function(station){
+        $scope.searchSpecificStation = function (stationId) {
+            PublicTransportLocationService.requestSpecificStation(stationId)
+                .then(function (response) {
+                    $scope.setStation(response.data);
+                });
+        }
+
+
+        $scope.setStation = function (station) {
             $scope.station = station;
             $scope.availableProducts = station.products;
         };
@@ -117,10 +120,10 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             }
 
             // Resolve with station and products
-            close( {
+            close({
                 station: $scope.station,
                 products: $scope.products
-            } );
+            });
         };
 
         $scope.cancel = function () {
@@ -132,12 +135,9 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             return $scope.station == null || $scope.products.length < 1;
         }
 
-        $scope.initProducts = function(){
-            if(station != null){
-                $scope.searchStation(station.name)
-                    .then(function(){
-                        $scope.setStation($scope.stations[0]);
-                    });
+        $scope.initProducts = function () {
+            if (station != null) {
+                $scope.searchSpecificStation(station.id);
             }
         }
         $scope.initProducts();
