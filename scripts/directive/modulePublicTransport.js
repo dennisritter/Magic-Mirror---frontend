@@ -70,8 +70,8 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
         };
     }]);
 
-angular.module('perna').controller('ModulePublicTransportEditController', ['PublicTransportLocationService', '$scope', 'close', 'station', 'products',
-    function (PublicTransportLocationService, $scope, close, station, products) {
+angular.module('perna').controller('ModulePublicTransportEditController', ['$q', 'PublicTransportLocationService', '$scope', 'close', 'station', 'products',
+    function ($q, PublicTransportLocationService, $scope, close, station, products) {
         $scope.query = '';
         $scope.station = station || null;
         $scope.products = products || [];
@@ -81,14 +81,19 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
         $scope.stations = [];
 
         $scope.searchStation = function(query){
+            var defer = $q.defer();
+
             var successCallback = function (response) {
                 $scope.stations = response.data;
+                defer.resolve();
             };
 
             var errorCallback = function (response) {
                 console.error(response.error);
+                defer.reject();
             };
             PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
+            return defer.promise;
         };
 
         $scope.setStation = function(station){
@@ -126,4 +131,14 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['Publ
         $scope.isDisabled = function () {
             return $scope.station == null || $scope.products.length < 1;
         }
+
+        $scope.initProducts = function(){
+            if(station != null){
+                $scope.searchStation(station.name)
+                    .then(function(){
+                        $scope.setStation($scope.stations[0]);
+                    });
+            }
+        }
+        $scope.initProducts();
     }]);
