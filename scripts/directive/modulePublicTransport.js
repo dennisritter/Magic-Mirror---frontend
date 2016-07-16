@@ -11,7 +11,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
             restrict: 'E',
             templateUrl: routes.publicTransport,
             scope: {
-                'module': '='
+                module: '='
             },
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
                 function ($scope, PublicTransportLocationService, LiveviewService) {
@@ -53,11 +53,11 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                     };
 
                     var initDepartures = function () {
-                        if ($scope.module.stationId !== "" && $scope.module.products.length > 0) {
+                        if ($scope.module.stationId && $scope.module.products.length > 0) {
                             $scope.getDepartures();
                         }
                     };
-                    
+
                     initDepartures();
                 }
             ]
@@ -130,12 +130,38 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
 
         $scope.isDisabled = function () {
             return $scope.station == null || $scope.products.length < 1;
-        }
+        };
 
         $scope.initProducts = function () {
             if (station != null) {
                 $scope.searchSpecificStation(station.id);
             }
-        }
+        };
         $scope.initProducts();
     }]);
+
+angular.module('perna').directive('minuteDifference', ['$filter', '$interval', function ($filter, $interval) {
+    return {
+        restrict: 'A',
+        scope: {
+            time: '@minuteDifference'
+        },
+        link: function ($scope, $element) {
+            var minuteFilter = $filter('minuteDifference');
+            var setMinutes = function () {
+                var mins = minuteFilter($scope.time);
+                $element.html(mins == 0 ? 'jetzt' : 'in ' + mins + ' min.');
+                if (mins <= 1) {
+                    $element.parent('li').addClass('is-departing');
+                }
+            };
+            
+            var interval = $interval(setMinutes, 1000 * 10);
+            setMinutes();
+
+            $scope.$on('$destroy', function () {
+                $interval.cancel(interval);
+            });
+        }
+    };
+}]);

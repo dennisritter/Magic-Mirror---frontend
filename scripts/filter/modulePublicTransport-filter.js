@@ -58,7 +58,7 @@ angular.module('perna-filter').filter('departures', function () {
 angular.module('perna-filter').filter('minuteDifference', function () {
     return function ( timeString ) {
         var diff = new Date(timeString) - new Date(); // difference in milliseconds
-        var minutes = Math.ceil(diff / (1000 * 60));
-        return minutes == 0 ? 'jetzt' : 'in ' + minutes + ' min';
+        var minutes = Math.ceil(diff / (1000 * 60)); console.log(minutes);
+        return minutes;
     }
 });

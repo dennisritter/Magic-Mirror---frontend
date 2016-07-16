@@ -1,3 +1,10 @@
+@keyframes blink-smooth {
+  0% {opacity: 0;}
+  33% {opacity: 1;}
+  66% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
 .publictransport {
   background: black;
   position: relative;
@@ -9,6 +16,10 @@
 
     li {
       margin: 10px 0;
+
+      &.is-departing {
+        animation: blink-smooth 1s infinite;
+      }
     }
 
     .line-name {
