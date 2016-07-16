@@ -51,3 +51,7 @@
     }
   }
 }
+
+[liveview-module].publicTransport {
+  @extend .shadow-bottom;
+}
