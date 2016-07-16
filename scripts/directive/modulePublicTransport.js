@@ -147,11 +147,11 @@ angular.module('perna').directive('minuteDifference', ['$filter', '$interval', f
             time: '@minuteDifference'
         },
         link: function ($scope, $element) {
-            var minuteFilter = $filter('minuteDifference');
             var setMinutes = function () {
-                var mins = minuteFilter($scope.time);
-                $element.html(mins == 0 ? 'jetzt' : 'in ' + mins + ' min.');
-                if (mins <= 1) {
+                var diff = new Date($scope.time) - new Date(); // difference in milliseconds
+                var minutes = Math.ceil(diff / (1000 * 60));
+                $element.html(minutes == 0 ? 'jetzt' : 'in ' + minutes + ' min.');
+                if ((diff / 1000) <= 20) {
                     $element.parent('li').addClass('is-departing');
                 }
             };
