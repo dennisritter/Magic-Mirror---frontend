@@ -4,7 +4,7 @@
         <button class="button button__module--delete" ng-click="delete()">delete</button>
     </div>
     <ul class="departures">
-        <li ng-repeat="departure in departures | departures: 'realTime' | limitTo: 10">
+        <li ng-repeat="departure in departures | departures: 'realTime' | limitTo: module.height * 10">
             <div class="line-name"><span class="line-name-label">{{departure.name}}</span></div>
             <div class="direction">{{departure.direction}}</div>
             <div class="departure-time" minute-difference="{{departure.realTime}}"></div>
