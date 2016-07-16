@@ -20,7 +20,7 @@ angular.module('perna').service('PublicTransportService', ['$http', '$q', 'api',
                 }
             })
                 .success(function (response) {
-                    defer.resolve(response);
+                    defer.resolve(response.data);
                 })
                 .error(function (response) {
                     defer.reject(response);
