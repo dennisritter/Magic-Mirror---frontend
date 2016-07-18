@@ -9,14 +9,20 @@ angular.module('perna').service('PublicTransportService', ['$http', '$q', 'api',
         var PublicTransportService = function () {
         };
 
-        PublicTransportService.prototype.requestDepartures = function(stationId, query){
+        /**
+         * Fetches Departures
+         * @param   stationId   The id of the station
+         * @param   products    array of products
+         * @returns {Promise}
+         */
+        PublicTransportService.prototype.requestDepartures = function(stationId, products){
             var defer = $q.defer();
 
             $http({
                 url: api.departures + stationId,
                 method: 'GET',
                 params: {
-                    query: query
+                    products: products.join(',')
                 }
             })
                 .success(function (response) {

@@ -19,11 +19,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                     $scope.departures = [];
 
                     $scope.getDepartures = function () {
-                        var query = {
-                            products: $scope.module.products.join()
-                        };
-
-                        PublicTransportService.requestDepartures($scope.module.stationId, query)
+                        PublicTransportService.requestDepartures($scope.module.stationId, $scope.module.products)
                           .then(function (departures) {
                               $scope.departures = departures;
                           }, function (response) {
