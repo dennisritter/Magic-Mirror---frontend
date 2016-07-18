@@ -6,7 +6,6 @@ angular.module('perna').controller('DashboardCtrl', ['$scope', '$state', 'AuthSe
         };
 
         $scope.logout = function () {
-            console.log("logout() in DashboardCtrl called..");
             var successCallback = function () {
                 $state.go('start');
             };
