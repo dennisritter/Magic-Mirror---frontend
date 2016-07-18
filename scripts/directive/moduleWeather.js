@@ -118,21 +118,32 @@ angular.module('perna').directive('weatherIcon', ['$filter', function ($filter) 
   return {
     restrict: 'A',
     scope: {
-      code: '@weatherIcon',
-      time: '@'
+      code: '=weatherIcon',
+      time: '='
     },
     require: '^moduleWeather',
     link: function ($scope, $element, $attr, $module) {
       var dateFormat = $filter('date');
-      var data = $module.getWeatherData();
-      var sunrise = parseInt(dateFormat(data.current.sunrise, 'HHmm'));
-      var sunset = parseInt(dateFormat(data.current.sunset, 'HHmm'));
-      var time = parseInt(dateFormat($scope.time, 'HHmm'));
+      var oldClasses;
 
-      var daytime = time < sunrise || time > sunset ? 'night' : 'day';
-      var className = 'wi wi-fw wi-owm-'+daytime+'-'+$scope.code;
+      var setClasses = function (code) {
+        var data = $module.getWeatherData();
+        var sunrise = parseInt(dateFormat(data.current.sunrise, 'HHmm'));
+        var sunset = parseInt(dateFormat(data.current.sunset, 'HHmm'));
+        var time = parseInt(dateFormat($scope.time, 'HHmm'));
 
-      $element.addClass(className);
+        var daytime = time < sunrise || time > sunset ? 'night' : 'day';
+        var className = 'wi wi-owm-'+daytime+'-'+code;
+        $element.removeClass(oldClasses);
+        $element.addClass(className);
+        oldClasses = className;
+      };
+
+      setClasses($scope.code);
+
+      $scope.$watch('code', function (newCode) {
+        setClasses(newCode);
+      }, true);
     }
   };
 }]);
