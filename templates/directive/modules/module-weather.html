@@ -9,7 +9,18 @@
             </div>
             <div class="col-info">
                 <span class="temperature current">{{weatherData.current.temperature | celsius}}</span>
-                <span class="temperature">{{weatherData.daily[0].temperature.min | celsius}} – {{weatherData.daily[0].temperature.max | celsius}}</span>
+                <table class="current-details">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-fw fa-chevron-down"></i> {{weatherData.daily[0].temperature.min | celsius}}</td>
+                            <td><i class="fa fa-fw fa-chevron-up"></i> {{weatherData.daily[0].temperature.max | celsius}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="wi wi-fw wi-sunrise"></i> {{weatherData.current.sunrise | date: 'HH:mm'}}</td>
+                            <td><i class="wi wi-fw wi-sunset"></i> {{weatherData.current.sunset | date: 'HH:mm'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -17,7 +28,7 @@
             <tbody>
                 <tr ng-repeat="today in weatherData.today">
                     <td>{{today.dateTime | date: 'HH:mm'}}</td>
-                    <td><!--<i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i>--></td>
+                    <td><i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i></td>
                     <td>{{today.temperature | celsius}}</td>
                 </tr>
             </tbody>
