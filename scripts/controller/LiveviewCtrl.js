@@ -58,7 +58,6 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             });
 
         //********** TIME
-
         // The default timeModule
         var timeModule = {
             "type": 'time',
@@ -88,26 +87,25 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
         };
-        
         /**
          * @name: addCalendar()
          * @desc: Calls addModule(module) with the default calendarModule as parameter
          */
-        $scope.addCalendar = function () {
-            ModuleModalService.openCalendarModal()
-              .then(function (calendarIds) {
-                  addModule({
-                      type: 'calendar',
-                      width: 2,
-                      height: 2,
-                      xPosition: 0,
-                      yPosition: 0,
-                      calendarIds: calendarIds
-                  });
+         $scope.addCalendar = function () {
+             ModuleModalService.openCalendarModal()
+               .then(function (calendarIds) {
+                   addModule({
+                       type: 'calendar',
+                       width: 2,
+                       height: 2,
+                       xPosition: 0,
+                       yPosition: 0,
+                       calendarIds: calendarIds
+                   });
 
-                  LiveviewService.persist();
-              });
-        };
+                   LiveviewService.persist();
+               });
+         };
 
         /**
          * @name: addWeather()

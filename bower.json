@@ -35,6 +35,11 @@
         "./css/weather-icons-wind.css",
         "./font/*"
       ]
+    },
+    "font-awesome": {
+      "main": [
+        "./fonts/*"
+      ]
     }
   }
 }
