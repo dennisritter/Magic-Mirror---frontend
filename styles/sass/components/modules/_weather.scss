@@ -19,4 +19,39 @@
     }
   }
 
+  h2 {
+    margin-top: 0;
+  }
+
+  .current {
+    @extend .row;
+
+    .col-icon {
+      @extend .col-xs-6;
+
+      i.wi {
+        font-size: 8em;
+        line-height: 1.1;
+      }
+    }
+
+    .col-info {
+      @extend .col-xs-6;
+
+      .temperature {
+        display: block;
+        margin: 5px 0;
+
+        &.current {
+          font-size: 3.5em;
+        }
+      }
+    }
+  }
+
+  .weather-today {
+    td {
+      padding: 5px 10px;
+    }
+  }
 }

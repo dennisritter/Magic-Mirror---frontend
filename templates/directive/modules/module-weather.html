@@ -2,19 +2,28 @@
     <button class="button button__module--delete" ng-click="edit()">edit</button>
     <button class="button button__module--delete" ng-click="delete()">delete</button>
     <div ng-if="weatherData != null">
-        <h3>{{location.name}}</h3>
-        <ul>
-            <li>{{::query }} <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
-                {{ weatherData.current.temperature | celsius }}
-            </li>
-            <li>Today min.: {{ weatherData.daily[0].temperature.min | celsius }}</li>
-            <li>Today max.: {{ weatherData.daily[0].temperature.max | celsius }}</li>
-            <!--<div class="forecast" ng-repeat="weather in weatherData.daily">-->
-                <!--<div class="forecast&#45;&#45;element">{{ weather.dateTime | date:'EEE'}}</div>-->
-                <!--<div class="forecast&#45;&#45;element"><i class="wi wi-owm-{{ weather.weatherId }} "></i></div>-->
-                <!--<div class="forecast&#45;&#45;element">{{ weather.temperature.average | celsius }}</div>-->
-            <!--</div>-->
-        </ul>
+        <h2>{{location.name}}</h2>
+        <div class="current">
+            <div class="col-icon">
+                <i class="wi wi-owm-{{weatherData.current.weatherId}}"></i>
+            </div>
+            <div class="col-info">
+                <span class="temperature current">{{weatherData.current.temperature | celsius}}</span>
+                <span class="temperature">{{weatherData.daily[0].temperature.min | celsius}} mindestens</span>
+                <span class="temperature">{{weatherData.daily[0].temperature.average | celsius}} durchschnittlich</span>
+                <span class="temperature">{{weatherData.daily[0].temperature.max | celsius}} höchstens</span>
+            </div>
+        </div>
+
+        <table class="weather-today">
+            <tbody>
+                <tr ng-repeat="today in weatherData.today">
+                    <td>{{today.dateTime | date: 'HH:mm'}}</td>
+                    <td><i class="wi wi-owm-{{today.weatherId}}"></i></td>
+                    <td>{{today.temperature | celsius}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
