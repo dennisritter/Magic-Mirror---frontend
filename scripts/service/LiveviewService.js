@@ -115,11 +115,11 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 // In that case, the module isn´t present in the database and can´t be deleted, so it will be removed
                 // from the liveview.modules Array and the promise gets resolved and returned immediately.
                 if (!('id' in module) && !('id' in this.liveview.modules[i])) {
-                    this.liveview.modules.splice(i);
+                    this.liveview.modules.splice(i, 1);
                     defer.resolve();
                     return defer.promise;
                 } else if (this.liveview.modules[i].id === module.id) {
-                    this.liveview.modules.splice(i);
+                    this.liveview.modules.splice(i, 1);
                 }
             }
             $http({
@@ -132,6 +132,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 .error(function (response) {
                     defer.reject(response);
                 });
+            console.log('modules',this.liveview.modules);
             return defer.promise;
         };
 

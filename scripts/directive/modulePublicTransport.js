@@ -11,14 +11,11 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
             restrict: 'E',
             templateUrl: routes.publicTransport,
             scope: {
-                'module': '='
+                module: '='
             },
             controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
                 function ($scope, PublicTransportLocationService, LiveviewService) {
 
-                    // $scope.module.stationName = "";
-                    // $scope.module.stationId = "";
-                    // $scope.module.products = [];
                     $scope.departures = [];
 
                     $scope.getDepartures = function () {
@@ -26,15 +23,12 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                             products: $scope.module.products.join()
                         };
 
-                        var successCallback = function (response) {
-                            $scope.departures = response.data;
-                        };
-
-                        var errorCallback = function (response) {
-                            console.error(response.error);
-                        };
-
-                        PublicTransportService.requestDepartures($scope.module.stationId, query).then(successCallback, errorCallback);
+                        PublicTransportService.requestDepartures($scope.module.stationId, query)
+                          .then(function (departures) {
+                              $scope.departures = departures;
+                          }, function (response) {
+                              console.error(response.error);
+                          });
                     };
 
                     $scope.edit = function () {
@@ -59,7 +53,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                     };
 
                     var initDepartures = function () {
-                        if ($scope.module.stationId !== "" && $scope.module.products.length > 0) {
+                        if ($scope.module.stationId && $scope.module.products.length > 0) {
                             $scope.getDepartures();
                         }
                     };
@@ -136,12 +130,38 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
 
         $scope.isDisabled = function () {
             return $scope.station == null || $scope.products.length < 1;
-        }
+        };
 
         $scope.initProducts = function () {
             if (station != null) {
                 $scope.searchSpecificStation(station.id);
             }
-        }
+        };
         $scope.initProducts();
     }]);
+
+angular.module('perna').directive('minuteDifference', ['$filter', '$interval', function ($filter, $interval) {
+    return {
+        restrict: 'A',
+        scope: {
+            time: '@minuteDifference'
+        },
+        link: function ($scope, $element) {
+            var setMinutes = function () {
+                var diff = new Date($scope.time) - new Date(); // difference in milliseconds
+                var minutes = Math.ceil(diff / (1000 * 60));
+                $element.html(minutes == 0 ? 'jetzt' : 'in ' + minutes + ' min.');
+                if ((diff / 1000) <= 20) {
+                    $element.parent('li').addClass('is-departing');
+                }
+            };
+            
+            var interval = $interval(setMinutes, 1000 * 10);
+            setMinutes();
+
+            $scope.$on('$destroy', function () {
+                $interval.cancel(interval);
+            });
+        }
+    };
+}]);
