@@ -117,7 +117,7 @@
         }
     }
 
-    &.test {
+    &.main-icon {
         z-index: 2;
         position: absolute;
     }
@@ -134,5 +134,28 @@
 .wrap {
     position: relative;
     overflow: visible;
+
 }
 
+div.btn-group-module {
+    .button {
+        &.button-white {
+            @extend .btn;
+            background-color: white;
+            border: 2px solid white;
+            color: black;
+            margin: 0;
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+
+        &.button-white-ghost {
+
+        }
+    }
+    position: absolute;
+    right: 0;
+    top: 0;
+}
