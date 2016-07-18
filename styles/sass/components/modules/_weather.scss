@@ -61,8 +61,30 @@
   }
 
   .weather-today {
-    td {
+    margin: 0 -10px;
+
+    li {
+      display: block;
       padding: 5px 10px;
+      float: left;
+
+      i.wi {
+        font-size: 2em;
+        line-height: 1.2;
+      }
+
+      span {
+        display: block;
+        float: left;
+      }
+
+      .icon {
+        padding-top: 3px;
+      }
+
+      .data {
+        padding-left: 3px;
+      }
     }
   }
 }

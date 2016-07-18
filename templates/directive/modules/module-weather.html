@@ -26,14 +26,16 @@
             </div>
         </div>
 
-        <table class="weather-today">
-            <tbody>
-                <tr ng-repeat="today in weatherData.today">
-                    <td>{{today.dateTime | date: 'HH:mm'}}</td>
-                    <td><i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i></td>
-                    <td>{{today.temperature | celsius}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <ul class="weather-today">
+            <li ng-repeat="today in weatherData.today">
+                <span class="icon">
+                    <i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i>
+                </span>
+                <span class="data">
+                    {{today.dateTime | date: 'HH:mm'}}<br />
+                    {{today.temperature | celsius}}
+                </span>
+            </li>
+        </ul>
     </div>
 </div>

@@ -9,6 +9,10 @@
   background: black;
   position: relative;
 
+  h2 {
+    margin-top: 0;
+  }
+
   .departures {
     $gutter: 5px;
     @extend .row;
@@ -25,7 +29,6 @@
     .line-name {
       @extend .col-xs-2;
       padding: 0 $gutter;
-      text-align: right;
 
       .line-name-label {
         display: inline-block;
