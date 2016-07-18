@@ -41,7 +41,7 @@
         border-radius: 0;
     }
 
-    &.button__module-time--toggleCountdown {
+    &.button__module-time--toggleCountdown{
         background-color: #c0c0c0;
         color: $black;
         float: right;
@@ -57,44 +57,45 @@
         color: $white;
         float: left;
         border-radius: 0;
+    }
 
-        &.button-white {
-            @extend .btn;
+    &.button-white {
+        @extend .btn;
+        background-color: white;
+        border: 2px solid white;
+        color: black;
+    }
+
+    &.button-white-ghost {
+        @extend .btn;
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        transition: background-color, color 200ms;
+
+        &:hover {
             background-color: white;
-            border: 2px solid white;
+            color: black;
+        }
+    }
+}
+
+.btn-group {
+    .button-white {
+        background: black;
+        color: white;
+        border-color: white;
+        transition: background-color, color 500ms;
+
+        &:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+
+        &.selected {
+            background: white;
             color: black;
         }
 
-        &.button-white-ghost {
-            @extend .btn;
-            background-color: black;
-            border: 2px solid white;
-            color: white;
-            transition: background-color, color 200ms;
-
-            &:hover {
-                background-color: white;
-                color: black;
-            }
-        }
-    }
-
-    .btn-group {
-        .button-white {
-            background: black;
-            color: white;
-            border-color: white;
-            transition: background-color, color 500ms;
-
-            &:focus {
-                outline: 0;
-                box-shadow: none;
-            }
-
-            &.selected {
-                background: white;
-                color: black;
-            }
-        }
     }
 }
