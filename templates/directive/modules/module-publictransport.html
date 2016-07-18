@@ -1,7 +1,7 @@
 <div class="publictransport">
-    <div style="position: absolute; top: 0; right: 0; z-index: 300;">
-        <button class="button button__module--edit" ng-click="edit()" show-on-mouse-move>Edit</button>
-        <button class="button button__module--delete" ng-click="delete()">delete</button>
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
     <h2>{{module.stationName}}</h2>
     <ul class="departures">

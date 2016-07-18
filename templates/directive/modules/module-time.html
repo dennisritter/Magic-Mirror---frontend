@@ -1,4 +1,8 @@
 <div class="time">
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
     <canvas ng-if="viewType == 'analog'" id="clockCanvas" class="clockCanvas" width="100" height="100" style="background-color:#000"></canvas>
     <div ng-if="viewType == 'digital'" class="time-container">
         <div class="timeDisplay">{{ time | date : 'hh:mm'}}</div>
@@ -10,9 +14,7 @@
         <div class="dateDisplay">{{ time | date : 'mediumDate'}}</div>
     </div>
     <div class="module-buttonbar">
-        <button class="button button__module--delete" ng-click="edit()">Edit</button>
-        <button class="button button__module--delete" ng-click="delete()">Del</button>
-        <button ng-if="!countdown" class="button button__module-time--toggleCountdown startCountdown" ng-click="toggleCountdown()" show-on-mouse-move >Timer</button>
-        <button class="button button__module-time--toggleCountdown stopCountdown hidden" ng-click="toggleCountdown()">Stop</button>
+        <button ng-if="!countdown" class="button button-white-ghost startCountdown" ng-click="toggleCountdown()" show-on-mouse-move >Timer</button>
+        <button class="button button-white-ghost stopCountdown hidden" ng-click="toggleCountdown()">Stop</button>
     </div>
 </div>
