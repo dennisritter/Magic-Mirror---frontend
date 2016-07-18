@@ -152,6 +152,12 @@ div.btn-group-module {
                 background-color: black;
                 color: white;
             }
+            &.button--edit, &.button--delete{
+                font-size: 1.2em;
+                padding: 3px;
+                width: 32px;
+                height: 32px;
+            }
         }
 
         &.button-white-ghost {
