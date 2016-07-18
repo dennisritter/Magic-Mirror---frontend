@@ -1,5 +1,5 @@
-angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService',
-    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService) {
+angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$interval', 'LiveviewService', 'CalendarService', 'ReloadService', 'ModuleModalService',
+    function ($scope, $window,  $interval, LiveviewService, CalendarService, ReloadService, ModuleModalService) {
         /**
          * @name: requestLiveview
          * @desc: Request the Liveview after pageload is completed and build it immediatly.
@@ -57,61 +57,106 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                 refreshLiveview();
             });
 
+        //********** TIME
         // The default timeModule
         var timeModule = {
             "type": 'time',
             "width": 1,
             "height": 1,
             "xPosition": 3,
-            "yPosition": 0,
+            "yPosition": 0
             //"timezone":
         };
         /**
-         * @name: addCalendar()
-         * @desc: Calls addModule(module) with the default calendarModule as parameter
+         * @name: addTime()
+         * @desc: Calls addModule(module) with the default TimeModule as parameter
          */
         $scope.addTime = function () {
-            addModule(angular.copy(timeModule));
+            ModuleModalService.openTimeModal()
+              .then(function (viewType) { console.log('lv', viewType);
+                  var module = angular.copy(timeModule);
+                  module.viewType = viewType;
+                  addModule(module);
+
+                  LiveviewService.persist();
+              });
         };
+
+        //********** CALENDAR
 
         $scope.getAvailableCalendars = function () {
             CalendarService.getAvailableCalendars();
         };
-
-        // The default calendarModule.
-        var calendarModule = {
-            "type": 'calendar',
-            "width": 1,
-            "height": 2,
-            "xPosition": 0,
-            "yPosition": 0,
-            "calendarIds": []
-        };
         /**
          * @name: addCalendar()
          * @desc: Calls addModule(module) with the default calendarModule as parameter
          */
-        $scope.addCalendar = function () {
-            $scope.getAvailableCalendars();
-            addModule(angular.copy(calendarModule));
-        };
+         $scope.addCalendar = function () {
+             ModuleModalService.openCalendarModal()
+               .then(function (calendarIds) {
+                   addModule({
+                       type: 'calendar',
+                       width: 2,
+                       height: 2,
+                       xPosition: 0,
+                       yPosition: 0,
+                       calendarIds: calendarIds
+                   });
 
-        // The default weatherModule.
-        var weatherModule = {
-            "type": 'weather',
-            "width": 2,
-            "height": 1,
-            "xPosition": 1,
-            "yPosition": 0,
-            "locationId": 0
-        };
+                   LiveviewService.persist();
+               });
+         };
 
         /**
          * @name: addWeather()
          * @desc: Calls addModule(module) with the default weatherModule as parameter
          */
         $scope.addWeather = function () {
-            addModule(angular.copy(weatherModule));
+            ModuleModalService.openWeatherModal()
+              .then(function(location) {
+                  if ( !location ) {
+                      return;
+                  }
+
+                  addModule({
+                      type: 'weather',
+                      width: 2,
+                      height: 1,
+                      xPosition: 0,
+                      yPosition: 0,
+                      locationId: location.id
+                  });
+
+                  LiveviewService.persist();
+              });
+        };
+
+        //********** PUBLIC TRANSPORT
+
+        /**
+         * @name: addPublicTransport()
+         * @desc: Calls addPublicTransport(module) with the default PublicTransportModule as parameter
+         */
+        $scope.addPublicTransport = function () {
+            ModuleModalService.openPublicTransportModal()
+                .then(function(results) {
+                    if (!results.station || results.products <= 0) {
+                        return;
+                    }
+
+                    addModule({
+                        "type": 'publicTransport',
+                        "width": 1,
+                        "height": 1,
+                        "xPosition": 1,
+                        "yPosition": 2,
+                        "stationId": results.station.id,
+                        "stationName": results.station.name,
+                        "products": results.products
+                    });
+
+                    LiveviewService.persist();
+                });
         };
 
         /** VOICE CALLBACKS */
@@ -127,6 +172,10 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             $scope.addTime();
             $scope.$apply();
         };
+        var voiceAddPublicTransport = function () {
+            $scope.addPublicTransport();
+            $scope.$apply();
+        };
 
         /**
          * Voice Commands
@@ -134,7 +183,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
         var commands = {
             "Wetter": voiceAddWeather,
             "Kalender": voiceAddCalendar,
-            "Zeit": voiceAddTime
+            "Zeit": voiceAddTime,
+            "BVG": voiceAddPublicTransport
         };
         annyang.addCommands(commands);
 

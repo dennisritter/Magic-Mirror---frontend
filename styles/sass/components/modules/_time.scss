@@ -1,38 +1,29 @@
 .time{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: 0;
     margin: 0;
-    .time-container{
-        font-size: 4em;
-        font-weight: bold;
-    }
-    .date-container{
-        font-size: 1.5em;
-        padding-bottom: 3px;
-        border-bottom: solid white 1px;
-        margin-bottom: 1%;
-    }
-    .countdown-container{
-        font-size: 4em;
-        font-weight: bold;
+    .display{
+        height:90%;
+        margin-top: 10%;
         text-align: center;
-    }
-    .module-buttonbar, .module-settingsbar{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    .lastSeconds{
-        color: red;
-    }
-    .clockCanvas{
-        width:65%;
-        height:65%;
-        display: block;
-        margin: auto;
+        .time-container{
+            font-size: 4em;
+            font-weight: bold;
+        }
+        .date-container{
+            font-size: 1em;
+        }
+        .countdown-container{
+            font-size: 4em;
+            font-weight: bold;
+        }
+        .lastSeconds{
+            color: red;
+        }
+        .clockCanvas{
+            width:63%;
+            height:63%;
+            display: block;
+            margin: auto;
+        }
     }
 }

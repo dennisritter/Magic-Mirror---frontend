@@ -1,0 +1,14 @@
+<div class="publictransport">
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <h2>{{module.stationName}}</h2>
+    <ul class="departures">
+        <li ng-repeat="departure in departures | departures: 'realTime' | limitTo: module.height * 10">
+            <div class="line-name"><span class="line-name-label">{{departure.name}}</span></div>
+            <div class="direction">{{departure.direction}}</div>
+            <div class="departure-time" minute-difference="{{departure.realTime}}"></div>
+        </li>
+    </ul>
+</div>

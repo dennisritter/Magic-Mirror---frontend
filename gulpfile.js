@@ -29,9 +29,7 @@ var paths = manifest.paths;
 //Import the browsersync plugin
 var browserSync = require('browser-sync').create();
 var historyApiFallback = require('connect-history-api-fallback');
-var middleware = historyApiFallback({
-    verbose: true,
-});
+var middleware = historyApiFallback();
 //Initialize the browser-sync server @ perna.dev
 gulp.task('serve', function() {
     browserSync.init({

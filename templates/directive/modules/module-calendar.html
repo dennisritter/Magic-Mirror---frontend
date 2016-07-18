@@ -16,9 +16,9 @@
             </label>
         </form>
     </div>
-    <div class="calendar-container--events" ng-if="!configMode">
+    <div class="calendar-container--events">
         <ul>
-            <li class="calendar-listitem--event" ng-model="events" ng-repeat="event in events|limitTo:4">
+            <li class="calendar-listitem--event" ng-repeat="event in events|limitTo:4">
                 <ul>
                     <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
                     <li class="calendar-listitem--event--location">{{ event.location }}</li>
@@ -28,7 +28,8 @@
             </li>
         </ul>
     </div>
-    <div class="calendar-button">
-        <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit</button>
+    <div class="btn-group-module calendar-button" show-on-mouse-move>
+        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 </div>

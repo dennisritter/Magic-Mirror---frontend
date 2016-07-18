@@ -11,6 +11,7 @@
             background-color: $white;
         }
     }
+
     &.button__module--save {
         background-color: #c0c0c0;
         color: $black;
@@ -21,6 +22,7 @@
             background-color: $white;
         }
     }
+
     &.button__module--delete {
         background-color: #c0c0c0;
         color: $black;
@@ -31,12 +33,14 @@
             background-color: $white;
         }
     }
+
     &.button-module--resize {
         background-color: #c0c0c0;
         color: $black;
         float: left;
         border-radius: 0;
     }
+
     &.button__module-time--toggleCountdown{
         background-color: #c0c0c0;
         color: $black;
@@ -47,4 +51,67 @@
             background-color: $white;
         }
     }
+
+    &.button-white {
+        @extend .btn;
+        background-color: white;
+        border: 2px solid white;
+        color: black;
+    }
+
+    &.button-white-ghost {
+        @extend .btn;
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        transition: background-color, color 200ms;
+
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+    }
+}
+
+.btn-group {
+    margin: 10px 0 0 0;
+    .button-white {
+        background: black;
+        color: white;
+        border-color: white;
+        transition: background-color, color 500ms;
+
+        &:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+
+        &.selected {
+            background: white;
+            color: black;
+        }
+    }
+}
+
+div.btn-group-module {
+    .button {
+        &.button-white {
+            @extend .btn;
+            background-color: white;
+            border: 2px solid white;
+            color: black;
+            margin: 0;
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+
+        &.button-white-ghost {
+
+        }
+    }
+    position: absolute;
+    right: 0;
+    top: 0;
 }

@@ -1,32 +1,22 @@
 <div class="weather">
-    <div class="weather-container--settings" ng-if="configMode">
-        <button class="button button__module--save" ng-click="save()">Save</button>
-        <button class="button button__module--delete" ng-click="delete()">Del</button>
-        <form name="weatherSearch" >
-            <input type="text" ng-model="query" style="color:black" list="locations" placeholder="Your city here">
-            <button type="button" class="btn btn-primary" ng-click="searchLocation(query)" list="locations"> search </span></button>
-            <button type="button" class="btn btn-primary" ng-click="locateUser()" list="locations"> my location </span></button>
-            <ul id="locations" ng-if="!citySelected && locationsDetected">
-                <li class="citylist" ng-repeat="location in locationFound" ng-click="getWeatherData(location.id, location.name)">
-                    {{ location.name + ', ' + location.countryCode }}
-                </li>
-            </ul>
-        </form>
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
-    <button class="button button__module--edit" ng-if="!configMode" ng-click="edit()" show-on-mouse-move>Edit
-    </button>
-    <div ng-if="citySelected" ng-model="query">
-        <ul ng-model="weatherData">
+    <div ng-if="weatherData != null">
+        <h3>{{location.name}}</h3>
+        <ul>
             <li>{{::query }} <i class="wi wi-owm-{{ weatherData.current.weatherId }} "></i>
                 {{ weatherData.current.temperature | celsius }}
             </li>
             <li>Today min.: {{ weatherData.daily[0].temperature.min | celsius }}</li>
             <li>Today max.: {{ weatherData.daily[0].temperature.max | celsius }}</li>
-            <div class="forecast" ng-repeat="weather in weatherData.daily">
-                <div class="forecast--element">{{ weather.dateTime | date:'EEE'}}</div>
-                <div class="forecast--element"><i class="wi wi-owm-{{ weather.weatherId }} "></i></div>
-                <div class="forecast--element">{{ weather.temperature.average | celsius }}</div>
-            </div>
+            <!--<div class="forecast" ng-repeat="weather in weatherData.daily">-->
+                <!--<div class="forecast&#45;&#45;element">{{ weather.dateTime | date:'EEE'}}</div>-->
+                <!--<div class="forecast&#45;&#45;element"><i class="wi wi-owm-{{ weather.weatherId }} "></i></div>-->
+                <!--<div class="forecast&#45;&#45;element">{{ weather.temperature.average | celsius }}</div>-->
+            <!--</div>-->
         </ul>
     </div>
 </div>
+

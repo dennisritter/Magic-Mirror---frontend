@@ -24,10 +24,12 @@
             }
         }
     }
-    .calendar-button{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    .select-calendar-list {
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: normal;
+            cursor: pointer;
+        }
     }
 }

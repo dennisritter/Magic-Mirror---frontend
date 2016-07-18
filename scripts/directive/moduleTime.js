@@ -12,8 +12,8 @@ function ($timeout, routes) {
         scope: {
             'module': '='
         },
-        controller: ['$scope', 'AuthService', 'CalendarService', 'LiveviewService',
-        function ($scope, AuthService, CalendarService, LiveviewService) {
+        controller: ['$scope', 'AuthService', 'CalendarService', 'LiveviewService', 'ModuleModalService',
+        function ($scope, AuthService, CalendarService, LiveviewService, ModuleModalService) {
 
             /**
             * @name configMode
@@ -24,8 +24,10 @@ function ($timeout, routes) {
             */
             $scope.configMode = false;
             $scope.countdown = false;
-            $scope.analog = false;
+            $scope.viewType = $scope.module.viewType || 'digital';
             $scope.time = Date.now();
+
+            console.log($scope.viewType);
 
             var updateTime = function(){
                 $scope.time = Date.now();
@@ -61,50 +63,43 @@ function ($timeout, routes) {
             };
             $scope.toggleCountdown = function(){
                 if($scope.countdown){
-                    $(".startCountdown").removeClass('hidden');
                     $scope.stopCountdown();
                 }else{
-                    $(".startCountdown").addClass('hidden');
                     $scope.startCountdown();
                 }
             };
 
-            var persist = function(){
-                LiveviewService.persist();
-            };
-
-            $scope.save = function () {
-                $scope.configMode = false;
-                persist();
-            };
-
             $scope.edit = function () {
-                $scope.configMode = true;
+                ModuleModalService.openTimeModal($scope.viewType)
+                  .then(function (viewType) {
+                      $scope.viewType = viewType;
+                      $scope.module.viewType = viewType;
+                      LiveviewService.persist();
+                  });
             };
 
             $scope.delete = function(){
-                var successCallback = function(){
-                    console.log("Deleted module: ", $scope.module);
-                };
-                var errorCallback = function(response){
-                    console.error("deleteModuleError: ", response);
-                };
-                LiveviewService.deleteModule($scope.module).then(successCallback, errorCallback);
+                LiveviewService.deleteModule($scope.module);
             };
 
-            $scope.switchClockMode = function(){
-                $scope.analog = !$scope.analog;
-                setInterval(function(){
-                    drawClock();
-                },1000);
-            };
+            var analogInterval = null;
+            $scope.$watch('viewType', function (viewType) {
+                if (viewType == 'analog' && analogInterval == null) {
+                    analogInterval = setInterval(drawClock, 1000);
+                }
+
+                if (viewType != 'analog' && analogInterval != null) {
+                    clearInterval(analogInterval);
+                    analogInterval = null;
+                }
+            });
 
             /**
             * The following functions draw a analog clock using the HTML5 canvas
             **/
 
             function drawClock () {
-                if ($scope.analog){
+                if ($scope.viewType == 'analog'){
                     var canvas = document.getElementById("clockCanvas");
                     canvas.width = 450;
                     canvas.height = 450;
@@ -192,5 +187,19 @@ function ($timeout, routes) {
             };
             annyang.addCommands(commands);
         }]
+    };
+}]);
+
+angular.module('perna').controller('ModuleTimeEditController', ['$scope', 'close', 'viewType', function ($scope, close, viewType) {
+    $scope.data = {
+        viewType: viewType
+    };
+
+    $scope.submit = function () { console.log($scope.data.viewType);
+        close($scope.data.viewType);
+    };
+
+    $scope.cancel = function () {
+        close(-1);
     };
 }]);

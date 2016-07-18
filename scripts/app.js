@@ -5,15 +5,18 @@ angular.module('perna', [
     'ngMessages',
     'ui.router',
     'ngPassword',
-    'ngCookies'
+    'ngCookies',
+    'angularModalService'
 ]).constant('routes', {
     home : 'layout/start.html',
     dashboard : 'layout/dashboard.html',
     usersettings : 'layout/usersettings.html',
+    modulesettings: 'layout/components/module-settings.html',
     formcontrol : 'directive/form-control-messages.html',
     calendar : 'directive/modules/module-calendar.html',
     weather : 'directive/modules/module-weather.html',
     time : 'directive/modules/module-time.html',
+    publicTransport : 'directive/modules/module-publictransport.html',
     module : 'directive/modules/liveview-module.html'
 }).constant('api', {
     source : 'http://api.perna.dev',
@@ -29,6 +32,9 @@ angular.module('perna', [
     city_data: 'http://api.perna.dev/v1/weather/locations/',
     weather_getWeather: 'http://api.perna.dev/v1/weather/',
     city_search: 'http://api.perna.dev/v1/weather/locations/search',
+    stations_search: 'http://api.perna.dev/v1/publicTransport/stations/search',
+    station_specific_search: 'http://api.perna.dev/v1/publicTransport/stations/',
+    departures: 'http://api.perna.dev/v1/publicTransport/departures/',
     module: 'http://api.perna.dev/v1/modules/',
     modules: 'http://api.perna.dev/v1/modules'
 });
