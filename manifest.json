@@ -13,7 +13,6 @@
                 "angular-ui-router",
                 "js-sha256",
                 "bootstrap-sass",
-                "font-awesome",
                 "jquery",
                 "jquery-ui",
                 "annyang",
@@ -23,7 +22,8 @@
         "main.css": {
             "files": ["./styles/sass/main.scss"],
             "bower": [
-                "weather-icons"
+                "weather-icons",
+                "font-awesome"
             ]
         },
         "templates.js": {
