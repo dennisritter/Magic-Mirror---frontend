@@ -122,7 +122,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
 
                   addModule({
                       type: 'weather',
-                      width: 3,
+                      width: 2,
                       height: 1,
                       xPosition: 0,
                       yPosition: 0,
@@ -148,7 +148,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
 
                     addModule({
                         "type": 'publicTransport',
-                        "width": 3,
+                        "width": 1,
                         "height": 1,
                         "xPosition": 1,
                         "yPosition": 2,

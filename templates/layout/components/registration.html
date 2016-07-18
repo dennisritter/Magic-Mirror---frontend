@@ -1,7 +1,7 @@
 <form name="registrationForm" id="registrationForm" ng-controller="FormCtrl" ng-submit="save(registrationForm)" novalidate>
 
   <div class="form-group" error-classes="registrationForm.firstName">
-    <label for="firstName">First name</label>
+    <label for="firstName">Vorname</label>
     <input type="text" name="firstName" class="form-control" id="firstName"
            ng-model="user.firstName"
            ng-minlength="2"
@@ -9,21 +9,21 @@
            required/>
 
     <form-control-messages input="registrationForm.firstName">
-      <li ng-message="minlength">Your first name is too short.</li>
-      <li ng-message="maxlength">Your first name is too long.</li>
+      <li ng-message="minlength">Dein Vorname ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Vorname ist zu lang.</li>
     </form-control-messages>
   </div>
 
   <div class="form-group" error-classes="registrationForm.lastName">
-    <label for="lastName">Last name</label>
+    <label for="lastName">Nachname</label>
     <input type="text" name="lastName" class="form-control" id="lastName"
            ng-model="user.lastName"
            ng-minlength="2"
            ng-maxlength="64"
            required/>
     <form-control-messages input="registrationForm.lastName">
-      <li ng-message="minlength">Your last name is too short.</li>
-      <li ng-message="maxlength">Your last name is too long.</li>
+      <li ng-message="minlength">Dein Nachname ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Nachname ist zu lang.</li>
     </form-control-messages>
   </div>
 
@@ -35,13 +35,13 @@
            ng-maxlength="64"
            required/>
     <form-control-messages input="registrationForm.email">
-      <li ng-message="minlength">Your email is too short.</li>
-      <li ng-message="maxlength">Your email is too long.</li>
+      <li ng-message="minlength">Deine angegebene E-Mail Adresse ist zu kurz.</li>
+      <li ng-message="maxlength">Deine angegebene E-Mail Adresse ist zu lang.</li>
     </form-control-messages>
   </div>
 
   <div class="form-group" error-classes="registrationForm.password">
-    <label for="password">Password</label>
+    <label for="password">Passwort</label>
     <input type="password" name="password" class="form-control" id="password"
            ng-model="user.password"
            ng-minlength="6"
@@ -49,14 +49,14 @@
            ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
            required/>
     <form-control-messages input="registrationForm.password">
-      <li ng-message="minlength">Your password is too short.</li>
-      <li ng-message="maxlength">Your password is too long.</li>
-      <li ng-message="pattern">Your password doesn´t follow the pattern.</li>
+      <li ng-message="minlength">Dein Passwort ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Passwort ist zu lang.</li>
+      <li ng-message="pattern">Dein Passwort entspricht nicht den Richtlinien.</li>
     </form-control-messages>
   </div>
 
   <div class="form-group" error-classes="registrationForm.passwordRepeat">
-    <label for="password-repeat">Password repeat</label>
+    <label for="password-repeat">Passwort Wiederhohlung</label>
     <input type="password" name="passwordRepeat" class="form-control" id="password-repeat"
            ng-model="user.passwordRepeat"
            ng-minlength="6"
@@ -65,10 +65,10 @@
            match-password="password"
            required/>
     <form-control-messages input="registrationForm.passwordRepeat">
-      <li ng-message="minlength">Your password is too short.</li>
-      <li ng-message="maxlength">Your password is too long.</li>
-      <li ng-message="pattern">Your password doesn´t follow the pattern.</li>
-      <li ng-message="passwordMatch">The Password doesn´t match your previous one.</li>
+      <li ng-message="minlength">Dein Passwort ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Passwort ist zu lang.</li>
+      <li ng-message="pattern">Dein Passwort entspricht nicht den Richtlinien.</li>
+      <li ng-message="passwordMatch">Die eingegebenen Passwörter stimmen nicht überein.</li>
     </form-control-messages>
   </div>
 

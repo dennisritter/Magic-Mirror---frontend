@@ -22,3 +22,35 @@ angular.module('perna-filter').filter('transportproducts', function() {
         }
     };
 });
+
+angular.module('perna-filter').filter('departures', function () {
+    return function (departures, property) {
+        if ( property !== 'realTime' && property !== 'scheduledTime' ) {
+            property = 'realTime';
+        }
+
+        var out = [];
+        var now = new Date();
+        for ( var i = 0; i < departures.length; ++i ) {
+            var time = new Date(departures[i][property]);
+            if ( now <= time ) { // only use actually upcoming departures
+                out.push( departures[i] );
+            }
+        }
+
+        out.sort(function (a, b) {
+            var aTime = new Date(a[property]);
+            var bTime = new Date(b[property]);
+
+            if ( aTime > bTime ) {
+                return 1;
+            } else if ( aTime === bTime ) {
+                return 0;
+            }
+
+            return -1;
+        });
+
+        return out;
+    };
+});
