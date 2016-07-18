@@ -57,6 +57,10 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
         };
 
         initLocation();
+
+        this.getWeatherData = function () {
+          return $scope.weatherData;
+        };
       }]
   };
 }]);
@@ -109,3 +113,37 @@ angular.module('perna').controller('ModuleWeatherEditController', ['WeatherLocat
       return $scope.selected === null;
     };
   }]);
+
+angular.module('perna').directive('weatherIcon', ['$filter', function ($filter) {
+  return {
+    restrict: 'A',
+    scope: {
+      code: '=weatherIcon',
+      time: '='
+    },
+    require: '^moduleWeather',
+    link: function ($scope, $element, $attr, $module) {
+      var dateFormat = $filter('date');
+      var oldClasses;
+
+      var setClasses = function (code) {
+        var data = $module.getWeatherData();
+        var sunrise = parseInt(dateFormat(data.current.sunrise, 'HHmm'));
+        var sunset = parseInt(dateFormat(data.current.sunset, 'HHmm'));
+        var time = parseInt(dateFormat($scope.time, 'HHmm'));
+
+        var daytime = time < sunrise || time > sunset ? 'night' : 'day';
+        var className = 'wi wi-owm-'+daytime+'-'+code;
+        $element.removeClass(oldClasses);
+        $element.addClass(className);
+        oldClasses = className;
+      };
+
+      setClasses($scope.code);
+
+      $scope.$watch('code', function (newCode) {
+        setClasses(newCode);
+      }, true);
+    }
+  };
+}]);

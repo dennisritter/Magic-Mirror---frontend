@@ -19,4 +19,72 @@
     }
   }
 
+  h2 {
+    margin-top: 0;
+  }
+
+  .current {
+    @extend .row;
+
+    .col-icon {
+      @extend .col-xs-6;
+      text-align: center;
+
+      i.wi {
+        font-size: 8em;
+        line-height: 1.5;
+      }
+    }
+
+    .col-info {
+      @extend .col-xs-6;
+
+      .temperature {
+        display: block;
+        margin: 5px 0;
+
+        &.current {
+          font-size: 3.5em;
+        }
+      }
+    }
+  }
+
+  .current-details {
+    td {
+      padding: 5px 7px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .weather-today {
+    margin: 0 -10px;
+
+    li {
+      display: block;
+      padding: 5px 10px;
+      float: left;
+
+      i.wi {
+        font-size: 2em;
+        line-height: 1.2;
+      }
+
+      span {
+        display: block;
+        float: left;
+      }
+
+      .icon {
+        padding-top: 3px;
+      }
+
+      .data {
+        padding-left: 3px;
+      }
+    }
+  }
 }
