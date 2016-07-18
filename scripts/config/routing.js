@@ -9,7 +9,7 @@ angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvid
         // fixes a ui-router Bug with ui.router module, showing unhandled rejection errors
         // source: https://github.com/angular-ui/ui-router/issues/2699
         // --> https://docs.angularjs.org/api/ng/provider/$qProvider
-        //$qProvider.errorOnUnhandledRejections(false);
+        $qProvider.errorOnUnhandledRejections(false);
 
         var authRedirect = ['AuthService', '$state', function (AuthService, $state) {
             if (!AuthService.isAuthenticated) {
