@@ -6,7 +6,7 @@
 
 .grid-container {
     position: absolute;
-    top: 40px;
+    top: 75px;
     left: 10px;
     right: 10px;
     bottom: 10px;
@@ -47,7 +47,6 @@
 
 .grid li .inner {
     position: absolute;
-    border: 1px solid #bbb;
     top: 0;
     bottom: 10px;
     left: 10px;
@@ -55,7 +54,6 @@
 }
 
 .grid li.changed .inner {
-    background: #ffff66;
     -webkit-transition: none;
     transition: none;
 }
@@ -72,7 +70,6 @@
 
 .grid li.position-highlight .inner {
     border: none;
-    background: #ccc;
 }
 
 .grid .controls {

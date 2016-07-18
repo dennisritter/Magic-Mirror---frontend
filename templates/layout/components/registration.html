@@ -73,8 +73,8 @@
   </div>
 
   <div class="form-group">
-    <button type="submit" class="btn btn-success" ^
-            ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'btn-danger': !registrationForm.$valid }">Sign Up
+    <button type="submit" class="button button-white-ghost"
+            ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'button-invalid': !registrationForm.$valid}">Sign Up
     </button>
       <div ng-if="submitError">{{ errorMessage }}</div>
   </div>

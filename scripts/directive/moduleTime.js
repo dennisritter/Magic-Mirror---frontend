@@ -41,8 +41,11 @@ function ($timeout, routes) {
 
             var updateCountdown = function(){
                 $scope.counter -= 10;
-                if($scope.counter < 10000){
+                if($scope.counter < 30000){
                     $('.countdownDisplay').addClass('lastSeconds');
+                }
+                if ($scope.count === 0) {
+                    stopCountdown();
                 }
                 if($scope.countdown){
                     $timeout(function(){
@@ -60,12 +63,8 @@ function ($timeout, routes) {
             };
             $scope.toggleCountdown = function(){
                 if($scope.countdown){
-                    $(".stopCountdown").addClass('hidden');
-                    $(".startCountdown").removeClass('hidden');
                     $scope.stopCountdown();
                 }else{
-                    $(".stopCountdown").removeClass('hidden');
-                    $(".startCountdown").addClass('hidden');
                     $scope.startCountdown();
                 }
             };
@@ -172,6 +171,21 @@ function ($timeout, routes) {
                 ctx.stroke();
                 ctx.rotate(-pos);
             }
+
+            var voiceStopTimer = function () {
+                console.log("Stop");
+                $scope.toggleCountdown();
+                $scope.$apply();
+            };
+
+            /**
+             * Voice Commands
+             */
+            var commands = {
+                "Stop": voiceStopTimer,
+                "Stopp" : voiceStopTimer
+            };
+            annyang.addCommands(commands);
         }]
     };
 }]);
