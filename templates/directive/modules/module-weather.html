@@ -5,13 +5,11 @@
         <h2>{{location.name}}</h2>
         <div class="current">
             <div class="col-icon">
-                <i class="wi wi-owm-{{weatherData.current.weatherId}}"></i>
+                <i weather-icon="{{weatherData.current.weatherId}}" time="{{weatherData.current.dateTime}}"></i>
             </div>
             <div class="col-info">
                 <span class="temperature current">{{weatherData.current.temperature | celsius}}</span>
-                <span class="temperature">{{weatherData.daily[0].temperature.min | celsius}} mindestens</span>
-                <span class="temperature">{{weatherData.daily[0].temperature.average | celsius}} durchschnittlich</span>
-                <span class="temperature">{{weatherData.daily[0].temperature.max | celsius}} höchstens</span>
+                <span class="temperature">{{weatherData.daily[0].temperature.min | celsius}} – {{weatherData.daily[0].temperature.max | celsius}}</span>
             </div>
         </div>
 
@@ -19,11 +17,10 @@
             <tbody>
                 <tr ng-repeat="today in weatherData.today">
                     <td>{{today.dateTime | date: 'HH:mm'}}</td>
-                    <td><i class="wi wi-owm-{{today.weatherId}}"></i></td>
+                    <td><i weather-icon="{{today.weatherId}}" time="{{today.dateTime}}"></i></td>
                     <td>{{today.temperature | celsius}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
