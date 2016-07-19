@@ -1,0 +1,39 @@
+.modal {
+    .form-inline {
+        .form-group {
+            margin-right: 7px;
+        }
+    }
+
+    .form-control {
+      background: black;
+      color: white;
+      box-shadow: 0;
+      border: 2px solid darken(white, 20%);
+      font-weight: normal;
+
+      &:focus {
+        box-shadow: 0;
+        border-color: white;
+      }
+    }
+}
+
+#loginForm, #registrationForm {
+    .form-control {
+        background: black;
+        color: white;
+        box-shadow: none;
+        border: none;
+        border-bottom: 2px solid darken(white, 20%);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        font-weight: lighter;
+        padding-bottom: 0;
+        padding-left: 2px;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

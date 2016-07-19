@@ -1,0 +1,49 @@
+{
+    "dependencies": {
+        "app.js": {
+            "files": ["./scripts/**/*.js"],
+            "main": true
+        },
+        "libs.js": {
+            "bower": [
+                "angular",
+                "angular-messages",
+                "angular-password",
+                "angular-cookies",
+                "angular-ui-router",
+                "js-sha256",
+                "bootstrap-sass",
+                "jquery",
+                "jquery-ui",
+                "annyang",
+                "angular-modal-service"
+            ]
+        },
+        "main.css": {
+            "files": ["./styles/sass/main.scss"],
+            "bower": [
+                "weather-icons",
+                "font-awesome"
+            ]
+        },
+        "templates.js": {
+            "files": ["./templates/**/*.html"]
+        }
+    },
+    "paths": {
+        "source": "./",
+        "imageSource": "./assets/img/**/*",
+        "dist": {
+            "scripts": "./public/dist/scripts",
+            "styles": "./public/dist/styles",
+            "fonts": "./public/dist/font",
+            "images": "./public/dist/img"
+        },
+        "bowerJSON": "./bower.json",
+        "bower": "./bower_components",
+        "distribution" : "./public"
+    },
+    "config": {
+        "ngModuleName": "perna"
+  }
+}

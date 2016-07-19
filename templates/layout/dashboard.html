@@ -1,0 +1,40 @@
+<div ng-controller="DashboardCtrl">
+    <div class="container-fluid" ng-controller="LiveviewCtrl as liveview">
+        <div class="row">
+            <div class="button-bar" show-on-mouse-move>
+                <button type="button" class="btn btn-module logout" ng-click="logout()"><i class="fa fa-power-off fa-3x">
+                    </i></button>
+
+                    <div class="wrap">
+                        <button type="button" class="btn btn-module main-icon" ng-click="addCalendar()"><i class="fa fa-calendar fa-3x"></i></button>
+                        <div class="btn-module plus"><i class="fa fa-plus fa-2x"></i></div>
+                    </div>
+                    <div class ="wrap">
+                        <button type="button" class="btn btn-module main-icon" ng-click="addTime()"><i class="fa fa-clock-o fa-3x"></i></button>
+                        <div class="btn-module plus"><i class="fa fa-plus fa-2x"></i></div>
+                    </div>
+
+                    <div class="wrap">
+                        <button type="button" class="btn btn-module main-icon" ng-click="addWeather()"><i class="fa fa-cloud fa-3x"></i></button>
+                        <div class="btn-module plus"><i class="fa fa-plus fa-2x"></i></div>
+                    </div>
+
+                    <div class="wrap">
+                        <button type="button" class="btn btn-module main-icon" ng-click="addPublicTransport()"><i class="fa fa-subway fa-3x"></i></button>
+                        <div class="btn-module plus"><i class="fa fa-plus fa-2x"></i></div>
+                    </div>
+            </div>
+            <div class="grid-container" ng-mousemove="mouseIsMoving()">
+                <ul id="grid" class="grid">
+                    <li class="position-highlight">
+                        <div class="inner">
+                        </div>
+                    </li>
+                    <li liveview-module class="grid__module {{module.type}}" module="module" ng-model="modules"
+                        ng-repeat="module in modules track by module.id">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

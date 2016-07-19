@@ -1,0 +1,22 @@
+<form name="loginForm" id="loginForm" ng-controller="FormCtrl" ng-submit="login()" novalidate>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" class="form-control" id="email"
+           ng-model="user.email"
+           required/>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Passwort</label>
+    <input type="password" name="password" class="form-control" id="password"
+           ng-model="user.password"
+           required/>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="button button-white-ghost">Anmelden</button>
+    <div ng-if="submitError">{{ errorMessage }}</div>
+  </div>
+
+</form>

@@ -1,0 +1,45 @@
+@mixin default-fontstyle {
+  font-family: $font-stack;
+  font-size: 1em;
+  font-weight: normal;
+  color: $white;
+}
+
+@mixin hover-all-textcolor ($color){
+  &:hover,&:active, &:visited, &:focus{
+    color:$color;
+  }
+}
+
+@mixin hover-all-backgroundcolor ($color){
+  &:hover,&:active, &:visited, &:focus{
+    background-color:$color;
+    border-color:$background-color;
+  }
+}
+
+@mixin vertical-gradient ($top-color, $bottom-color) {
+  background: $top-color; /* Old browsers */
+  background: -moz-linear-gradient(top, $top-color 0%, $bottom-color 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, $tooltip-opacity 0%, $bottom-color 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, $top-color 0%, $bottom-color 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$top-color}', endColorstr='#{$bottom-color}',GradientType=0 ); /* IE6-9 */
+}
+
+body, html {
+  @include default-fontstyle;
+  min-height: 100vh;
+  background-color: $background-color;
+}
+
+a {
+  &:hover, &:active, &:visited, &:focus {
+    text-decoration: none ;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,41 @@
+<div class="weather">
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white button--edit" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white button--delete" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div ng-if="weatherData != null">
+        <h2>{{location.name}}</h2>
+        <div class="current">
+            <div class="col-icon">
+                <i weather-icon="weatherData.current.weatherId" time="weatherData.current.dateTime"></i>
+            </div>
+            <div class="col-info">
+                <span class="temperature current">{{weatherData.current.temperature | celsius}}</span>
+                <table class="current-details">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-fw fa-chevron-down"></i> {{weatherData.daily[0].temperature.min | celsius}}</td>
+                            <td><i class="fa fa-fw fa-chevron-up"></i> {{weatherData.daily[0].temperature.max | celsius}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="wi wi-fw wi-sunrise"></i> {{weatherData.current.sunrise | date: 'HH:mm'}}</td>
+                            <td><i class="wi wi-fw wi-sunset"></i> {{weatherData.current.sunset | date: 'HH:mm'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ul class="weather-today">
+            <li ng-repeat="today in weatherData.today | limitTo: 4">
+                <span class="icon">
+                    <i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i>
+                </span>
+                <span class="data">
+                    {{today.dateTime | date: 'HH:mm'}}<br />
+                    {{today.temperature | celsius}}
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

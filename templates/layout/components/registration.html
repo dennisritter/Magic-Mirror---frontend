@@ -1,0 +1,81 @@
+<form name="registrationForm" id="registrationForm" ng-controller="FormCtrl" ng-submit="save(registrationForm)" novalidate>
+
+  <div class="form-group" error-classes="registrationForm.firstName">
+    <label for="firstName">Vorname</label>
+    <input type="text" name="firstName" class="form-control" id="firstName"
+           ng-model="user.firstName"
+           ng-minlength="2"
+           ng-maxlength="64"
+           required/>
+
+    <form-control-messages input="registrationForm.firstName">
+      <li ng-message="minlength">Dein Vorname ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Vorname ist zu lang.</li>
+    </form-control-messages>
+  </div>
+
+  <div class="form-group" error-classes="registrationForm.lastName">
+    <label for="lastName">Nachname</label>
+    <input type="text" name="lastName" class="form-control" id="lastName"
+           ng-model="user.lastName"
+           ng-minlength="2"
+           ng-maxlength="64"
+           required/>
+    <form-control-messages input="registrationForm.lastName">
+      <li ng-message="minlength">Dein Nachname ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Nachname ist zu lang.</li>
+    </form-control-messages>
+  </div>
+
+  <div class="form-group" error-classes="registrationForm.email">
+    <label for="email">Email</label>
+    <input type="email" name="email" class="form-control" id="email"
+           ng-model="user.email"
+           ng-minlength="8"
+           ng-maxlength="64"
+           required/>
+    <form-control-messages input="registrationForm.email">
+      <li ng-message="minlength">Deine angegebene E-Mail Adresse ist zu kurz.</li>
+      <li ng-message="maxlength">Deine angegebene E-Mail Adresse ist zu lang.</li>
+    </form-control-messages>
+  </div>
+
+  <div class="form-group" error-classes="registrationForm.password">
+    <label for="password">Passwort</label>
+    <input type="password" name="password" class="form-control" id="password"
+           ng-model="user.password"
+           ng-minlength="6"
+           ng-maxlength="64"
+           ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
+           required/>
+    <form-control-messages input="registrationForm.password">
+      <li ng-message="minlength">Dein Passwort ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Passwort ist zu lang.</li>
+      <li ng-message="pattern">Dein Passwort entspricht nicht den Richtlinien.</li>
+    </form-control-messages>
+  </div>
+
+  <div class="form-group" error-classes="registrationForm.passwordRepeat">
+    <label for="password-repeat">Passwort Wiederhohlung</label>
+    <input type="password" name="passwordRepeat" class="form-control" id="password-repeat"
+           ng-model="user.passwordRepeat"
+           ng-minlength="6"
+           ng-maxlength="64"
+           ng-pattern="/^[a-zA-Z0-9]{6,64}$/"
+           match-password="password"
+           required/>
+    <form-control-messages input="registrationForm.passwordRepeat">
+      <li ng-message="minlength">Dein Passwort ist zu kurz.</li>
+      <li ng-message="maxlength">Dein Passwort ist zu lang.</li>
+      <li ng-message="pattern">Dein Passwort entspricht nicht den Richtlinien.</li>
+      <li ng-message="passwordMatch">Die eingegebenen Passwörter stimmen nicht überein.</li>
+    </form-control-messages>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="button button-white-ghost"
+            ng-class="{ disabled: (!registrationForm.$valid || btnDisabled), 'button-invalid': !registrationForm.$valid}">Sign Up
+    </button>
+      <div ng-if="submitError">{{ errorMessage }}</div>
+  </div>
+</form>

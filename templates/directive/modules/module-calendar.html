@@ -1,0 +1,20 @@
+<div class="calendar">
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white button--edit" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white button--delete" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <h2>Heute</h2>
+    <div class="calendar-container--events">
+        <ul>
+            <li class="calendar-listitem--event" ng-repeat="event in events | limitTo: 4" ng-class="{'all-day': event.allDay}">
+                <ul>
+                    <li class="calendar-listitem--event--summary">{{ event.summary }}</li>
+                    <li class="calendar-listitem--event--time" ng-if="!event.allDay">{{ event.startTime | date : 'HH:mm' }} bis {{ event.endTime | date : 'HH:mm' }} Uhr</li>
+                    <li class="calendar-listitem--event--location">{{ event.location }}</li>
+                    <li class="calendar-listitem--event--attendees" ng-if="event.attendees.length > 0">
+                        Teilnehmer: {{event.attendees.join(', ')}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

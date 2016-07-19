@@ -1,0 +1,56 @@
+@keyframes blink-smooth {
+  0% {opacity: 0;}
+  33% {opacity: 1;}
+  66% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.publictransport {
+  background: black;
+  position: relative;
+
+  .departures {
+    $gutter: 5px;
+    @extend .row;
+    margin: 0 -$gutter;
+
+    li {
+      margin: 10px 0;
+
+      &.is-departing {
+        animation: blink-smooth 1s infinite;
+      }
+    }
+
+    .line-name {
+      @extend .col-xs-2;
+      padding: 0 $gutter;
+
+      .line-name-label {
+        display: inline-block;
+        background: white;
+        color: black;
+        font-weight: bold;
+        font-size: $font-size-small;
+        text-align: center;
+        padding: 3px 7px;
+        min-width: 4em;
+      }
+    }
+
+    .direction {
+      @extend .col-xs-7;
+      padding: 0 $gutter;
+    }
+
+    .departure-time {
+      @extend .col-xs-3;
+      padding: 0 $gutter;
+      text-align: right;
+    }
+  }
+}
+
+[liveview-module].publicTransport {
+  @extend .shadow-bottom;
+}

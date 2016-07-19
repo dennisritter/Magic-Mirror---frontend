@@ -1,0 +1,36 @@
+.time {
+    padding: 0;
+    margin: 0;
+
+    .display {
+
+        height:90%;
+        margin-top: 10%;
+        text-align: center;
+
+        .time-container {
+            font-size: 5em;
+            font-weight: $font-weight-light;
+        }
+
+        .date-container {
+            font-size: 1em;
+        }
+
+        .countdown-container {
+            font-size: 4em;
+            font-weight: bold;
+        }
+
+        .lastSeconds {
+            color: red;
+        }
+
+        .clockCanvas {
+            width:80%;
+            height:80%;
+            display: block;
+            margin: auto;
+        }
+    }
+}
