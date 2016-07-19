@@ -27,8 +27,6 @@ function ($timeout, routes) {
             $scope.viewType = $scope.module.viewType || 'digital';
             $scope.time = Date.now();
 
-            console.log($scope.viewType);
-
             var updateTime = function(){
                 $scope.time = Date.now();
                 $timeout(function(){
@@ -173,7 +171,6 @@ function ($timeout, routes) {
             }
 
             var voiceStopTimer = function () {
-                console.log("Stop");
                 $scope.toggleCountdown();
                 $scope.$apply();
             };
@@ -195,7 +192,7 @@ angular.module('perna').controller('ModuleTimeEditController', ['$scope', 'close
         viewType: viewType
     };
 
-    $scope.submit = function () { console.log($scope.data.viewType);
+    $scope.submit = function () {
         close($scope.data.viewType);
     };
 
