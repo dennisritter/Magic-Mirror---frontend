@@ -81,6 +81,7 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
 
         ReloadService.prototype.register = function(func) {
             regCallbacks.push({func: func, id: this.nextRegId});
+            console.log("the modules:", LiveviewService.liveview.modules);
             this.nextRegId++;
             return this.nextRegId-1;
         };
@@ -88,7 +89,7 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
         ReloadService.prototype.deregister = function(callbackId) {
             for(var i = 0; i < regCallbacks.length; i++){
                 if(regCallbacks[i].id === callbackId){
-                    regCallbacks.splice(i);
+                    regCallbacks.splice(i, 1);
                 }
             }
         };
