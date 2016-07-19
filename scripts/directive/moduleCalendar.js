@@ -12,8 +12,8 @@ angular.module('perna').directive('moduleCalendar', ['routes',
             scope: {
               'module': '='
             },
-            controller: ['$scope', 'CalendarService', 'LiveviewService', 'ModuleModalService',
-                function ($scope, CalendarService, LiveviewService, ModuleModalService) {
+            controller: ['$scope', 'CalendarService', 'LiveviewService', 'ModuleModalService', 'ReloadService',
+                function ($scope, CalendarService, LiveviewService, ModuleModalService, ReloadService) {
 
                     /**
                      * @name events
@@ -44,10 +44,14 @@ angular.module('perna').directive('moduleCalendar', ['routes',
 
                     $scope.delete = function () {
                         LiveviewService.deleteModule($scope.module);
+                        // ReloadService.register($scope.test);
                     };
+                    ReloadService.register($scope.getEvents);
+
+
                 }],
 
-            link: function(scope){
+            link: function(scope, ReloadService){
                 if (scope.module.calendarIds.length > 0){
                     scope.getEvents();
                 }
