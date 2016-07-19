@@ -189,7 +189,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
          * @desc Fetches the available products if a station is present in the modal parameters.
          */
         $scope.initProducts = function () {
-            if (!station) {
+            if (station) {
                 $scope.searchSpecificStation(station.id);
             }
         };
