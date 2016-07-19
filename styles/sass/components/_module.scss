@@ -19,3 +19,10 @@
 .bordered {
     border: 1px solid white;
 }
+
+.grid__module {
+    h2 {
+        margin-top: 0;
+        font-weight: $font-weight-light;
+    }
+}

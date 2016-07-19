@@ -9,10 +9,6 @@
   background: black;
   position: relative;
 
-  h2 {
-    margin-top: 0;
-  }
-
   .departures {
     $gutter: 5px;
     @extend .row;
