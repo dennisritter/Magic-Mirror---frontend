@@ -12,7 +12,7 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', 'Goo
       inputs: {
         location: location
       },
-      title: 'Select a Weather Location'
+      title: 'Suche nach Ort'
     });
   };
 
@@ -25,7 +25,7 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', 'Goo
       inputs: {
         viewType: viewType
       },
-      title: 'Choose a view type'
+      title: 'Wie soll deine Uhr aussehen?'
     });
   };
 
@@ -55,7 +55,7 @@ angular.module('perna').service('ModuleModalService', ['PernaModalService', 'Goo
           inputs: {
             calendarIds: calendarIds
           },
-          title: 'Wähle die Kalender, die du anzeigen möchtest.'
+          title: 'Wähle die Kalender, die du anzeigen möchtest'
         }).then(defer.resolve, defer.reject);
       })
       .catch(defer.reject);
