@@ -11,7 +11,7 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
              * @desc The timeinterval the liveview will be reloaded from the api in milliseconds
              * @type {number}
              */
-            this.interval = 1000 * 5;
+            this.interval = 1000 * 300;
             /**
              * @name running
              * @desc A flag to check whether the ReloadService is started or not.
@@ -48,7 +48,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
                 for(var i = 0; i < regCallbacks.length; i++){
                     regCallbacks[i].func();
                 }
-                console.log("my regcallbacks:", regCallbacks, regCallbacks.length);
             });
         };
 
@@ -81,7 +80,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
 
         ReloadService.prototype.register = function(func) {
             regCallbacks.push({func: func, id: this.nextRegId});
-            console.log("the modules:", LiveviewService.liveview.modules);
             this.nextRegId++;
             return this.nextRegId-1;
         };

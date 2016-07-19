@@ -48,7 +48,7 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                                 $scope.module.products = results.products;
                                 $scope.getDepartures();
                                 LiveviewService.persist();
-                            })
+                            });
                     };
 
                     /**
@@ -56,10 +56,18 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                      * @desc Removes the module
                      */
                     $scope.delete = function () {
-                        ReloadService.deregister($scope.refreshId);
-                        LiveviewService.deleteModule($scope.module);
+                        LiveviewService.deleteModule($scope.getDepartures);
                     };
-                    $scope.refreshId = ReloadService.register($scope.getDepartures);
+                    $scope.$on('$destroy', function(){
+                        ReloadService.deregister($scope.refreshId);
+                    });
+
+                    var regCallback = function(){
+                        if($scope.module.id){
+                            $scope.refreshId = ReloadService.register($scope.getDepartures());
+                        }
+                    };
+                    regCallback();
 
                     /**
                      * @name initDepartures
@@ -112,7 +120,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
                 .then(function (response) {
                     $scope.setStation(response.data);
                 });
-        }
+        };
 
         /**
          * @name setStation()
@@ -173,7 +181,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
          * @returns {boolean}
          */
         $scope.isDisabled = function () {
-            return $scope.station == null || $scope.products.length < 1;
+            return !$scope.station || $scope.products.length < 1;
         };
 
         /**
@@ -181,7 +189,7 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
          * @desc Fetches the available products if a station is present in the modal parameters.
          */
         $scope.initProducts = function () {
-            if (station != null) {
+            if (!station) {
                 $scope.searchSpecificStation(station.id);
             }
         };
@@ -203,7 +211,7 @@ angular.module('perna').directive('minuteDifference', ['$filter', '$interval', f
             var setMinutes = function () {
                 var diff = new Date($scope.time) - new Date(); // difference in milliseconds
                 var minutes = Math.ceil(diff / (1000 * 60));
-                $element.html(minutes == 0 ? 'jetzt' : 'in ' + minutes + ' min.');
+                $element.html(minutes === 0 ? 'jetzt' : 'in ' + minutes + ' min.');
                 if ((diff / 1000) <= 20) {
                     $element.parent('li').addClass('is-departing');
                 }

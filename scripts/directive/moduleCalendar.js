@@ -30,7 +30,6 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         CalendarService.getEvents($scope.module.calendarIds)
                           .then(function (events) {
                               $scope.events = events;
-                              console.log("Hello, this is the GetEvents() callback :-)");
                           });
                     };
                     
