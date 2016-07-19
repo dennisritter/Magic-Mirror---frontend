@@ -61,7 +61,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             "type": 'time',
             "width": 1,
             "height": 1,
-            "xPosition": 3,
+            "xPosition": 5,
             "yPosition": 0
             //"timezone":
         };
@@ -96,8 +96,8 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                        type: 'calendar',
                        width: 1,
                        height: 2,
-                       xPosition: 0,
-                       yPosition: 0,
+                       xPosition: 5,
+                       yPosition: 1,
                        calendarIds: calendarIds
                    });
 
@@ -120,7 +120,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                       type: 'weather',
                       width: 2,
                       height: 2,
-                      xPosition: 1,
+                      xPosition: 0,
                       yPosition: 0,
                       locationId: location.id
                   });
@@ -146,7 +146,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                         "type": 'publicTransport',
                         "width": 2,
                         "height": 1,
-                        "xPosition": 1,
+                        "xPosition": 0,
                         "yPosition": 2,
                         "stationId": results.station.id,
                         "stationName": results.station.name,
