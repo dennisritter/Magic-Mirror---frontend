@@ -1,6 +1,6 @@
 # Perna App
-
-Perna App ist eine skaliebare Implementierung eines smarten Spiegels, die es dem Nutzer eine individualisierbare Oberfläche bietet. Perna App bietet zusammen mit Perna API ein Plattform zum Betrieb von derartigen Spiegeln. 
+<p>Perna App ist eine skaliebare Implementierung eines smarten Spiegels, die es dem Nutzer eine individualisierbare Oberfläche bietet.</p>
+Perna App bietet zusammen mit Perna API eine Plattform zum Betrieb von derartigen Spiegeln.
 
 
 ## Installation
@@ -11,7 +11,7 @@ Perna App ist eine skaliebare Implementierung eines smarten Spiegels, die es dem
     - gulp ( BrowserSync Server an localhost:3000 )
 
 #### Distribution
-    - Deploy des dist-Ordners in eine Serverumgebung
+    - Deploy von /public in einer Serverumgebung
 
 ## Lizenz
 MIT
