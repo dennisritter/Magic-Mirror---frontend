@@ -56,8 +56,9 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                      * @desc Removes the module
                      */
                     $scope.delete = function () {
-                        LiveviewService.deleteModule($scope.getDepartures);
+                        LiveviewService.deleteModule($scope.module);
                     };
+
                     $scope.$on('$destroy', function(){
                         ReloadService.deregister($scope.refreshId);
                     });
