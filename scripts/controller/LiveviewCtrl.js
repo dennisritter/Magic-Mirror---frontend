@@ -6,7 +6,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                console.log(response.data);
+                
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -14,7 +14,6 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
             angular.element(document).ready(function () {
                 LiveviewService.requestLiveview().then(successCallback, errorCallback);
                 refreshLiveview();
-                console.log("Refreshed");
             });
         };
 
@@ -30,7 +29,6 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
 
         // Start the AutoReloader after initialisation
         requestLiveview();
-        console.log(ReloadService);
         ReloadService.start();
 
         /**
@@ -73,7 +71,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          */
         $scope.addTime = function () {
             ModuleModalService.openTimeModal()
-              .then(function (viewType) { console.log('lv', viewType);
+              .then(function (viewType) {
                   var module = angular.copy(timeModule);
                   module.viewType = viewType;
                   addModule(module);

@@ -99,7 +99,7 @@ angular.module('perna').controller('ModuleWeatherEditController', ['WeatherLocat
       close(-1);
     };
 
-    $scope.submit = function () { console.log('submit');
+    $scope.submit = function () {
       // Cancel if no location has been selected
       if ( $scope.selected == null ) {
         return;

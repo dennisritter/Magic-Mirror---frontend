@@ -43,7 +43,6 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                         var products = $scope.module.products;
                         ModuleModalService.openPublicTransportModal(station, products)
                             .then(function (results) {
-                                console.log("results: ", results);
                                 $scope.module.stationId = results.station.id;
                                 $scope.module.stationName = results.station.name;
                                 $scope.module.products = results.products;
@@ -138,7 +137,6 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             } else {
                 $scope.products.push(product);
             }
-            console.log($scope.products);
         };
 
         /**

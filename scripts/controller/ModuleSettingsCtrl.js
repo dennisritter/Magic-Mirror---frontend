@@ -9,7 +9,6 @@ app.controller('ModuleSettingsCtrl', ['$scope', '$rootScope', 'close', 'Liveview
 
     $scope.delete = function(){
         var successCallback = function(){
-            console.log("Deleted module: ", $rootScope.module);
         };
         var errorCallback = function(response){
             console.error("deleteModuleError: ", response);
