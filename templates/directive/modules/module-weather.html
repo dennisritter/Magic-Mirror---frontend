@@ -27,7 +27,7 @@
         </div>
 
         <ul class="weather-today">
-            <li ng-repeat="today in weatherData.today">
+            <li ng-repeat="today in weatherData.today | limitTo: 4">
                 <span class="icon">
                     <i weather-icon="today.weatherId" time="today.dateTime" class="wi-fw"></i>
                 </span>
