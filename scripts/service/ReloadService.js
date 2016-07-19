@@ -18,6 +18,7 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
              * @type {boolean}
              */
             this.running = false;
+            this.nextRegId = 0;
         };
 
         /**
@@ -40,9 +41,13 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
          * @name: refreshLiveview
          * @desc: Rebuilds the Liveview after the document is loaded completely
          */
+        var regCallbacks = [];
         var refreshLiveview = function () {
             angular.element(document).ready(function () {
                 LiveviewService.buildLiveview();
+                for(var i = 0; i < regCallbacks.length; i++){
+                    regCallbacks[i].func();
+                }
             });
         };
 
@@ -71,6 +76,20 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
         ReloadService.prototype.restart = function () {
             this.stop();
             this.start();
+        };
+
+        ReloadService.prototype.register = function(func) {
+            regCallbacks.push({func: func, id: this.nextRegId});
+            this.nextRegId++;
+            return this.nextRegId-1;
+        };
+
+        ReloadService.prototype.deregister = function(callbackId) {
+            for(var i = 0; i < regCallbacks.length; i++){
+                if(regCallbacks[i].id === callbackId){
+                    regCallbacks.splice(i, 1);
+                }
+            }
         };
 
         return new ReloadService();
