@@ -1,14 +1,5 @@
 .calendar {
     background-color: $black;
-    //calendar-settings
-    .calendar-checklist--availablecalendar {
-        font-weight: normal;
-        font-size: .8em;
-        color: #FFF;
-        .calendar-checkbox--availablecalendar {
-            margin: 0 5px 0 0;
-        }
-    }
 
     //calendar-event-view
     .calendar-container--events {
@@ -42,4 +33,10 @@
             cursor: pointer;
         }
     }
+}
+
+//calendar-settings
+.calendar-checklist--availablecalendar {
+    display: block;
+    margin: 10px 0;
 }
