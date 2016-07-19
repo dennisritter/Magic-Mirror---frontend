@@ -30,7 +30,6 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                         CalendarService.getEvents($scope.module.calendarIds)
                           .then(function (events) {
                               $scope.events = events;
-                              console.log("Got the events..");
                           });
                     };
                     
@@ -46,14 +45,13 @@ angular.module('perna').directive('moduleCalendar', ['routes',
                     $scope.delete = function () {
                         ReloadService.deregister($scope.refreshId);
                         LiveviewService.deleteModule($scope.module);
-                        // ReloadService.register($scope.test);
                     };
                     $scope.refreshId = ReloadService.register($scope.getEvents);
 
 
                 }],
 
-            link: function(scope, ReloadService){
+            link: function(scope){
                 if (scope.module.calendarIds.length > 0){
                     scope.getEvents();
                 }
