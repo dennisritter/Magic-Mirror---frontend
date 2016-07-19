@@ -51,20 +51,15 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                             }, 10);
                         }
                     };
+
                     $scope.startCountdown = function () {
                         $scope.counter = 180 * 1000;
                         $scope.countdown = true;
                         updateCountdown();
                     };
+
                     $scope.stopCountdown = function () {
                         $scope.countdown = false;
-                    };
-                    $scope.toggleCountdown = function () {
-                        if ($scope.countdown) {
-                            $scope.stopCountdown();
-                        } else {
-                            $scope.startCountdown();
-                        }
                     };
 
                     $scope.edit = function () {
@@ -158,11 +153,6 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                         ctx.rotate(-pos);
                     };
 
-                    var voiceStopTimer = function () {
-                        $scope.toggleCountdown();
-                        $scope.$apply();
-                    };
-
                     var analogInterval = null;
                     $scope.$watch('viewType', function (viewType) {
                         if (viewType.localeCompare('analog') === 0 && !analogInterval) {
@@ -174,13 +164,32 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                             analogInterval = null;
                         }
                     });
-                    
+
+                    $scope.toggleCountdown = function () {
+                        if ($scope.countdown) {
+                            $scope.stopCountdown();
+                            if($scope.module.viewType.localeCompare('analog')){
+                                analogInterval = setInterval(drawClock, 1000);
+                            }
+                        } else {
+                            $scope.startCountdown();
+                            clearInterval(analogInterval);
+                            analogInterval = null;
+                        }
+                    };
+
                     $scope.$on('$destroy', function () {
                         if (analogInterval) {
                             clearInterval(analogInterval);
                             analogInterval = null;
                         }
                     });
+
+                    /** VOICE CALLBACKS */
+                    var voiceStopTimer = function () {
+                        $scope.toggleCountdown();
+                        $scope.$apply();
+                    };
 
                     /**
                      * Voice Commands

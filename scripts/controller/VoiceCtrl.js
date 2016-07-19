@@ -3,7 +3,7 @@ angular.module('perna').controller('VoiceCtrl', ['$scope',
 
         $scope.showText = function (text) {
             $scope.said = text;
-            console.log("You said: ", $scope.said);
+            // console.log("You said: ", $scope.said);
         };
 
         $scope.mostBeautiful = function (derDie) {

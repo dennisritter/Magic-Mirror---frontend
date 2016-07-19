@@ -145,7 +145,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                     addModule({
                         "type": 'publicTransport',
                         "width": 2,
-                        "height": 1,
+                        "height": 2,
                         "xPosition": 0,
                         "yPosition": 2,
                         "stationId": results.station.id,
