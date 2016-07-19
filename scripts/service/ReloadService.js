@@ -26,7 +26,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                // console.log(response.data);
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -34,7 +33,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
             angular.element(document).ready(function () {
                 LiveviewService.requestLiveview().then(successCallback, errorCallback);
                 refreshLiveview();
-                console.log("Refreshed from Reloader");
             });
         };
 
@@ -55,7 +53,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
         ReloadService.prototype.start = function () {
             this.reloader = $interval(requestLiveview, this.interval);
             this.running = true;
-            // console.log("started Auto Reload");
         };
 
         /**
@@ -65,7 +62,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
         ReloadService.prototype.stop = function () {
             $interval.cancel(this.reloader);
             this.running = false;
-            // console.log("stopped Auto Reload");
         };
 
         /**
@@ -75,7 +71,6 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
         ReloadService.prototype.restart = function () {
             this.stop();
             this.start();
-            // console.log("Restarted Auto Reload");
         };
 
         return new ReloadService();
