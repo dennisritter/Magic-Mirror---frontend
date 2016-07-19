@@ -168,7 +168,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     $scope.toggleCountdown = function () {
                         if ($scope.countdown) {
                             $scope.stopCountdown();
-                            if(viewType.localeCompare('analog')){
+                            if($scope.module.viewType.localeCompare('analog')){
                                 analogInterval = setInterval(drawClock, 1000);
                             }
                         } else {

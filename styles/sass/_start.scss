@@ -3,7 +3,7 @@
 }
 
 h3 {
-    font-weight: lighter;
+    font-weight: $font-weight-light;
     font-size: 2em;
 }
 
@@ -12,7 +12,7 @@ h3 {
     text-align: center;
     letter-spacing: 0px;
     .panel {
-        border-width: 5px;
+        border-width: 2px;
         .panel-body {
             background-color: $background-color;
             color: $white;
