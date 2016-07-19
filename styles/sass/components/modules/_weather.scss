@@ -19,10 +19,6 @@
     }
   }
 
-  h2 {
-    margin-top: 0;
-  }
-
   .current {
     @extend .row;
 
@@ -45,6 +41,7 @@
 
         &.current {
           font-size: 3.5em;
+          font-weight: $font-weight-light;
         }
       }
     }
