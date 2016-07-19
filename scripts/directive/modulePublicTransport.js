@@ -13,8 +13,8 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
             scope: {
                 module: '='
             },
-            controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService',
-                function ($scope, PublicTransportLocationService, LiveviewService) {
+            controller: ['$scope', 'PublicTransportLocationService', 'LiveviewService', 'ReloadService',
+                function ($scope, PublicTransportLocationService, LiveviewService, ReloadService) {
 
                     $scope.departures = [];
 
@@ -45,15 +45,16 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                     };
 
                     $scope.delete = function () {
+                        ReloadService.deregister($scope.refreshId);
                         LiveviewService.deleteModule($scope.module);
                     };
+                    $scope.refreshId = ReloadService.register($scope.getDepartures);
 
                     var initDepartures = function () {
                         if ($scope.module.stationId && $scope.module.products.length > 0) {
                             $scope.getDepartures();
                         }
                     };
-
                     initDepartures();
                 }
             ]

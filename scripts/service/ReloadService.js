@@ -50,7 +50,7 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
                 for(var i = 0; i < regCallbacks.length; i++){
                     regCallbacks[i].func();
                 }
-                console.log("my regcallback size:", regCallbacks.length);
+                console.log("my regcallbacks:", regCallbacks, regCallbacks.length);
             });
         };
 
