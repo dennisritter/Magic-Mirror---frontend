@@ -1,4 +1,8 @@
 <div class="calendar">
+    <div class="btn-group-module" show-on-mouse-move>
+        <button class="button button-white button--edit" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button class="button button-white button--delete" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
     <h2>Mein Tag</h2>
     <div class="calendar-container--events">
         <ul>
@@ -12,9 +16,5 @@
                 </ul>
             </li>
         </ul>
-    </div>
-    <div class="btn-group-module calendar-button" show-on-mouse-move>
-        <button class="button button-white" ng-click="edit()"><i class="fa fa-cog" aria-hidden="true"></i></button>
-        <button class="button button-white" ng-click="delete()"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 </div>
