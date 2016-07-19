@@ -60,7 +60,6 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
          */
         LiveviewService.prototype.persist = function () {
             var successCallback = function (response) {
-                // console.log("Persisted the current liveview",response);
             };
             var errorCallback = function (response) {
                 console.error("Persisting the current liveview failed: ", response);
@@ -97,7 +96,6 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
          */
         LiveviewService.prototype.addModule = function (module) {
             this.liveview.modules.push(module);
-            console.log("Added module: ", module);
         };
 
         /**
@@ -133,7 +131,6 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 .error(function (response) {
                     defer.reject(response);
                 });
-            console.log('modules',this.liveview.modules);
             return defer.promise;
         };
 

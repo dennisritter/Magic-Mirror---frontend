@@ -39,7 +39,6 @@ angular.module('perna').service('WeatherService', ['$http', '$q', 'api',
                 method: "GET"
             })
                 .success(function(response){
-                    console.log(response.data);
                     deferred.resolve(response);
                 })
 

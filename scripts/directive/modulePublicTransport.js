@@ -18,6 +18,10 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
 
                     $scope.departures = [];
 
+                    /**
+                     * @name getDepartures()
+                     * @desc Fetching the departures for the defined station and selected products
+                     */
                     $scope.getDepartures = function () {
                         PublicTransportService.requestDepartures($scope.module.stationId, $scope.module.products)
                           .then(function (departures) {
@@ -27,6 +31,10 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                           });
                     };
 
+                    /**
+                     * @name edit()
+                     * @desc Opening a PublicTransportModal with the necessary parameters and assigning data to the PublicTransport module afterwards
+                     */
                     $scope.edit = function () {
                         var station = {
                             id: $scope.module.stationId,
@@ -35,7 +43,6 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                         var products = $scope.module.products;
                         ModuleModalService.openPublicTransportModal(station, products)
                             .then(function (results) {
-                                console.log("results: ", results);
                                 $scope.module.stationId = results.station.id;
                                 $scope.module.stationName = results.station.name;
                                 $scope.module.products = results.products;
@@ -44,12 +51,20 @@ angular.module('perna').directive('modulePublicTransport', ['routes', 'PublicTra
                             })
                     };
 
+                    /**
+                     * @name delete()
+                     * @desc Removes the module
+                     */
                     $scope.delete = function () {
                         ReloadService.deregister($scope.refreshId);
                         LiveviewService.deleteModule($scope.module);
                     };
                     $scope.refreshId = ReloadService.register($scope.getDepartures);
 
+                    /**
+                     * @name initDepartures
+                     * @desc Fetching the departures. Called once when the module is initialized.
+                     */
                     var initDepartures = function () {
                         if ($scope.module.stationId && $scope.module.products.length > 0) {
                             $scope.getDepartures();
@@ -68,9 +83,14 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
         $scope.products = products || [];
         $scope.results = {};
 
-        // Found stations to choose from
+        // available stations the user can choose from
         $scope.stations = [];
 
+        /**
+         * @name searchStation()
+         * @desc Fetching stations based on the query String
+         * @param query   -   A location name String
+         */
         $scope.searchStation = function (query) {
             var successCallback = function (response) {
                 $scope.stations = response.data;
@@ -82,6 +102,11 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             PublicTransportLocationService.requestStation(query).then(successCallback, errorCallback);
         };
 
+        /**
+         * @name seachSpecificStation()
+         * @desc Fetches a specific station by the given stationId
+         * @param stationId     -   The unique id of a station
+         */
         $scope.searchSpecificStation = function (stationId) {
             PublicTransportLocationService.requestSpecificStation(stationId)
                 .then(function (response) {
@@ -89,7 +114,12 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
                 });
         }
 
-
+        /**
+         * @name setStation()
+         * @desc Assigns a station to the station Attribute of the modal
+         * @param station   -   a station object including the stations name and its id
+         *                      {name, id}
+         */
         $scope.setStation = function (station) {
             $scope.station = station;
             $scope.availableProducts = station.products;
@@ -97,6 +127,11 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             $scope.products = [];
         };
 
+        /**
+         * @name toggleProduct()
+         * @desc Toggles a product in the productarray (Removes or adds it).
+         * @param product   -   A public transport vehicle
+         */
         $scope.toggleProduct = function (product) {
             var index = $scope.products.indexOf(product);
             if (index > -1) {
@@ -104,9 +139,12 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             } else {
                 $scope.products.push(product);
             }
-            console.log($scope.products);
         };
 
+        /**
+         * @name Submit()
+         * @desc Submits the data set in the modal, closes the modal and returns the desired data to the module.
+         */
         $scope.submit = function () {
             // Cancel if no station or product has been selected
             if ($scope.isDisabled()) {
@@ -120,23 +158,41 @@ angular.module('perna').controller('ModulePublicTransportEditController', ['$q',
             });
         };
 
+        /**
+         * @name cancel()
+         * @desc Discards all changes and closes the modal.
+         */
         $scope.cancel = function () {
             // Close with -1 to trigger rejection
             close(-1);
         };
 
+        /**
+         * @name isDisabled()
+         * @desc checks whether the user set the necessary options to Submit them
+         * @returns {boolean}
+         */
         $scope.isDisabled = function () {
             return $scope.station == null || $scope.products.length < 1;
         };
 
+        /**
+         * @name initProducts()
+         * @desc Fetches the available products if a station is present in the modal parameters.
+         */
         $scope.initProducts = function () {
             if (station != null) {
                 $scope.searchSpecificStation(station.id);
             }
         };
+        // Call on modal initialization to precheck the current users products settings for this station
         $scope.initProducts();
     }]);
 
+/**
+ * @name minuteDifference
+ * @desc A Directive to check and show the time difference between now and the departure time of products in minutes.
+ */
 angular.module('perna').directive('minuteDifference', ['$filter', '$interval', function ($filter, $interval) {
     return {
         restrict: 'A',
