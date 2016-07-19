@@ -6,7 +6,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
          */
         var requestLiveview = function () {
             var successCallback = function (response) {
-                
+
             };
             var errorCallback = function (response) {
                 console.error(response.error);
@@ -94,7 +94,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                .then(function (calendarIds) {
                    addModule({
                        type: 'calendar',
-                       width: 2,
+                       width: 1,
                        height: 2,
                        xPosition: 0,
                        yPosition: 0,
