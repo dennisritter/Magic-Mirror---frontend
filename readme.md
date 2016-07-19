@@ -23,19 +23,20 @@ MIT
 * Jannik Portz
 * Dennis Ritter
 
-## Mit bestem Dank an
+## Licenses
 <div>
     <ul>
-        <li><a href="https://github.com/angular/angular.js" + style="text-decoration:none; color: black" >Angular.js</a></li>
-        <li><a href="https://github.com/bower/bower" style="text-decoration:none; color: black" >Bower</a></li>
-        <li><a href="https://github.com/gulpjs/gulp" style="text-decoration:none; color: black" >Gulp</a></li>
-        <li><a href="https://github.com/TalAter/annyang" style="text-decoration:none; color: black" >Annyang</a></li>
-        <li><a href="https://github.com/twbs/bootstrap-sass" style="text-decoration:none; color: black" >Bootstrap-Sass</a></li>
-        <li><a href="https://github.com/jquery/jquery" style="text-decoration:none; color: black" >JQuery</a></li>
-        <li><a href="https://github.com/jquery/jquery-ui" style="text-decoration:none; color: black" >JQuery-UI</a></li>
+        <li><a href="https://github.com/angular/angular.js/blob/master/LICENSE" + style="text-decoration:none; color: black" >Angular.js</a></li>
+        <li><a href="https://github.com/bower/bower/blob/master/LICENSE" style="text-decoration:none; color: black" >Bower</a></li>
+        <li><a href="https://github.com/gulpjs/gulp/blob/master/LICENSE" style="text-decoration:none; color: black" >Gulp</a></li>
+        <li><a href="https://github.com/TalAter/annyang/blob/master/LICENSE" style="text-decoration:none; color: black" >Annyang</a></li>
+        <li><a href="https://github.com/twbs/bootstrap-sass/blob/master/LICENSE" style="text-decoration:none; color: black" >Bootstrap-Sass</a></li>
+        <li><a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" style="text-decoration:none; color: black" >JQuery</a></li>
+        <li><a href="https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt" style="text-decoration:none; color: black" >JQuery-UI</a></li>
+        <li><a href="https://github.com/FortAwesome/Font-Awesome" style="text-decoration:none; color: black" >Font-Awesome</a></li>
         <li><a href="https://github.com/erikflowers/weather-icons" style="text-decoration:none; color: black" >Weather-Icons</a></li>
-        <li><a href="https://github.com/emn178/js-sha256" style="text-decoration:none; color: black" >JS-SHA256</a></li>
-        <li><a href="https://github.com/nodejs/node" style="text-decoration:none; color: black" >NodeJS</a></li>
-        <li><a href="https://github.com/BrowserSync/browser-sync" style="text-decoration:none; color: black" >BrowserSync</a></li>
+        <li><a href="https://github.com/emn178/js-sha256/blob/master/LICENSE.txt" style="text-decoration:none; color: black" >JS-SHA256</a></li>
+        <li><a href="https://github.com/nodejs/node/blob/master/LICENSE" style="text-decoration:none; color: black" >NodeJS</a></li>
+        <li><a href="https://github.com/BrowserSync/browser-sync/blob/master/LICENSE" style="text-decoration:none; color: black" >BrowserSync</a></li>
     </ul>
 </div>
