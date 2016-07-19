@@ -120,7 +120,7 @@ angular.module('perna').controller('LiveviewCtrl', ['$scope', '$window', '$inter
                       type: 'weather',
                       width: 2,
                       height: 2,
-                      xPosition: 0,
+                      xPosition: 1,
                       yPosition: 0,
                       locationId: location.id
                   });
