@@ -1,5 +1,7 @@
 angular.module('perna-filter', []);
 
+var baseEndpoint = 'http://perna-api.jannikportz.de';
+
 angular.module('perna', [
     'perna-filter',
     'ngMessages',
@@ -16,19 +18,19 @@ angular.module('perna', [
     time : 'directive/modules/module-time.html',
     module : 'directive/modules/liveview-module.html'
 }).constant('api', {
-    source : 'http://api.perna.dev',
-    login : 'http://api.perna.dev/v1/login',
-    save : 'http://api.perna.dev/v1/register',
-    refresh : 'http://api.perna.dev/v1/refresh',
-    logout : 'http://api.perna.dev/v1/logout',
-    gauth : 'http://api.perna.dev/v1/google-auth/auth-url',
-    calendars: 'http://api.perna.dev/v1/calendar/calendars',
-    events: 'http://api.perna.dev/v1/calendar/events',
-    weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
-    weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby',
-    city_data: 'http://api.perna.dev/v1/weather/locations/',
-    weather_getWeather: 'http://api.perna.dev/v1/weather/',
-    city_search: 'http://api.perna.dev/v1/weather/locations/search',
-    module: 'http://api.perna.dev/v1/modules/',
-    modules: 'http://api.perna.dev/v1/modules'
+    source : baseEndpoint,
+    login : baseEndpoint + '/v1/login',
+    save : baseEndpoint + '/v1/register',
+    refresh : baseEndpoint + '/v1/refresh',
+    logout : baseEndpoint + '/v1/logout',
+    gauth : baseEndpoint + '/v1/google-auth/auth-url',
+    calendars: baseEndpoint + '/v1/calendar/calendars',
+    events: baseEndpoint + '/v1/calendar/events',
+    weather_autocomplete: baseEndpoint + '/v1/weather/locations/autocomplete',
+    weather_nearby: baseEndpoint + '/v1/weather/locations/nearby',
+    city_data: baseEndpoint + '/v1/weather/locations/',
+    weather_getWeather: baseEndpoint + '/v1/weather/',
+    city_search: baseEndpoint + '/v1/weather/locations/search',
+    module: baseEndpoint + '/v1/modules/',
+    modules: baseEndpoint + '/v1/modules'
 });
