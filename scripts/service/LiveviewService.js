@@ -1,4 +1,4 @@
-angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
+angular.module('perna').service('LiveviewService', ['$http', '$q', 'api', 
     function ($http, $q, api) {
 
         /**
@@ -40,7 +40,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             var _liveviewService = this;
             var defer = $q.defer();
             $http({
-                url: 'http://api.perna.dev/v1/modules',
+                url: api.modules,
                 method: 'GET',
             })
                 .success(function (response) {
@@ -76,7 +76,7 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             var _liveviewService = this;
             var defer = $q.defer();
             $http({
-                url: 'http://api.perna.dev/v1/modules',
+                url: api.modules,
                 method: 'PUT',
                 data: _liveviewService.liveview.modules
             })
@@ -122,8 +122,8 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 }
             }
             $http({
-                url: 'http://api.perna.dev/v1/modules/' + module.id,
-                method: 'DELETE',
+                url: api.module + module.id,
+                method: 'DELETE'
             })
                 .success(function (response) {
                     defer.resolve(response);

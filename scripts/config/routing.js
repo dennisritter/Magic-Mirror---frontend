@@ -13,7 +13,6 @@ angular.module('perna').config(['$qProvider', '$stateProvider', '$locationProvid
 
         var authRedirect = ['AuthService', '$state', function (AuthService, $state) {
             if (!AuthService.isAuthenticated) {
-                console.error('You are currently not logged in.', 'Permission denied');
                 $state.go('start');
             }
         }];
