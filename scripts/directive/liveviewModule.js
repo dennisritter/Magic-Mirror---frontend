@@ -42,6 +42,7 @@ angular.module('perna').directive('liveviewModule', ['routes',
                 element.attr('data-h', scope.module.height);
                 element.attr('data-x', scope.module.xPosition);
                 element.attr('data-y', scope.module.yPosition);
+                element.attr('data-module-id', scope.module.id);
 
                 /**
                  * @desc Watches the position attributes of the module.

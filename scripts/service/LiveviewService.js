@@ -20,6 +20,38 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
             };
         };
 
+        LiveviewService.prototype.setDataAttributes = function () {
+            var _liveviewService = this;
+
+            var findModule = function (id) {
+                for (var i = 0; i < _liveviewService.liveview.modules.length; ++i) {
+                    if (_liveviewService.liveview.modules[i].id == id) {
+                        return _liveviewService.liveview.modules[i];
+                    }
+                }
+                return null;
+            };
+
+            this.liveview.dom.find('[liveview-module]').each(function (i, element) {
+                element = jQuery(element);
+                var id = element.data('module-id');
+                if (!id) {
+                    return;
+                }
+
+                var module = findModule(id);
+                if (!module) {
+                    return;
+                }
+
+                element.attr('data-w', module.width);
+                element.attr('data-h', module.height);
+                element.attr('data-x', module.xPosition);
+                element.attr('data-y', module.yPosition);
+                console.log(element);
+            });
+        };
+
         /**
          * @name: buildliveview()
          * @desc: Defines where to build the liveview within the DOM.
