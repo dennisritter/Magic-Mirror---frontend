@@ -21,26 +21,6 @@ angular.module('perna', [
     publicTransport : 'directive/modules/module-publictransport.html',
     module : 'directive/modules/liveview-module.html'
 }).constant('api', {
-// <<<<<<< HEAD
-//     source : 'http://api.perna.dev',
-//     login : 'http://api.perna.dev/v1/login',
-//     save : 'http://api.perna.dev/v1/register',
-//     refresh : 'http://api.perna.dev/v1/refresh',
-//     logout : 'http://api.perna.dev/v1/logout',
-//     gauth : 'http://api.perna.dev/v1/google-auth/auth-url',
-//     calendars: 'http://api.perna.dev/v1/calendar/calendars',
-//     events: 'http://api.perna.dev/v1/calendar/events',
-//     weather_autocomplete: 'http://api.perna.dev/v1/weather/locations/autocomplete',
-//     weather_nearby: 'http://api.perna.dev/v1/weather/locations/nearby',
-//     city_data: 'http://api.perna.dev/v1/weather/locations/',
-//     weather_getWeather: 'http://api.perna.dev/v1/weather/',
-//     city_search: 'http://api.perna.dev/v1/weather/locations/search',
-//     stations_search: 'http://api.perna.dev/v1/publicTransport/stations/search',
-//     station_specific_search: 'http://api.perna.dev/v1/publicTransport/stations/',
-//     departures: 'http://api.perna.dev/v1/publicTransport/departures/',
-//     module: 'http://api.perna.dev/v1/modules/',
-//     modules: 'http://api.perna.dev/v1/modules'
-// =======
     source : baseEndpoint,
     login : baseEndpoint + '/v1/login',
     save : baseEndpoint + '/v1/register',
