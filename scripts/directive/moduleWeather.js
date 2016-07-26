@@ -56,7 +56,7 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
 
                 var initLocation = function () {
                     if ($scope.module.locationId !== 0) {
-                        LocationService.getCityData($scope.module.locationId)
+                        return LocationService.getCityData($scope.module.locationId)
                             .then(function (location) {
                                 $scope.location = location;
                                 $scope.getWeatherData();
@@ -71,6 +71,15 @@ angular.module('perna').directive('moduleWeather', ['routes', function (routes) 
                 this.getWeatherData = function () {
                     return $scope.weatherData;
                 };
+
+                $scope.$watch('module.locationId', function (newId, oldId) {
+                    if (newId === oldId) {
+                        return;
+                    }
+
+                    initLocation()
+                        .then($scope.getWeatherData);
+                })
             }]
     };
 }]);

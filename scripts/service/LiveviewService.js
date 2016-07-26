@@ -48,7 +48,6 @@ angular.module('perna').service('LiveviewService', ['$http', '$q', 'api',
                 element.attr('data-h', module.height);
                 element.attr('data-x', module.xPosition);
                 element.attr('data-y', module.yPosition);
-                console.log(element);
             });
         };
 

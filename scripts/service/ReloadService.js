@@ -44,12 +44,10 @@ angular.module('perna').service('ReloadService', ['$interval', 'LiveviewService'
          */
         var regCallbacks = [];
         var refreshLiveview = function () {
-            //angular.element(document).ready(function () {
-                LiveviewService.buildLiveview(); console.log('building', LiveviewService.liveview);
-                for(var i = 0; i < regCallbacks.length; i++){
-                    regCallbacks[i].func();
-                }
-            //});
+            LiveviewService.buildLiveview();
+            for(var i = 0; i < regCallbacks.length; i++){
+                regCallbacks[i].func();
+            }
         };
 
         /**

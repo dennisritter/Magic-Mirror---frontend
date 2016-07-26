@@ -24,7 +24,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                      */
                     $scope.configMode = false;
                     $scope.countdown = false;
-                    $scope.viewType = $scope.module.viewType || 'digital';
+                    $scope.module.viewType = $scope.module.viewType || 'digital';
                     $scope.time = Date.now();
 
                     var updateTime = function () {
@@ -63,9 +63,8 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     };
 
                     $scope.edit = function () {
-                        ModuleModalService.openTimeModal($scope.viewType)
+                        ModuleModalService.openTimeModal($scope.module.viewType)
                             .then(function (viewType) {
-                                $scope.viewType = viewType;
                                 $scope.module.viewType = viewType;
                                 LiveviewService.persist();
                             });
@@ -80,7 +79,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                      **/
 
                     var drawClock = function () {
-                        if ($scope.viewType == 'analog') {
+                        if ($scope.module.viewType == 'analog') {
                             var canvas = document.getElementById("clockCanvas");
                             canvas.width = 450;
                             canvas.height = 450;
@@ -154,7 +153,7 @@ angular.module('perna').directive('moduleTime', ['$timeout', 'routes',
                     };
 
                     var analogInterval = null;
-                    $scope.$watch('viewType', function (viewType) {
+                    $scope.$watch('module.viewType', function (viewType) {
                         if (viewType.localeCompare('analog') === 0 && !analogInterval) {
                             analogInterval = setInterval(drawClock, 1000);
                         }
